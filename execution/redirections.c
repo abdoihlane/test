@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/26 14:46:13 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/26 14:57:18 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void handle_heredoc(t_red_list *tmp)
     int fd;
 
     heredoc_input(tmp->content, tmp);
-=    fd = open(tmp->content, O_RDONLY);
+    fd = open(tmp->content, O_RDONLY);
     if (fd < 0)
     {
         perror("open heredoc file");
