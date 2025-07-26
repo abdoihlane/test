@@ -203,7 +203,7 @@ char	            	*find_path(char *cmd, char **envp);
 void	            	ft_free(char **str);
 void	            	execute(char *cmd, char **env);
 void                free_env(char **env); //check env is free or not
-void                setup_redirections(t_cmd *cmd,t_shell *shell);
+void setup_redirections(t_cmd *cmd, t_shell *shell);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
 void                heredoc_input(char *delimiter, t_red_list *head,t_shell *shell);
 void                ft_free_2d_array(char **arr);

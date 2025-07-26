@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/26 18:10:21 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 21:14:48 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "../minishell.h"
 
@@ -80,7 +77,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
                 dup2(pipe_fd[1], STDOUT_FILENO);
                 close(pipe_fd[1]);
             }
-            setup_redirections(clist);
+            setup_redirections(clist , shell);
             if (is_builtin(clist))
             {
                 printf("Executing builtin command: %s\n", clist->cmd);
