@@ -6,7 +6,7 @@
 #    By: salhali <salhali@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/07/26 14:40:26 by salhali          ###   ########.fr        #
+#    Updated: 2025/07/26 18:00:04 by salhali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,6 @@ SRC = 		builtins/builtin_echo.c \
 			helper.c \
 			helper1.c \
 			execution/execute.c \
-			execution/execute_helper.c \
-			execution/execute_helper1.c \
 			execution/redirections.c \
 			execution/path.c \
 			myymain.c \
