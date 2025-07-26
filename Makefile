@@ -6,7 +6,7 @@
 #    By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/07/24 20:43:42 by ahabibi-         ###   ########.fr        #
+#    Updated: 2025/07/26 17:33:16 by ahabibi-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-# CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 LIBS = -lreadline
 

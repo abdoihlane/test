@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:49:57 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/24 20:48:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:15:24 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	contains_single_quotes(const char *s)
 	return (0);
 }
 
-char	*expand_in_quotes(t_pars *pars, char *segment)
+char	*expand_in_quotes(t_pars *pars, char *segment,t_shell *shell)
 {
 	int		z;
 	char	*new_segment;
@@ -33,7 +33,7 @@ char	*expand_in_quotes(t_pars *pars, char *segment)
 	new_segment = segment;
 	while (z < pars->numdollar)
 	{
-		tmp = expand_variables(new_segment);
+		tmp = expand_variables(new_segment,shell);
 		free(new_segment);
 		new_segment = tmp;
 		pars->expand_flag = 1;
@@ -42,7 +42,7 @@ char	*expand_in_quotes(t_pars *pars, char *segment)
 	return (new_segment);
 }
 
-char	*handlequotes(t_pars *pars, char c)
+char	*handlequotes(t_pars *pars, char c,t_shell *shell)
 {
 	int		start;
 	int		len;
@@ -65,7 +65,7 @@ char	*handlequotes(t_pars *pars, char c)
 	segment[len] = '\0';
 	pars->i++;
 	if (c == '"')
-		segment = expand_in_quotes(pars, segment);
+		segment = expand_in_quotes(pars, segment,shell);
 	return (segment);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:20:16 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/09 18:39:06 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/26 17:32:35 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void update_env_variable(t_shell *shell, const char *name, const char *value)
 
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, name) == 0)
+		if (ft_strcmp(tmp->key, (char *)name) == 0)
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(value);
@@ -75,7 +75,7 @@ void delete_env_variable(t_shell *shell, const char *name)
 
 	while (curr)
 	{
-		if (ft_strcmp(curr->key, name) == 0)
+		if (ft_strcmp(curr->key, (char *)name) == 0)
 		{
 			if (prev)
 				prev->next = curr->next;

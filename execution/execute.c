@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:16:53 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/25 21:46:47 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/26 17:27:19 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	execute_child_process(t_cmd *clist, t_shell *shell, char **envp)
 	char	*cmd_path;
 	char	**filtered_args;
 
-	setup_redirections(clist);
+	setup_redirections(clist,shell);
 	if (is_builtin(clist))
 		exit(execute_builtin(clist, shell));
 	cmd_path = find_path(clist->array[0], envp);
@@ -100,7 +100,7 @@ int	handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd)
 {
 	if (is_builtin(clist) && !clist->next && in_fd == 0)
 	{
-		setup_redirections(clist);
+		setup_redirections(clist,shell);
 		shell->last_exit_status = execute_builtin(clist, shell);
 		return (1);
 	}

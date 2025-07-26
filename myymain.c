@@ -6,13 +6,13 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/25 23:48:39 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:28:06 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	heredoc_input(char *delimiter, t_red_list *head)
+void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell)
 {
 	char	*line = NULL;
     char    *expanded = NULL;
@@ -42,7 +42,7 @@ void	heredoc_input(char *delimiter, t_red_list *head)
 			line = NULL;     //  reset line bach ma n3awdch nfreeeha
 			break;
 		}
-		expanded = expand_variables(line);
+		expanded = expand_variables(line,shell);
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
@@ -86,18 +86,18 @@ t_env *convert_envp_to_envlist(char **envp)
 	}
 	return head;
 }
-void	call_all(char *input, t_wlist **wlist, t_cmd **clist)
+void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 {
 	t_pars	*pars = NULL;
 	t_token	*token;
 
-	// if (hardcodechecks(input) == 0)
-	// {
-	// 	printf("syntax error\n");
-	// 	return ;
-	// }
+	if (hardcodechecks(input) == 0)
+	{
+		printf("syntax error\n");
+		return ;
+	}
 	pars = init_pars(input);
-	fill_the_array(pars);
+	fill_the_array(pars,shell);
 	commandornot(pars, wlist);
 	token = typesee(wlist);
 	splitit(token, clist);
@@ -151,7 +151,7 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
 		if (!input)
 			break;
-		call_all(input, &wlist, &clist);  // call_all builds wlist and clist
+		call_all(input, &wlist, &clist,&shell);  // call_all builds wlist and clist
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
 			execute_builtin(clist, &shell);
 		else

@@ -126,16 +126,16 @@ void						count_dollar(t_pars *pars);
 
 t_pars						*init_pars(char *in);
 void						fill_array_plus(t_pars *pars);
-void						fill_the_array(t_pars *pars);
-char						*fill_array_and_callexpand(t_pars *pars);
+void						fill_the_array(t_pars *pars,t_shell *shell);
+char						*fill_array_and_callexpand(t_pars *pars,t_shell *shell);
 char						*fill_between_space_and_red(t_pars *pars,
-								char *token);
+								char *token,t_shell *shell);
 t_token						*fill_command_fields(t_token *tmp, t_cmd *current);
 
 void						print_token(t_token *list);
 void						free_wlist(t_wlist **list);
 void						free_plist(t_pars **list);
-void						call_all(char *in, t_wlist **wlist, t_cmd **clist);
+void						call_all(char *in, t_wlist **wlist, t_cmd **clist,t_shell *shell);
 
 int							check_quotes_closed(char *str);
 int							red_check(char *str);
@@ -145,12 +145,12 @@ void						check_herdoc(char *sa, t_pars *pars);
 
 /* ===== Expansion Functions ===== */
 // static char	*build_result(char *input, char *varname, int var_len);
-char						*expand_variables(char *input);
+char						*expand_variables(char *input,t_shell *shell);
 char						*build_result(char *input, char *varname,
-								int var_len);
+								int var_len,t_shell *shell);
 int							contains_single_quotes(const char *s);
-char						*expand_in_quotes(t_pars *pars, char *segment);
-char						*handlequotes(t_pars *pars, char c);
+char						*expand_in_quotes(t_pars *pars, char *segment,t_shell *shell);
+char						*handlequotes(t_pars *pars, char c,t_shell *shell);
 char						*ft_strjoin_all(char **array);
 
 /* ===== Redirection & Command Handling ===== */
@@ -161,7 +161,7 @@ t_cmd						*create_new_cmd(int array_size);
 int							count_cmd_args(t_token *start);
 void						splitit(t_token *token, t_cmd **final);
 void						print_cmd_list(t_cmd *cmd);
-void						reparse_variable(t_pars *pars);
+void						reparse_variable(t_pars *pars,t_shell *shell);
 
 
 // ------ EXECUTION FUNCTIONS --------  //
@@ -203,9 +203,9 @@ char	            	*find_path(char *cmd, char **envp);
 void	            	ft_free(char **str);
 void	            	execute(char *cmd, char **env);
 void                free_env(char **env); //check env is free or not
-void                setup_redirections(t_cmd *cmd);
+void                setup_redirections(t_cmd *cmd,t_shell *shell);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
-void                heredoc_input(char *delimiter, t_red_list *head);
+void                heredoc_input(char *delimiter, t_red_list *head,t_shell *shell);
 void                ft_free_2d_array(char **arr);
 char                *get_env_value(char **env, const char *key);
 char                **filter_empty_args(t_cmd *cmd);

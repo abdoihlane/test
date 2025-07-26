@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/24 20:48:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:38:55 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fill_array_plus(t_pars *pars)
 	}
 }
 
-char	*fill_array_and_callexpand(t_pars *pars)
+char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 {
 	char	*part;
 	int		start;
@@ -48,7 +48,7 @@ char	*fill_array_and_callexpand(t_pars *pars)
 	{		
 		while (pars->numdollar > z)
 		{
-			expanded = expand_variables(part);
+			expanded = expand_variables(part,shell);
 			pars->expand_flag = 1;
 			free(part);
 			part = expanded;
@@ -58,7 +58,7 @@ char	*fill_array_and_callexpand(t_pars *pars)
 	return (part);
 }
 
-char	*fill_between_space_and_red(t_pars *pars, char *token)
+char	*fill_between_space_and_red(t_pars *pars, char *token,t_shell *shell)
 {
 	char	*part;
 	char	*tmp;
@@ -71,11 +71,11 @@ char	*fill_between_space_and_red(t_pars *pars, char *token)
 		part = NULL;
 		if (is_quotes(pars->content[pars->i]) == 1)
 		{
-			part = handlequotes(pars, pars->content[pars->i]);
+			part = handlequotes(pars, pars->content[pars->i],shell);
 			pars->dflag = 1;
 		}
 		else
-			part = fill_array_and_callexpand(pars);
+			part = fill_array_and_callexpand(pars,shell);
 		if (token[0] != '\0')
 			pars->content1[pars->k++] = ft_strdup(token);
 		tmp = ft_strjoin(token, part);
@@ -86,11 +86,12 @@ char	*fill_between_space_and_red(t_pars *pars, char *token)
 	return (token);
 }
 
-void	fill_the_array(t_pars *pars)
+void	fill_the_array(t_pars *pars,t_shell *shell)
 {
 	char	*token;
 
 	pars->k = 0;
+	pars->expand_flag =0;
 	pars->dflag = 0;
 	count_dollar(pars);
 	while (pars->content[pars->i])
@@ -99,7 +100,7 @@ void	fill_the_array(t_pars *pars)
 		if (pars->content[pars->i] == '\0')
 			break ;
 		token = ft_strdup("");
-		token = fill_between_space_and_red(pars, token);
+		token = fill_between_space_and_red(pars, token,shell);
 		if (token[0])
 			pars->content1[pars->k++] = ft_strdup(token);
 		else
@@ -108,17 +109,24 @@ void	fill_the_array(t_pars *pars)
 			fill_array_plus(pars);
 	}
 	pars->content1[pars->k] = NULL;
-	if (pars->expand_flag && pars->dflag == 0)
-		reparse_variable(pars);
+	if (pars->expand_flag == 1 && pars->dflag == 0)
+		reparse_variable(pars,shell);
 }
 
-void	reparse_variable(t_pars *pars)
+void	reparse_variable(t_pars *pars,t_shell *shell)
 {
 	char			*new_input;
 	unsigned int	j;
-
 	pars->expand_flag = 0;
+	j =0;
+	while(pars->content1[j])
+		{
+			if(strcmp("$",pars->content1[j]) == 0)
+				return ;
+			j++;
+		}
 	new_input = ft_strjoin_all(pars->content1);
+	
 	pars->content = ft_strdup(new_input);
 	if (new_input)
 		free(new_input);
@@ -128,6 +136,6 @@ void	reparse_variable(t_pars *pars)
 	free(pars->content1);
 	pars->content1 = malloc(sizeof(char *) * (pars->lenofarray + pars->nbofpipes
 				+ 1));
-	fill_the_array(pars);
+	fill_the_array(pars,shell);
 	return ;
 }

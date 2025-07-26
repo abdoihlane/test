@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/06/22 00:20:06 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/26 17:33:03 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void update_env_list(t_shell *shell, const char *key, const char *value)
     // Check if key already exists in env list
     while (tmp)
     {
-        if (ft_strcmp(tmp->key, key) == 0)
+        if (ft_strcmp(tmp->key, (char *)key) == 0)
         {
             free(tmp->value);
             if (value == NULL)
@@ -69,7 +69,7 @@ char *get_env_value_ll(t_env *env, const char *key)
 {
     while (env)
     {
-        if (ft_strcmp(env->key, key) == 0)
+        if (ft_strcmp(env->key, (char *)key) == 0)
             return env->value;
         env = env->next;
     }

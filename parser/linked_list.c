@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:15 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/25 23:35:55 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:02:20 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	len;
 
 	len = 0;
+	if(!str)
+		return 0;
 	while (str[len])
 		len++;
 	return (len);

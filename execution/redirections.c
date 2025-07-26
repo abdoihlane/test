@@ -6,13 +6,14 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/24 19:56:32 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:26:00 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void  setup_redirections(t_cmd *cmd)
+			
+void  setup_redirections(t_cmd *cmd,t_shell *shell)
 {
     t_red_list *tmp = cmd->file;
     while (tmp)
@@ -46,7 +47,7 @@ void  setup_redirections(t_cmd *cmd)
         }
         else if (tmp->inout == 4) // << herdoc
         {
-            heredoc_input(tmp->content, tmp);
+            heredoc_input(tmp->content, tmp,shell);
             continue;
         }
         tmp = tmp->next;
