@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/06/22 00:20:06 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/26 14:42:19 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void update_env_list(t_shell *shell, const char *key, const char *value)
     if (!new)
         return ; // optionally handle malloc failure
 
-    // Add new node to env list
     if (shell->envv == NULL)
         shell->envv = new;
     else

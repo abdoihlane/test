@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myymain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/25 23:48:39 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 14:45:36 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	heredoc_input(char *delimiter, t_red_list *head)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	head->content = ft_strdup(".heredoc_tmp");
-	head->inout = 0; //  set inout to 4 for heredoc
+	head->inout = 0; //  set inout to 0 for file input redirection
 	if (line)               //  free ghir ila mazal line ma tfreeatch
 		free(line);
 	close(fd);
