@@ -214,17 +214,20 @@ char                *ft_strjoin_triple(char *a, char *b, char *c);
 int                 is_valid_var(const char *str);
 void                sigint_handler(int sig);
 void                sigint_heredoc(int sig);
-int	handle_cd_change(char *path, char *current_dir, t_shell *shell);
-char	*get_cd_path(t_cmd *cmd, t_shell *shell);
-int	count_non_empty_args(t_cmd *cmd);
- void	copy_non_empty_args(t_cmd *cmd, char **filtered);
- void	setup_child_pipes(int in_fd, int *pipe_fd, int has_next);
- void	execute_child_process(t_cmd *clist, t_shell *shell, char **envp);
- int	handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd);
- void	wait_for_children(pid_t *pids, int count);
-void	handle_parent_process(int *in_fd, int *pipe_fd, int has_next);
-void		process_single_command(t_cmd **clist, t_shell *shell, char **envp,
+int					handle_cd_change(char *path, char *current_dir, t_shell *shell);
+char				*get_cd_path(t_cmd *cmd, t_shell *shell);
+int					count_non_empty_args(t_cmd *cmd);
+void				copy_non_empty_args(t_cmd *cmd, char **filtered);
+void				setup_child_pipes(int in_fd, int *pipe_fd, int has_next);
+void				execute_child_process(t_cmd *clist, t_shell *shell, char **envp);
+int					handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd);
+void				wait_for_children(pid_t *pids, int count);
+void				handle_parent_process(int *in_fd, int *pipe_fd, int has_next);
+void				process_single_command(t_cmd **clist, t_shell *shell, char **envp,
 			int *in_fd, int *pipe_fd, pid_t *pids, int *i);
-void	execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
+void				execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
+void				handle_append_redirection(t_red_list *tmp);
+void				handle_output_redirection(t_red_list *tmp);
+void				handle_input_redirection(t_red_list *tmp);
 
 #endif

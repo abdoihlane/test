@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/26 17:33:03 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/26 18:08:44 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void update_env_list(t_shell *shell, const char *key, const char *value)
     if (!new)
         return ; // optionally handle malloc failure
 
-    // Add new node to env list
     if (shell->envv == NULL)
         shell->envv = new;
     else
