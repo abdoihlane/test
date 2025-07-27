@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/26 17:38:55 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:30:42 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,15 @@ char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 	start = pars->i;
 	check_herdoc(pars->content,pars);
 	while (check_spaces_and_red(pars) == 1)
-		pars->i++;
+	{
+		if (is_quotes(pars->content[pars->i]) == 1)
+		{
+			part = handlequotes(pars, pars->content[pars->i], shell);
+			pars->dflag = 1;
+		}
+		else
+			pars->i++;
+	}
 	len = pars->i - start;
 	part = ft_substr(pars->content, start, len);
 	if(pars->herdoc_flag == 0)
@@ -69,6 +77,7 @@ char	*fill_between_space_and_red(t_pars *pars, char *token,t_shell *shell)
 		&& !is_redirection(pars->content[pars->i]))
 	{
 		part = NULL;
+		printf("111111111111111111111111111111111111111111111111\n");
 		if (is_quotes(pars->content[pars->i]) == 1)
 		{
 			part = handlequotes(pars, pars->content[pars->i],shell);
@@ -99,6 +108,15 @@ void	fill_the_array(t_pars *pars,t_shell *shell)
 		skipwhitespaces(pars);
 		if (pars->content[pars->i] == '\0')
 			break ;
+		// int tmp_i = 0;
+		// while (ft_isalnum(pars->content[pars->i + tmp_i]))
+		// 	tmp_i++;
+		// if (pars->content[pars->i + tmp_i] == '=')
+		// {
+		// 	pars->i += tmp_i + 1;
+		// 	if (is_quotes(pars->content[pars->i]))
+		// 		pars->i++;
+		// }
 		token = ft_strdup("");
 		token = fill_between_space_and_red(pars, token,shell);
 		if (token[0])
@@ -109,7 +127,8 @@ void	fill_the_array(t_pars *pars,t_shell *shell)
 			fill_array_plus(pars);
 	}
 	pars->content1[pars->k] = NULL;
-	if (pars->expand_flag == 1 && pars->dflag == 0)
+	printf("=-------------------- %d-----------", pars->expand_flag);
+	if (pars->expand_flag == 1 /*&& pars->dflag == 0*/)
 		reparse_variable(pars,shell);
 }
 
@@ -119,6 +138,7 @@ void	reparse_variable(t_pars *pars,t_shell *shell)
 	unsigned int	j;
 	pars->expand_flag = 0;
 	j =0;
+	printf("aaaaaaaaaaaaaaaaaaaaaaaaa\n");
 	while(pars->content1[j])
 		{
 			if(strcmp("$",pars->content1[j]) == 0)

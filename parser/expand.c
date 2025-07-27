@@ -6,16 +6,31 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:26:52 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/26 17:31:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:47:54 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+char	*remove_quotes(char *str)
+{
+	size_t	len;
+	char	*new;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
+		|| (str[0] == '\'' && str[len - 1] == '\'')))
+		new = ft_substr(str, 1, len - 2);
+	else
+		new = ft_strdup(str);
+	return (new);
+}
+
 char	*build_result(char *input, char *varname, int var_len,t_shell *shell)
 {
 	char	*env;
-	// t_shell *ptr;
 	char	*prefix;
 	char	*suffix;
 	char	*tmp;
@@ -27,7 +42,8 @@ char	*build_result(char *input, char *varname, int var_len,t_shell *shell)
 		printf("%d\n",shell->last_exit_status);
 		return env;
 	}
-	env = getenv(varname);
+	env = get_env_value_ll(shell->envv,varname);
+	env = remove_quotes(env);
 	prefix = ft_substr(input, 0, ft_strchr(input, '$') - input);
 	suffix = ft_strdup(ft_strchr(input, '$') + var_len + 1);
 	if (env)

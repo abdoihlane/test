@@ -14,7 +14,7 @@ int check_plus(char *sa)
 			j = i + 1;
 			while (is_whitespace(sa[j]))
 				j++;
-			if (is_redirection(sa[j]))
+			if (is_redirection(sa[j]) && is_whitespace(sa[j-1]))
 				return (0);
 		}
 		i++;
