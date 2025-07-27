@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:49:57 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/26 17:15:24 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/27 21:15:34 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*handlequotes(t_pars *pars, char c,t_shell *shell)
 	while (pars->content[pars->i] && pars->content[pars->i] != c)
 		pars->i++;
 	len = pars->i - start;
+	// if()
 	segment = malloc(len + 2);
 	if (!segment)
 		return (NULL);
@@ -64,8 +65,10 @@ char	*handlequotes(t_pars *pars, char c,t_shell *shell)
 		segment[j] = pars->content[start + j];
 	segment[len] = '\0';
 	pars->i++;
-	if (c == '"')
+	if (c == '"' && pars->herdoc_flag == 0 )
+	{
 		segment = expand_in_quotes(pars, segment,shell);
+	}
 	return (segment);
 }
 

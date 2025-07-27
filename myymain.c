@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 20:50:58 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/27 21:31:17 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell)
 		if (line[nread - 1] == '\n')
 			line[nread - 1] = '\0';
 
+		// printf("--------[%d]------\n",delimiter);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);      //  free line
@@ -153,6 +154,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			break;
 		call_all(input, &wlist, &clist,&shell);  // call_all builds wlist and clist
+			printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[%d]aaaaaaaaaaaaaaaaaaaaaaa\n",clist->qflag);
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
 			execute_builtin(clist, &shell);
 		else
