@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 02:06:46 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/28 03:18:40 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
 {
 	char	*line = NULL;
-    char    *expanded = NULL;
+  char    *expanded = NULL;
 	size_t	len = 0;
-    signal(SIGINT, sigint_heredoc);
+  signal(SIGINT, sigint_heredoc);
 
 	int		fd = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
@@ -31,18 +31,29 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 		write(1, "> ", 2);
 		ssize_t nread = getline(&line, &len, stdin);
 		if (nread == -1)
+		{
+			printf("Error reading input\n");
+			free(line);
 			break;
+		}
 
 		if (line[nread - 1] == '\n')
 			line[nread - 1] = '\0';
-		if (ft_strcmp(line, delimiter) == 0)
+		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 		{
+			printf("hereeee check line = %s\n", line);
 			free(line);      //  free line
 			line = NULL;     //  reset line bach ma n3awdch nfreeeha
 			break;
 		}
+
+		printf("spam\n");
+		printf("%d\n", clist->pars->dflag);
 		if(clist->pars->dflag == 0)
 			expanded = expand_variables(line,shell);
+		else
+			expanded = ft_strdup(line);
+
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
@@ -55,6 +66,122 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 		free(line);
 	close(fd);
 }
+
+
+// void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
+// {
+// 	char	*line = NULL;
+// 	char    *expanded = NULL;
+// 	size_t	len = 0;
+// 	signal(SIGINT, sigint_heredoc);
+
+// 	printf("=== HEREDOC DEBUG START ===\n");
+// 	printf("Delimiter: '%s' (length: %zu)\n", delimiter, ft_strlen(delimiter));
+// 	printf("============================\n");
+
+// 	int		fd = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	if (fd < 0)
+// 	{
+// 		perror("heredoc open");
+// 		return;
+// 	}
+
+// 	while (1)
+// 	{
+// 		printf("About to prompt...\n");
+// 		write(1, "> ", 2);
+
+// 		ssize_t nread = getline(&line, &len, stdin);
+// 		printf("getline returned: %zd\n", nread);
+
+// 		if (nread == -1)
+// 		{
+// 			printf("getline failed (nread == -1)\n");
+// 			if (line)
+// 				free(line);
+// 			break;
+// 		}
+
+// 		printf("Raw line: '%s' (length: %zd)\n", line, nread);
+
+// 		// Remove newline
+// 		if (line[nread - 1] == '\n')
+// 		{
+// 			line[nread - 1] = '\0';
+// 			printf("After removing newline: '%s'\n", line);
+// 		}
+
+// 		// Check delimiter match
+// 		printf("Comparing '%s' with '%s'\n", line, delimiter);
+// 		int cmp_result = ft_strcmp(line, delimiter);
+// 		printf("ft_strcmp result: %d\n", cmp_result);
+
+// 		if (cmp_result == 0)
+// 		{
+// 			printf("DELIMITER MATCH! Exiting heredoc.\n");
+// 			free(line);
+// 			line = NULL;
+// 			break;
+// 		}
+
+// 		printf("No match, continuing...\n");
+// 		printf("spam\n");
+
+// 		// Check if pointers are valid before accessing
+// 		printf("Checking clist: %p\n", (void*)clist);
+// 		if (!clist)
+// 		{
+// 			printf("ERROR: clist is NULL!\n");
+// 			expanded = ft_strdup(line);
+// 		}
+// 		else
+// 		{
+// 			printf("Checking clist->pars: %p\n", (void*)clist->pars);
+// 			if (!clist->pars)
+// 			{
+// 				printf("ERROR: clist->pars is NULL!\n");
+// 				expanded = ft_strdup(line);
+// 			}
+// 			else
+// 			{
+// 				printf("About to read dflag...\n");
+// 				printf("clist->pars->dflag = %d\n", clist->pars->dflag);
+
+// 				// Handle expansion
+// 				printf("About to handle expansion...\n");
+// 				if(clist->pars->dflag == 0)
+// 				{
+// 					printf("Calling expand_variables...\n");
+// 					expanded = expand_variables(line, shell);
+// 					printf("expand_variables completed\n");
+// 				}
+// 				else
+// 				{
+// 					printf("Using ft_strdup...\n");
+// 					expanded = ft_strdup(line);
+// 					printf("ft_strdup completed\n");
+// 				}
+// 			}
+// 		}
+
+// 		printf("Writing to file: '%s'\n", expanded);
+// 		write(fd, expanded, ft_strlen(expanded));
+// 		write(fd, "\n", 1);
+// 		free(expanded);
+
+// 		printf("Loop iteration complete, continuing...\n");
+// 	}
+
+// 	printf("=== HEREDOC DEBUG END ===\n");
+
+// 	signal(SIGINT, sigint_handler);
+// 	signal(SIGQUIT, SIG_IGN);
+// 	head->content = ft_strdup(".heredoc_tmp");
+// 	head->inout = 0;
+// 	if (line)
+// 		free(line);
+// 	close(fd);
+// }
 
 t_env *convert_envp_to_envlist(char **envp)
 {
@@ -102,7 +229,7 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 	token = typesee(wlist);
 	splitit(token, clist);
 	// print_cmd_list(*clist);
-	free_plist(&pars);
+	// free_plist(&pars);
 }
 
 // void	call_all(char *in, t_wlist **wlist)
@@ -133,12 +260,53 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 // 	free_plist(&pars);
 // }
 
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_shell	shell;
+// 	t_cmd	*clist = NULL;
+// 	t_wlist	*wlist = NULL;
+// 	char	*input;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	shell.envv = convert_envp_to_envlist(envp);
+// 	shell.last_exit_status = 0;
+
+// 	while (1)
+// 	{
+// 		signal(SIGINT, sigint_handler);
+// 		signal(SIGQUIT, SIG_IGN);
+// 		input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
+// 		if (!input)
+// 			break;
+// 		call_all(input, &wlist, &clist,&shell);  // call_all builds wlist and clist
+// 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
+// 		{
+// 			printf("is here builtins\n");
+// 			execute_builtin(clist, &shell);
+// 		}
+// 		else
+// 		{
+// 			printf("is here execute_cmd\n");
+// 			execute_cmds(clist, &shell);
+// 		}
+// 		add_history(input);
+// 		free_wlist(&wlist);
+// 		// free_clist(&clist);
+// 		free(input);
+// 	}
+// 	return (0);
+// }
+
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	t_cmd	*clist = NULL;
 	t_wlist	*wlist = NULL;
 	char	*input;
+	t_pars	*pars = NULL;  // Declare pars here so we can free it later
+	
 
 	(void)argc;
 	(void)argv;
@@ -152,7 +320,10 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
 		if (!input)
 			break;
-		call_all(input, &wlist, &clist,&shell);  // call_all builds wlist and clist
+
+		// Modified call_all to return pars instead of freeing it
+		pars = call_all(input, &wlist, &clist, &shell);
+
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
 		{
 			printf("is here builtins\n");
@@ -163,6 +334,11 @@ int	main(int argc, char **argv, char **envp)
 			printf("is here execute_cmd\n");
 			execute_cmds(clist, &shell);
 		}
+
+		// Free pars AFTER execution is complete
+		if (pars)
+			free_plist(&pars);
+
 		add_history(input);
 		free_wlist(&wlist);
 		free_clist(&clist);
