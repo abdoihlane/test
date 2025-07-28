@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/28 02:27:08 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/28 16:27:57 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
     char **filtered_args;
     char **envp = generate_envp_from_envlist(shell);
     t_cmd *original_clist = clist;  // Save the original command list head
-
+    // printf("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq %d\n",original_clist->pars->dflag);
     while (clist)
     {
         if (clist->next)
@@ -43,7 +43,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
                 dup2(pipe_fd[1], STDOUT_FILENO);
                 close(pipe_fd[1]);
             }
-            setup_redirections(clist, shell, original_clist);
+            setup_redirections(clist, shell, clist);
             if (is_builtin(clist))
             {
                 printf("Executing builtin command from exetuce_cmds : %s\n", clist->cmd);

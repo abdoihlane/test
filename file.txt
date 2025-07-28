@@ -1,5 +1,0 @@
-Executing builtin command from exetuce_cmds : echo
-salah
-i see
-Executing builtin command from exetuce_cmds : echo
-jjj

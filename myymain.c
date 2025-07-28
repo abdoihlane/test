@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   myymain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 03:18:40 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/28 16:56:25 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 
+#include "minishell.h"
+int count_dollars(char *sa)
+{
+	int dollar =0;
+	int i =0;
+	while(sa[i])
+	{
+		if(sa[i] == '$')
+			dollar++;
+		i++;
+	}		
+	return dollar;
+}
 void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
 {
 	char	*line = NULL;
@@ -46,11 +58,17 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 			line = NULL;     //  reset line bach ma n3awdch nfreeeha
 			break;
 		}
-
-		printf("spam\n");
-		printf("%d\n", clist->pars->dflag);
-		if(clist->pars->dflag == 0)
-			expanded = expand_variables(line,shell);
+		if(clist->pars && clist->pars->dflag == 0)
+		{
+			int i = 0;
+			int dollar = count_dollars(line);
+			while(dollar > 0 && i < dollar)
+			{
+				line = expand_variables(line,shell);
+				i++;	
+			}
+			expanded = ft_strdup(line);
+		}
 		else
 			expanded = ft_strdup(line);
 
@@ -228,6 +246,14 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 	commandornot(pars, wlist);
 	token = typesee(wlist);
 	splitit(token, clist);
+	t_cmd *tmp = *clist;
+	while (tmp)
+	{
+		tmp->pars = pars;
+		tmp = tmp->next;
+	}
+	// printf("-----------------[%d]-------------",clist->pars->dflag);
+
 	// print_cmd_list(*clist);
 	// free_plist(&pars);
 }
@@ -322,8 +348,7 @@ int	main(int argc, char **argv, char **envp)
 			break;
 
 		// Modified call_all to return pars instead of freeing it
-		pars = call_all(input, &wlist, &clist, &shell);
-
+		call_all(input, &wlist, &clist, &shell);
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
 		{
 			printf("is here builtins\n");
@@ -336,8 +361,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 
 		// Free pars AFTER execution is complete
-		if (pars)
-			free_plist(&pars);
+		// if (pars)
+		// 	free_plist(&pars);
 
 		add_history(input);
 		free_wlist(&wlist);

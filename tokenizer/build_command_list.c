@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:33:06 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/24 20:48:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:31:16 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	splitit(t_token *token, t_cmd **final)
 			tmp = tmp->next;
 	}
 	*final = cmd_head;
+	// printf("--------------------------------------[%d]\n",cmd_head->pars->dflag);
 }
 
 void	handle_word_and_quotes(t_cmd *current, t_token *tmp)
