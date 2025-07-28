@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 21:23:32 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/28 21:41:08 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ t_env *convert_envp_to_envlist(char **envp)
 	}
 	return head;
 }
+
 void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 {
 	t_pars	*pars = NULL;
@@ -324,7 +325,13 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 // 	return (0);
 // }
 
-
+void	execute(t_cmd *clist, t_wlist *wlist, t_shell shell)
+{
+	if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
+		execute_builtin(clist, &shell);
+	else
+		execute_cmds(clist, &shell);
+}
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
@@ -346,17 +353,8 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
 		if (!input)
 			break;
-
-		// Modified call_all to return pars instead of freeing it
 		call_all(input, &wlist, &clist, &shell);
-		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
-			execute_builtin(clist, &shell);
-		else
-			execute_cmds(clist, &shell);
-		// Free pars AFTER execution is complete
-		// if (pars)
-		// 	free_plist(&pars);
-
+		execute(clist, wlist, shell);
 		add_history(input);
 		free_wlist(&wlist);
 		free_clist(&clist);

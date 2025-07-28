@@ -203,7 +203,10 @@ char                **function_split_env(t_shell *shell);
 void                add_env_node(t_env **head, t_env *new);
 char	            	*find_path(char *cmd, char **envp);
 void	            	ft_free(char **str);
-void	            	execute(char *cmd, char **env);
+
+
+
+
 void                free_env(char **env); //check env is free or not
 void setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
@@ -235,4 +238,6 @@ void				handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd 
 void    WAITPID(pid_t *pids, int i);
 void print_export_value(const char *key, const char *value);
 void	free_clist(t_cmd **list);
+void	execute(t_cmd *clist, t_wlist *wlist, t_shell shell);
+
 #endif
