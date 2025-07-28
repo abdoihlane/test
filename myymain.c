@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myymain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 17:56:04 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/28 21:23:32 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,16 +350,9 @@ int	main(int argc, char **argv, char **envp)
 		// Modified call_all to return pars instead of freeing it
 		call_all(input, &wlist, &clist, &shell);
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
-		{
-			printf("is here builtins\n");
 			execute_builtin(clist, &shell);
-		}
 		else
-		{
-			// printf("is here execute_cmd\n");
 			execute_cmds(clist, &shell);
-		}
-
 		// Free pars AFTER execution is complete
 		// if (pars)
 		// 	free_plist(&pars);

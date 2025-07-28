@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 19:45:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/28 19:20:09 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/28 21:24:54 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int builtin_cd(t_cmd *cmd, t_shell *shell)
 			path = get_cd_path(cmd, shell);
 			return (handle_cd_change(path, current_dir, shell));
 		}
+		path = get_cd_path(cmd, shell);
+		return (handle_cd_change(path, current_dir, shell));
 	}
 	else
 	{
