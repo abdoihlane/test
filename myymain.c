@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   myymain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 21:31:17 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/28 02:06:46 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell)
+void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
 {
 	char	*line = NULL;
     char    *expanded = NULL;
@@ -35,15 +35,14 @@ void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell)
 
 		if (line[nread - 1] == '\n')
 			line[nread - 1] = '\0';
-
-		// printf("--------[%d]------\n",delimiter);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);      //  free line
 			line = NULL;     //  reset line bach ma n3awdch nfreeeha
 			break;
 		}
-		expanded = expand_variables(line,shell);
+		if(clist->pars->dflag == 0)
+			expanded = expand_variables(line,shell);
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
@@ -102,7 +101,7 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 	commandornot(pars, wlist);
 	token = typesee(wlist);
 	splitit(token, clist);
-	print_cmd_list(*clist);
+	// print_cmd_list(*clist);
 	free_plist(&pars);
 }
 
@@ -154,14 +153,19 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			break;
 		call_all(input, &wlist, &clist,&shell);  // call_all builds wlist and clist
-			printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[%d]aaaaaaaaaaaaaaaaaaaaaaa\n",clist->qflag);
 		if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
+		{
+			printf("is here builtins\n");
 			execute_builtin(clist, &shell);
+		}
 		else
+		{
+			printf("is here execute_cmd\n");
 			execute_cmds(clist, &shell);
+		}
 		add_history(input);
 		free_wlist(&wlist);
-		// free_clist(&clist);
+		free_clist(&clist);
 		free(input);
 	}
 	return (0);

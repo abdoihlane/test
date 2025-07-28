@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+         #
+#    By: salah <salah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/07/26 18:09:08 by ahabibi-         ###   ########.fr        #
+#    Updated: 2025/07/28 01:32:21 by salah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 LIBS = -lreadline
 
@@ -38,7 +38,7 @@ SRC = 		builtins/builtin_echo.c \
 			execution/execute.c \
 			execution/redirections.c \
 			execution/path.c \
-			myymain.c \
+			execution/filter_cmd.c \
 			parser/expand.c \
 			parser/fill_array.c \
 			parser/free.c \
@@ -52,6 +52,7 @@ SRC = 		builtins/builtin_echo.c \
 			tokenizer/build_command_list.c \
 			tokenizer/rederiction.c \
 			tokenizer/tokenizer.c\
+			myymain.c \
 
 OBJ = $(SRC:.c=.o)
 

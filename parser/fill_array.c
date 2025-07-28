@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 21:32:42 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/27 22:17:06 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 		{
 			part = handlequotes(pars, pars->content[pars->i], shell);
 			pars->dflag = 1;
-			printf("----------------------------------%d",pars->dflag);
 		}
 		else
 			pars->i++;
@@ -55,7 +54,7 @@ char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 	len = pars->i - start;
 	part = ft_substr(pars->content, start, len);
 	if(pars->herdoc_flag == 0)
-	{		
+	{
 		while (pars->numdollar > z)
 		{
 			expanded = expand_variables(part,shell);
@@ -121,7 +120,7 @@ void	fill_the_array(t_pars *pars,t_shell *shell)
 		reparse_variable(pars,shell);
 	// if(pars->dflag == 0)
 	// 	{
-			
+
 	// 	}
 }
 
@@ -138,7 +137,7 @@ void	reparse_variable(t_pars *pars,t_shell *shell)
 			j++;
 		}
 	new_input = ft_strjoin_all(pars->content1);
-	
+
 	pars->content = ft_strdup(new_input);
 	if (new_input)
 		free(new_input);

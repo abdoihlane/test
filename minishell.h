@@ -99,6 +99,7 @@ typedef struct t_cmd
 	int						qflag;
 	t_red_list				*file;
 	struct t_cmd			*next;
+	t_pars						*pars;
 }							t_cmd;
 
 typedef struct words_list
@@ -203,9 +204,9 @@ char	            	*find_path(char *cmd, char **envp);
 void	            	ft_free(char **str);
 void	            	execute(char *cmd, char **env);
 void                free_env(char **env); //check env is free or not
-void setup_redirections(t_cmd *cmd, t_shell *shell);
+void setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
-void                heredoc_input(char *delimiter, t_red_list *head,t_shell *shell);
+void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
 void                ft_free_2d_array(char **arr);
 char                *get_env_value(char **env, const char *key);
 char                **filter_empty_args(t_cmd *cmd);
@@ -229,5 +230,8 @@ void				execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
 void				handle_append_redirection(t_red_list *tmp);
 void				handle_output_redirection(t_red_list *tmp);
 void				handle_input_redirection(t_red_list *tmp);
-
+void				handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
+void    WAITPID(pid_t *pids, int i);
+void print_export_value(const char *key, const char *value);
+void	free_clist(t_cmd **list);
 #endif

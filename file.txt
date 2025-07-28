@@ -1,0 +1,2 @@
+Executing builtin command from exetuce_cmds : echo
+salah

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/26 21:13:02 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/27 22:36:34 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,11 @@ void handle_append_redirection(t_red_list *tmp)
     close(fd);
 }
 
-void handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell)
+void handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist)
 {
     int fd;
 
-    heredoc_input(tmp->content, head, shell);
+    heredoc_input(tmp->content, head, shell, clist);
     fd = open(tmp->content, O_RDONLY);
     if (fd < 0)
     {
@@ -139,7 +139,7 @@ void handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell)
     close(fd);
 }
 
-void setup_redirections(t_cmd *cmd, t_shell *shell)
+void setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist)
 {
     t_red_list *tmp;
 
@@ -153,7 +153,7 @@ void setup_redirections(t_cmd *cmd, t_shell *shell)
         else if (tmp->inout == 3) // >> Redirect stdout to a file (append)
             handle_append_redirection(tmp);
         else if (tmp->inout == 4) // << herdoc
-            handle_heredoc(tmp, tmp, shell);
+            handle_heredoc(tmp, tmp, shell, clist);
         tmp = tmp->next;
     }
 }
