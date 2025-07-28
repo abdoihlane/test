@@ -53,6 +53,7 @@ typedef struct PARSING_STRUCT
 	int						herdoc_flag;
 	unsigned int			i;
 	unsigned int			dflag;
+	unsigned int			qflag;
 	unsigned int			k;
 	int						numdollar;
 	unsigned int			index;

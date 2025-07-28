@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 16:56:25 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:56:04 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,7 +356,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			printf("is here execute_cmd\n");
+			// printf("is here execute_cmd\n");
 			execute_cmds(clist, &shell);
 		}
 
