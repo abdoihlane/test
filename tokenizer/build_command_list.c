@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:33:06 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/29 18:36:26 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 18:43:12 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	splitit(t_token *token, t_cmd **final)
 		tmp = fill_command_fields(tmp, current);
 	}
 	*final = cmd_head;
-	// printf("--------------------------------------[%d]\n",cmd_head->pars->dflag);
 }
 
 void	handle_word_and_quotes(t_cmd *current, t_token *tmp)

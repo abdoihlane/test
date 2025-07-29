@@ -3,66 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 16:19:42 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 23:23:48 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void update_env_list(t_shell *shell, const char *key, const char *value)
-// {
-//     t_env *tmp = shell->envv;
-
-//     // Check if key already exists in env list
-//     while (tmp)
-//     {
-//         if (ft_strcmp(tmp->key, (char *)key) == 0)
-//         {
-//             free(tmp->value);
-//             if (value == NULL)
-//                 tmp->value = NULL;
-//             else
-//                 tmp->value = ft_strdup(value);
-//             return;
-//         }
-//         tmp = tmp->next;
-//     }
-
-//     // Create new node if key doesn't exist
-//     t_env *new = create_env_node((char *)key, (char *)value);
-//     if (!new)
-//         return ; // optionally handle malloc failure
-
-//     if (shell->envv == NULL)
-//         shell->envv = new;
-//     else
-//     {
-//         tmp = shell->envv;
-//         while (tmp->next)
-//             tmp = tmp->next;
-//         tmp->next = new;
-//     }
-// }
-
-t_env *create_env_node(char *key, char *value)
+void    signe(void)
 {
-    t_env *new;
+    signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
+{
+	if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
+		execute_builtin(clist, shell);
+	else
+		execute_cmds(clist, shell);
+}
+void	split_env(char *equal, t_env *node, char **envp, int i)
+{
+	// printf("is here !!\n");
+	*equal = '\0';
+	node->key = ft_strdup(envp[i]);
+	node->value = ft_strdup(equal + 1);
+	*equal = '=';
+}
+t_env *convert_envp_to_envlist(char **envp)
+{
+	t_env *head = NULL;
+	t_env *last = NULL;
+	char *equal;
+	t_env *node;
+    int i = 0;
 
-    new = malloc(sizeof(t_env));
-    if (!new)
-        return NULL;
+	while (envp[i])
+	{
+		equal = ft_strchr(envp[i], '=');
+		if (equal == NULL)
+			continue;
 
-    new->key = ft_strdup(key);
-    if (value != NULL)
-        new->value = ft_strdup(value);
-    else
-        new->value = NULL;
-
-    new->next = NULL;
-    return new;
+		node = malloc(sizeof(t_env));
+		if (node == NULL)
+			return NULL;
+		split_env(equal, node, envp, i);
+		node->next = NULL;
+		if (!head)
+			head = node;
+		else
+			last->next = node;
+		last = node;
+        i++;
+	}
+	return head;
 }
 char *get_env_value_ll(t_env *env, const char *key)
 {
@@ -82,26 +78,4 @@ char *get_env_value_ll(t_env *env, const char *key)
 //         printf("%s\n", env[i]);
 //         i++;
 //     }
-// }
-
-// char **dup_envp(char **envp)
-// {
-//     int i = 0;
-//     int count = 0;
-//     char **new_env;
-
-//     while (envp[count])
-//         count++;
-
-//     new_env = malloc(sizeof(char *) * (count + 1));
-//     if (!new_env)
-//         return NULL;
-
-//     while (i < count)
-//     {
-//         new_env[i] = strdup(envp[i]);
-//         i++;
-//     }
-//     new_env[i] = NULL;
-//     return (new_env);
 // }

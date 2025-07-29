@@ -192,8 +192,6 @@ char                *create_env_string(const char *name, const char *value);
 void                update_env_variable(t_shell *shell, const char *name, const char *value);
 void                delete_env_variable(t_shell *shell, const char *name);
 char                *get_env_value_ll(t_env *env, const char *key);
-t_env               *create_env_node(char *key, char *value);
-void                update_env_list(t_shell *shell, const char *key, const char *value);
 int                 ft_strcmp_echo(const char *s);
 char                **function_split_env(t_shell *shell);
 void                add_env_node(t_env **head, t_env *new);
@@ -239,5 +237,6 @@ int 								update_export_variable(t_shell *shell, const char *key, const char *
 int 								create_export_variable(t_shell *shell, const char *key, const char *value);
 int 								handle_export_with_value(t_shell *shell, char *arg);
 int 								handle_export_without_value(t_shell *shell, const char *arg);
-
+void    signe(void);
+t_env *convert_envp_to_envlist(char **envp);
 #endif

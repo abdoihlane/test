@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 17:57:18 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 18:51:23 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,25 +112,25 @@ int handle_export_without_value(t_shell *shell, const char *arg)
 int builtin_export(t_cmd *cmd, t_shell *shell)
 {
     int i = 1;
-    char *equal;
+    char *value;
 
-    if (!cmd->array[1])
+    if (cmd->array[1] == NULL)
     {
         print_all_exports(shell);
         return 0;
     }
     while (cmd->array[i])
     {
-        equal = ft_strchr(cmd->array[i], '=');
-        if (equal)
+        value = ft_strchr(cmd->array[i], '=');
+        if (value != NULL)
         {
             if (handle_export_with_value(shell, cmd->array[i]) == -1)
-                return -1; // malloc failed
+                return -1;
         }
         else
         {
             if (handle_export_without_value(shell, cmd->array[i]) == -1)
-                return -1; // malloc failed
+                return -1;
         }
         i++;
     }

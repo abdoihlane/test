@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:09:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/25 21:27:57 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 23:10:04 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 int is_builtin(t_cmd *cmd)
 {
-    // if (!cmd || !cmd->array || !cmd->array[1])
-    // {
-    //     printf("is_builtin: cmd or cmd->array is NULL\n");
-    //     return 0;
-    // }
+    
     if (ft_strcmp(cmd->array[0], "echo") == 0)
         return 1;
     if (ft_strcmp(cmd->array[0], "cd") == 0)

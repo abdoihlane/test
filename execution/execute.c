@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/29 16:51:47 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 22:54:29 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,11 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
             }
             setup_redirections(clist, shell, clist);
             if (is_builtin(clist))
-            {
-                printf("Executing builtin command from exetuce_cmds : %s\n", clist->cmd);
                 exit(execute_builtin(clist, shell));
-            }
             cmd_path = find_path(clist->array[0], envp);
             if (!cmd_path)
             {
-                printf("Command not found: %s\n", clist->array[0]);
+                printf("%s: command not found \n", clist->array[0]);
                 exit(127);
             }
             filtered_args = filter_empty_args(clist);
