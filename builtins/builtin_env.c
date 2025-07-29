@@ -3,34 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:18:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 16:18:53 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 16:52:08 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void print_cmd_array(t_cmd *cmd)
-// {
-//     int i = 0;
-//     if (cmd == NULL || cmd->array == NULL)
-//     {
-//         printf("Command array is NULL\n");
-//         return;
-//     }
-//     while (cmd->array[i])
-//     {
-//         printf("cmd->array[%d] = %s\n", i, cmd->array[i]);
-//         i++;
-//     }
-// }
-
 int builtin_env(t_cmd *cmd, t_shell *shell)
 {
     t_env *tmp = shell->envv;
-    
+
     if(cmd->array[1] && cmd->array[1][0] != '\0' && cmd->qflag == 1)
     {
         ft_putstr_fd("env: ", 2);

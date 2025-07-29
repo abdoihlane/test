@@ -3,45 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helper1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:20:16 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 16:22:33 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:26:16 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void build_env_list(t_shell *shell, char **envp)
-// {
-// 	t_env *new;
-// 	t_env *last = NULL;
-// 	char *equal;
-
-// 	int i = 0;
-// 	while (envp[i])
-// 	{
-// 		equal = ft_strchr(envp[i], '=');
-// 		if (equal)
-// 		{
-// 			*equal = '\0';
-// 			new = malloc(sizeof(t_env));
-// 			if (!new)
-// 				return;
-// 			new->key = ft_strdup(envp[i]);
-// 			new->value = ft_strdup(equal + 1);
-// 			new->next = NULL;
-
-// 			if (!shell->envv)
-// 				shell->envv = new;
-// 			else
-// 				last->next = new;
-// 			last = new;
-// 			*equal = '=';
-// 			i++;
-// 		}
-// 	}
-// }
 
 void update_env_variable(t_shell *shell, const char *name, const char *value)
 {

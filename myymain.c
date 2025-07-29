@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myymain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/29 16:14:49 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 18:35:07 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int count_dollars(char *sa)
 		if(sa[i] == '$')
 			dollar++;
 		i++;
-	}		
+	}
 	return dollar;
 }
 void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
@@ -65,7 +65,7 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 			while(dollar > 0 && i < dollar)
 			{
 				line = expand_variables(line,shell);
-				i++;	
+				i++;
 			}
 			expanded = ft_strdup(line);
 		}
@@ -144,12 +144,12 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 	}
 }
 
-void	execute(t_cmd *clist, t_wlist *wlist, t_shell shell)
+void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
 {
 	if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
-		execute_builtin(clist, &shell);
+		execute_builtin(clist, shell);
 	else
-		execute_cmds(clist, &shell);
+		execute_cmds(clist, shell);
 }
 int	main(int argc, char **argv, char **envp)
 {
@@ -158,7 +158,7 @@ int	main(int argc, char **argv, char **envp)
 	t_wlist	*wlist = NULL;
 	char	*input;
 	t_pars	*pars = NULL;  // Declare pars here so we can free it later
-	
+
 
 	(void)argc;
 	(void)argv;
@@ -173,7 +173,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			break;
 		call_all(input, &wlist, &clist, &shell);
-		execute(clist, wlist, shell);
+		execute(clist, wlist, &shell);
 		add_history(input);
 		free_wlist(&wlist);
 		free_clist(&clist);

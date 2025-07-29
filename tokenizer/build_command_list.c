@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_command_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:33:06 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 19:16:15 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:36:26 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	splitit(t_token *token, t_cmd **final)
 			current->next = new_cmd;
 		current = new_cmd;
 		tmp = fill_command_fields(tmp, current);
-		if (tmp)
-			tmp = tmp->next;
 	}
 	*final = cmd_head;
 	// printf("--------------------------------------[%d]\n",cmd_head->pars->dflag);

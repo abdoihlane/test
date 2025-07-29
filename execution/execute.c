@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/28 16:27:57 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:51:47 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
     char **filtered_args;
     char **envp = generate_envp_from_envlist(shell);
     t_cmd *original_clist = clist;  // Save the original command list head
-    // printf("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq %d\n",original_clist->pars->dflag);
     while (clist)
     {
         if (clist->next)

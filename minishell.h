@@ -191,26 +191,18 @@ char                *ft_strcpy(char *dest,const char *src);
 char                *create_env_string(const char *name, const char *value);
 void                update_env_variable(t_shell *shell, const char *name, const char *value);
 void                delete_env_variable(t_shell *shell, const char *name);
-// char                **dup_envp(char **envp);
-// void                print_env(char **env);
-// void                print_env_sorted(t_env *env);
 char                *get_env_value_ll(t_env *env, const char *key);
 t_env               *create_env_node(char *key, char *value);
-// void                build_env_list(t_shell *shell, char **envp);
 void                update_env_list(t_shell *shell, const char *key, const char *value);
 int                 ft_strcmp_echo(const char *s);
 char                **function_split_env(t_shell *shell);
 void                add_env_node(t_env **head, t_env *new);
 char	            	*find_path(char *cmd, char **envp);
 void	            	ft_free(char **str);
-
-
-
-
 void                free_env(char **env); //check env is free or not
-void 				setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
+void 								setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
-void				heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
+void								heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
 void                ft_free_2d_array(char **arr);
 char                *get_env_value(char **env, const char *key);
 char                **filter_empty_args(t_cmd *cmd);
@@ -218,28 +210,34 @@ char                **generate_envp_from_envlist(t_shell *shell);
 char                *ft_strjoin_triple(char *a, char *b, char *c);
 int                 is_valid_var(const char *str);
 void                sigint_handler(int sig);
-void                sigint_heredoc(int sig);
-int					handle_cd_change(char *path, char *current_dir, t_shell *shell);
-char				*get_cd_path(t_cmd *cmd, t_shell *shell);
-int					count_non_empty_args(t_cmd *cmd);
-void				copy_non_empty_args(t_cmd *cmd, char **filtered);
-void				setup_child_pipes(int in_fd, int *pipe_fd, int has_next);
-void				execute_child_process(t_cmd *clist, t_shell *shell, char **envp);
-int					handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd);
-void				wait_for_children(pid_t *pids, int count);
-void				handle_parent_process(int *in_fd, int *pipe_fd, int has_next);
-void				process_single_command(t_cmd **clist, t_shell *shell, char **envp,
+void               	sigint_heredoc(int sig);
+int									handle_cd_change(char *path, char *current_dir, t_shell *shell);
+char								*get_cd_path(t_cmd *cmd, t_shell *shell);
+int									count_non_empty_args(t_cmd *cmd);
+void								copy_non_empty_args(t_cmd *cmd, char **filtered);
+void								setup_child_pipes(int in_fd, int *pipe_fd, int has_next);
+void								execute_child_process(t_cmd *clist, t_shell *shell, char **envp);
+int									handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd);
+void								wait_for_children(pid_t *pids, int count);
+void								handle_parent_process(int *in_fd, int *pipe_fd, int has_next);
+void								process_single_command(t_cmd **clist, t_shell *shell, char **envp,
 			int *in_fd, int *pipe_fd, pid_t *pids, int *i);
-void				execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
-void				handle_append_redirection(t_red_list *tmp);
-void				handle_output_redirection(t_red_list *tmp);
-void				handle_input_redirection(t_red_list *tmp);
-void				handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
-void    			WAITPID(pid_t *pids, int i);
-void 				print_export_value(const char *key, const char *value);
-void				free_clist(t_cmd **list);
-void				execute(t_cmd *clist, t_wlist *wlist, t_shell shell);
-int 				count_dollars(char *sa);
-void	split_env(char *equal,t_env *node, char **envp, int i);
-// void    loop_node(t_env *node, int *found, char *key, char *value);
+void								execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
+void								handle_append_redirection(t_red_list *tmp);
+void								handle_output_redirection(t_red_list *tmp);
+void								handle_input_redirection(t_red_list *tmp);
+void								handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
+void    						WAITPID(pid_t *pids, int i);
+void 								print_export_value(const char *key, const char *value);
+void								free_clist(t_cmd **list);
+void								execute(t_cmd *clist, t_wlist *wlist, t_shell *shell);
+int 								count_dollars(char *sa);
+void								split_env(char *equal,t_env *node, char **envp, int i);
+void								print_all_exports(t_shell *shell);
+t_env 							*find_env_variable(t_shell *shell, const char *key);
+int 								update_export_variable(t_shell *shell, const char *key, const char *value);
+int 								create_export_variable(t_shell *shell, const char *key, const char *value);
+int 								handle_export_with_value(t_shell *shell, char *arg);
+int 								handle_export_without_value(t_shell *shell, const char *arg);
+
 #endif

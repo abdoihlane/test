@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 16:45:24 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:57:18 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,92 +30,110 @@ void print_export_value(const char *key, const char *value)
     printf("\n");
 }
 
+void print_all_exports(t_shell *shell)
+{
+    t_env *tmp = shell->envv;
+    while (tmp)
+    {
+        print_export_value(tmp->key, tmp->value);
+        tmp = tmp->next;
+    }
+}
+
+t_env *find_env_variable(t_shell *shell, const char *key)
+{
+    t_env *node = shell->envv;
+    while (node)
+    {
+        if (ft_strcmp(node->key, (char *)key) == 0)
+            return node;
+        node = node->next;
+    }
+    return NULL;
+}
+
+int update_export_variable(t_shell *shell, const char *key, const char *value)
+{
+    t_env *node = find_env_variable(shell, key);
+    if (node)
+    {
+        free(node->value);
+        node->value = ft_strdup(value);
+        return 1; // found and updated
+    }
+    return 0; // not found
+}
+
+int create_export_variable(t_shell *shell, const char *key, const char *value)
+{
+    t_env *new = malloc(sizeof(t_env));
+    if (!new)
+        return -1; // malloc failed
+
+    new->key = ft_strdup(key);
+    if (value)
+        new->value = ft_strdup(value);
+    else
+        new->value = NULL;
+    new->next = shell->envv;
+    shell->envv = new;
+    return 0; // success
+}
+
+int handle_export_with_value(t_shell *shell, char *arg)
+{
+    char *equal = ft_strchr(arg, '=');
+    char *key;
+    char *value;
+    int result = 0;
+
+    *equal = '\0';
+    key = arg;
+    value = equal + 1;
+    if (!update_export_variable(shell, key, value))
+    {
+        if (create_export_variable(shell, key, value) == -1)
+            result = -1; // malloc failed
+    }
+    *equal = '=';  // Always restore the '=' character
+    return result;
+}
+
+int handle_export_without_value(t_shell *shell, const char *arg)
+{
+    if (!find_env_variable(shell, arg))
+    {
+        if (create_export_variable(shell, arg, NULL) == -1)
+            return -1; // malloc failed
+    }
+    return 0;
+}
+
 int builtin_export(t_cmd *cmd, t_shell *shell)
 {
-    char *arg;
     int i = 1;
-    int found;
     char *equal;
-    t_env *node;
-    char    *key;
-    char    *value;
-    t_env *new;
-    int exists;
 
     if (!cmd->array[1])
     {
-        t_env *tmp = shell->envv;
-        while (tmp)
-        {
-            print_export_value(tmp->key, tmp->value);
-            tmp = tmp->next;
-        }
+        print_all_exports(shell);
         return 0;
     }
-    
     while (cmd->array[i])
     {
-        arg = cmd->array[i];
-        equal = ft_strchr(arg, '=');
+        equal = ft_strchr(cmd->array[i], '=');
         if (equal)
         {
-            *equal = '\0';
-            key = arg;
-            value = equal + 1;
-            // update existing or create new
-            node = shell->envv;
-            found = 0;
-            while (node)
-            {
-                if (ft_strcmp(node->key, key) == 0)
-                {
-                    free(node->value);
-                    node->value = ft_strdup(value);
-                    found = 1;
-                    break;
-                }
-                node = node->next;
-            }
-
-            if (!found)
-            {
-                new = malloc(sizeof(t_env));
-                new->key = ft_strdup(key);
-                new->value = ft_strdup(value);
-                new->next = shell->envv;
-                shell->envv = new;
-            }
-
-            *equal = '=';
+            if (handle_export_with_value(shell, cmd->array[i]) == -1)
+                return -1; // malloc failed
         }
         else
         {
-            // just declare a var with no value (export var)
-            // check if already exists
-            node = shell->envv;
-            exists = 0;
-            while (node)
-            {
-                if (ft_strcmp(node->key, arg) == 0)
-                {
-                    exists = 1;
-                    break;
-                }
-                node = node->next;
-            }
-            if (!exists)
-            {
-                new = malloc(sizeof(t_env));
-                new->key = ft_strdup(arg);
-                new->value = NULL;
-                new->next = shell->envv;
-                shell->envv = new;
-            }
+            if (handle_export_without_value(shell, cmd->array[i]) == -1)
+                return -1; // malloc failed
         }
-
         i++;
     }
-
     return 0;
 }
 
