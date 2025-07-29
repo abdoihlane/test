@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/27 22:30:47 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 14:59:30 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,59 +86,6 @@ t_env *convert_envp_to_envlist(char **envp)
 	}
 	return head;
 }
-
-
-// int main(int argc, char **argv, char **envp)
-// {
-//     (void)argc;
-//     (void)argv;
-
-//     signal(SIGINT, sigint_handler);
-//     signal(SIGQUIT, SIG_IGN);
-//     t_shell shell;
-//     t_cmd *clist = NULL;
-//     w_list *wlist = NULL;
-//     T_list *token = NULL;
-//     pars_T *pars = NULL;
-//     char *input_user;
-
-//     shell.envv = convert_envp_to_envlist(envp);
-//     shell.last_exit_status = 0;
-
-//     while (1)
-//     {
-//         input_user = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
-//         if (!input_user)
-//             return 0;
-//         signal(SIGINT, sigint_handler);
-//         signal(SIGQUIT, SIG_IGN);
-//         if (HardcodeChecks(input_user) == 0)
-//         {
-//             printf("syntax error\n");
-//             continue;
-//         }
-//         call_all(input_user, &wlist);
-//         token = typesee(&wlist);
-//         splitit(token, &clist);
-//             // ...existing code...
-//         add_history(input_user);
-//         if (clist != NULL && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
-// 		{
-// 			printf("is here !!\n");
-//             execute_builtin(clist, &shell);
-// 		}
-//         else
-//         	execute_cmds(clist, &shell);
-//         free_wlist(&wlist);
-//         free_Plist(&pars);
-//         wlist = NULL;
-//         free(input_user);
-//         rl_on_new_line();
-//         rl_replace_line("", 0);
-//     }
-//     return 0;
-// }
-
 
 // minishell/
 // ├── main.c               (your current main)

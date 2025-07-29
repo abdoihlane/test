@@ -191,12 +191,12 @@ char                *ft_strcpy(char *dest,const char *src);
 char                *create_env_string(const char *name, const char *value);
 void                update_env_variable(t_shell *shell, const char *name, const char *value);
 void                delete_env_variable(t_shell *shell, const char *name);
-char                **dup_envp(char **envp);
-void                print_env(char **env);
-void                print_env_sorted(t_env *env);
+// char                **dup_envp(char **envp);
+// void                print_env(char **env);
+// void                print_env_sorted(t_env *env);
 char                *get_env_value_ll(t_env *env, const char *key);
 t_env               *create_env_node(char *key, char *value);
-void                build_env_list(t_shell *shell, char **envp);
+// void                build_env_list(t_shell *shell, char **envp);
 void                update_env_list(t_shell *shell, const char *key, const char *value);
 int                 ft_strcmp_echo(const char *s);
 char                **function_split_env(t_shell *shell);
@@ -208,9 +208,9 @@ void	            	ft_free(char **str);
 
 
 void                free_env(char **env); //check env is free or not
-void setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
+void 				setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
 void                execute_cmds(t_cmd *clist, t_shell *shell);
-void	heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
+void				heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
 void                ft_free_2d_array(char **arr);
 char                *get_env_value(char **env, const char *key);
 char                **filter_empty_args(t_cmd *cmd);
@@ -235,9 +235,11 @@ void				handle_append_redirection(t_red_list *tmp);
 void				handle_output_redirection(t_red_list *tmp);
 void				handle_input_redirection(t_red_list *tmp);
 void				handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
-void    WAITPID(pid_t *pids, int i);
-void print_export_value(const char *key, const char *value);
-void	free_clist(t_cmd **list);
-void	execute(t_cmd *clist, t_wlist *wlist, t_shell shell);
-
+void    			WAITPID(pid_t *pids, int i);
+void 				print_export_value(const char *key, const char *value);
+void				free_clist(t_cmd **list);
+void				execute(t_cmd *clist, t_wlist *wlist, t_shell shell);
+int 				count_dollars(char *sa);
+void	split_env(char *equal,t_env *node, char **envp, int i);
+// void    loop_node(t_env *node, int *found, char *key, char *value);
 #endif

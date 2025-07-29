@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/27 22:52:49 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/29 16:45:24 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,16 @@ void print_export_value(const char *key, const char *value)
 
 int builtin_export(t_cmd *cmd, t_shell *shell)
 {
+    char *arg;
     int i = 1;
-    // printf("%s \n", cmd->array[1]);
-    // export with no args: print all sorted env
+    int found;
+    char *equal;
+    t_env *node;
+    char    *key;
+    char    *value;
+    t_env *new;
+    int exists;
+
     if (!cmd->array[1])
     {
         t_env *tmp = shell->envv;
@@ -45,26 +52,19 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
         }
         return 0;
     }
-
-    int k = 0;
-    while(cmd->array[k])
-    {
-        printf("cmd->array[%d]: %s\n", k, cmd->array[k]);
-        k++;
-    }
-    // export with assignments
+    
     while (cmd->array[i])
     {
-        char *arg = cmd->array[i];
-        char *equal = ft_strchr(arg, '=');
+        arg = cmd->array[i];
+        equal = ft_strchr(arg, '=');
         if (equal)
         {
             *equal = '\0';
-            char *key = arg;
-            char *value = equal + 1;
+            key = arg;
+            value = equal + 1;
             // update existing or create new
-            t_env *node = shell->envv;
-            int found = 0;
+            node = shell->envv;
+            found = 0;
             while (node)
             {
                 if (ft_strcmp(node->key, key) == 0)
@@ -79,7 +79,7 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
 
             if (!found)
             {
-                t_env *new = malloc(sizeof(t_env));
+                new = malloc(sizeof(t_env));
                 new->key = ft_strdup(key);
                 new->value = ft_strdup(value);
                 new->next = shell->envv;
@@ -92,8 +92,8 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
         {
             // just declare a var with no value (export var)
             // check if already exists
-            t_env *node = shell->envv;
-            int exists = 0;
+            node = shell->envv;
+            exists = 0;
             while (node)
             {
                 if (ft_strcmp(node->key, arg) == 0)
@@ -105,7 +105,7 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
             }
             if (!exists)
             {
-                t_env *new = malloc(sizeof(t_env));
+                new = malloc(sizeof(t_env));
                 new->key = ft_strdup(arg);
                 new->value = NULL;
                 new->next = shell->envv;

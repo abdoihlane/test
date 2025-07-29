@@ -6,12 +6,12 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:46:55 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 22:13:58 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/29 16:14:49 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
+
 int count_dollars(char *sa)
 {
 	int dollar =0;
@@ -84,27 +84,32 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 		free(line);
 	close(fd);
 }
-
+void	split_env(char *equal, t_env *node, char **envp, int i)
+{
+	// printf("is here !!\n");
+	*equal = '\0'; // temporarily break key=value
+	node->key = ft_strdup(envp[i]);
+	node->value = ft_strdup(equal + 1);
+	*equal = '=';  // restore original string
+}
 t_env *convert_envp_to_envlist(char **envp)
 {
 	t_env *head = NULL;
 	t_env *last = NULL;
+	char *equal;
+	t_env *node;
     int i = 0;
 	while (envp[i])
 	{
-		char *equal = ft_strchr(envp[i], '=');
-		if (!equal)
+		equal = ft_strchr(envp[i], '=');
+		if (equal == NULL)
 			continue;
 
-		t_env *node = malloc(sizeof(t_env));
-		if (!node)
+		node = malloc(sizeof(t_env));
+		if (node == NULL)
 			return NULL;
 
-		*equal = '\0'; // temporarily break key=value
-		node->key = ft_strdup(envp[i]);
-		node->value = ft_strdup(equal + 1);
-		*equal = '=';  // restore original string
-
+		split_env(equal, node, envp, i);
 		node->next = NULL;
 		if (!head)
 			head = node;
