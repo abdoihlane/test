@@ -6,7 +6,7 @@
 #    By: salah <salah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/07/29 23:27:53 by salah            ###   ########.fr        #
+#    Updated: 2025/07/30 01:27:06 by salah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC = 		builtins/builtin_echo.c \
 			builtins/builtin_pwd.c \
 			builtins/builtin_export.c \
 			builtins/builtin_exit.c \
+			builtins/builtin_source.c \
 			utils/utils.c \
 			utils/signal.c \
 			utils/memory.c \

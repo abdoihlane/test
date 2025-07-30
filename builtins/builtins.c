@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:09:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 23:10:04 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 01:27:06 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int is_builtin(t_cmd *cmd)
 {
-    
     if (ft_strcmp(cmd->array[0], "echo") == 0)
         return 1;
     if (ft_strcmp(cmd->array[0], "cd") == 0)
@@ -28,6 +27,8 @@ int is_builtin(t_cmd *cmd)
     if (ft_strcmp(cmd->array[0], "unset") == 0)
         return 1;
     if (ft_strcmp(cmd->array[0], "exit") == 0)
+        return 1;
+    if (ft_strcmp(cmd->array[0], ".") == 0)
         return 1;
     return 0;
 }
@@ -48,5 +49,7 @@ int execute_builtin(t_cmd *cmd, t_shell *shell)
         return builtin_env(cmd, shell);
     else if (ft_strcmp("exit", cmd->cmd) == 0)
         builtin_exit(cmd, shell); // if your exit returns int
+    else if (ft_strcmp(".", cmd->cmd) == 0)
+        return builtin_source(cmd, shell);
     return (1); // Error
 }

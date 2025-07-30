@@ -6,18 +6,30 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:38 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 23:12:15 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 01:27:06 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <sys/stat.h>
 
  char *find_path(char *cmd, char **envp)
 {
+    struct stat file_stat;
+
+    // Check if it's a full/relative path and is a regular executable file
     if (access(cmd, X_OK) == 0)
-        return ft_strdup(cmd); // full path already
+    {
+        if (stat(cmd, &file_stat) == 0 && S_ISREG(file_stat.st_mode))
+            return ft_strdup(cmd); // It's a regular file with execute permission
+        else
+            return NULL; // It's not a regular file (could be directory, etc.)
+    }
 
     char *path = get_env_value(envp, "PATH");
+    if (!path)
+        return NULL;
+
     char **string = ft_split(path, ':');
     char *full_path;
 
@@ -30,8 +42,11 @@
 
         if (access(full_path, X_OK) == 0)
         {
-            ft_free_2d_array(string);
-            return full_path;
+            if (stat(full_path, &file_stat) == 0 && S_ISREG(file_stat.st_mode))
+            {
+                ft_free_2d_array(string);
+                return full_path;
+            }
         }
         free(full_path);
         i++;

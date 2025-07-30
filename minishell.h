@@ -31,7 +31,7 @@ typedef struct s_env
 
 // } w_list;
 
-// Structure for shell environment
+
 typedef struct t_shell
 {
     t_env *envv;
@@ -183,6 +183,7 @@ int                 builtin_pwd(void);                            // Print worki
 int                 builtin_export(t_cmd *cmd, t_shell *shell);   // Export env variables
 int                 builtin_env(t_cmd *cmd, t_shell *shell);
 int                 builtin_unset(t_cmd *cmd, t_shell *shell);    // Unset env variables
+int                 builtin_source(t_cmd *cmd, t_shell *shell);   // Source command (.)
 //                  function utils check mul
 int                 is_numeric(const char *str);
 void                free_test_cmd(t_cmd *cmd);
@@ -237,6 +238,6 @@ int 								update_export_variable(t_shell *shell, const char *key, const char *
 int 								create_export_variable(t_shell *shell, const char *key, const char *value);
 int 								handle_export_with_value(t_shell *shell, char *arg);
 int 								handle_export_without_value(t_shell *shell, const char *arg);
-void    signe(void);
-t_env *convert_envp_to_envlist(char **envp);
+void    						signe(void);
+t_env 							*convert_envp_to_envlist(char **envp);
 #endif
