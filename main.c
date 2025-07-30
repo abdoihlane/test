@@ -6,33 +6,75 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 23:23:36 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 01:28:12 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// minishell/
-// ├── main.c               (your current main)
-// ├── minishell.h         (your current header)
-// ├── execution/
-// │   ├── execute.c       (execute_cmds function)
-// │   ├── redirections.c  (setup_redirections)
-// │   └── path.c          (find_path)
-// ├── builtins/
-// │   ├── builtin_echo.c
-// │   ├── builtin_cd.c
-// │   ├── builtin_pwd.c
-// │   ├── builtin_export.c
-// │   ├── builtin_unset.c
-// │   ├── builtin_env.c
-// │   └── builtin_exit.c
-// ├── parsing/
-// │   ├── parser.c        (call_all, typesee, splitit)
-// │   ├── tokenizer.c
-// │   └── syntax.c        (HardcodeChecks)
-// ├── utils/
-// │   ├── env_utils.c     (environment functions)
-// │   ├── memory.c        (free functions)
-// │   └── signals.c       (signal handling)
-// └── libft/              (your existing libft)
+
+#include "minishell.h"
+
+int count_dollars(char *sa)
+{
+	int dollar =0;
+	int i =0;
+	while(sa[i])
+	{
+		if(sa[i] == '$')
+			dollar++;
+		i++;
+	}
+	return dollar;
+}
+
+void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
+{
+	t_pars	*pars = NULL;
+	t_token	*token;
+
+	if (hardcodechecks(input) == 0)
+	{
+		printf("syntax error\n");
+		return ;
+	}
+	pars = init_pars(input);
+	fill_the_array(pars,shell);
+	commandornot(pars, wlist);
+	token = typesee(wlist);
+	splitit(token, clist);
+	t_cmd *tmp = *clist;
+	while (tmp)
+	{
+		tmp->pars = pars;
+		tmp = tmp->next;
+	}
+}
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	shell;
+	t_cmd	*clist = NULL;
+	t_wlist	*wlist = NULL;
+	char	*input;
+	t_pars	*pars = NULL;  // Declare pars here so we can free it later
+
+	(void)argc;
+	(void)argv;
+	shell.envv = convert_envp_to_envlist(envp);
+	shell.last_exit_status = 0;
+
+	while (1)
+	{
+		signe();
+		input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
+		if (!input)
+			break;
+		call_all(input, &wlist, &clist, &shell);
+		execute(clist, wlist, &shell);
+		add_history(input);
+		free_wlist(&wlist);
+		free_clist(&clist);
+		free(input);
+	}
+	return (0);
+}
