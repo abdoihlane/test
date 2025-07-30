@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:46 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/24 20:48:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/30 20:39:58 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_spaces_and_red(t_pars *pars)
 {
 	if (pars->content[pars->i] && !is_whitespace(pars->content[pars->i])
 		&& !is_redirection(pars->content[pars->i])
-		/*&& pars->content[pars->i] != '\'' && pars->content[pars->i] != '\"'*/)
+		&& pars->content[pars->i] != '\'' && pars->content[pars->i] != '\"')
 		return (1);
 	return (0);
 }

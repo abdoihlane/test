@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 22:17:06 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:19:20 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,11 @@ char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 	start = pars->i;
 	pars->herdoc_flag = 0;
 	check_herdoc(pars->content,pars);
-	while (check_spaces_and_red(pars) == 1)
-	{
-		if (is_quotes(pars->content[pars->i]) == 1)
-		{
-			part = handlequotes(pars, pars->content[pars->i], shell);
-			pars->dflag = 1;
-		}
-		else
-			pars->i++;
-	}
+	start = pars->i;
+	while (check_spaces_and_red(pars) == 1 && !is_quotes(pars->content[pars->i]))
+		pars->i++;
+	// len = pars->i - start;/
+	// part = ft_substr(...)
 	len = pars->i - start;
 	part = ft_substr(pars->content, start, len);
 	if(pars->herdoc_flag == 0)
@@ -73,19 +68,21 @@ char	*fill_between_space_and_red(t_pars *pars, char *token,t_shell *shell)
 	char	*tmp;
 
 	pars->expand_flag = 0;
-	while (pars->content[pars->i] && !is_whitespace(pars->content[pars->i])
-		&& !is_redirection(pars->content[pars->i]))
+	while (pars->content[pars->i] &&
+		!is_whitespace(pars->content[pars->i]) &&
+		!is_redirection(pars->content[pars->i]))
 	{
-		part = NULL;
 		if (is_quotes(pars->content[pars->i]) == 1)
 		{
-			part = handlequotes(pars, pars->content[pars->i],shell);
+			part = handlequotes(pars, pars->content[pars->i], shell);
 			pars->dflag = 1;
 		}
 		else
-			part = fill_array_and_callexpand(pars,shell);
-		if (token[0] != '\0')
-			pars->content1[pars->k++] = ft_strdup(token);
+			part = fill_array_and_callexpand(pars, shell);
+
+		if (!part)
+			return (token);
+
 		tmp = ft_strjoin(token, part);
 		free(token);
 		free(part);
@@ -118,10 +115,7 @@ void	fill_the_array(t_pars *pars,t_shell *shell)
 	pars->content1[pars->k] = NULL;
 	if (pars->expand_flag == 1 && pars->dflag == 0)
 		reparse_variable(pars,shell);
-	// if(pars->dflag == 0)
-	// 	{
 
-	// 	}
 }
 
 void	reparse_variable(t_pars *pars,t_shell *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:46:04 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/30 20:43:57 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 		tmp->pars = pars;
 		tmp = tmp->next;
 	}
+	print_cmd_list(*clist);
 }
 int	main(int argc, char **argv, char **envp)
 {
