@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:09:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 01:27:06 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 13:50:44 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int execute_builtin(t_cmd *cmd, t_shell *shell)
     else if (ft_strcmp("exit", cmd->cmd) == 0)
         builtin_exit(cmd, shell); // if your exit returns int
     else if (ft_strcmp(".", cmd->cmd) == 0)
-        return builtin_source(cmd, shell);
+        return builtin_source(cmd);
     return (1); // Error
 }

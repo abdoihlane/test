@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:42:20 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/28 19:20:33 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:20:12 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,13 @@ void	commandornot(t_pars *pars, t_wlist **wlist)
 	int	i;
 
 	i = 0;
-	pars->qflag =1;
+	pars->qflag =0;
 	while (pars->content1[i])
 	{		
 		if (pars->content1[i][0] != '\0')
 			wlst_addback(wlist, wcreate_node(pars->content1[i]));
 		else if(!pars->content1[i][0])
-			pars->qflag =1;
+			pars->qflag = 1;
 		i++;
 	}
 }

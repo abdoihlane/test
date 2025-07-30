@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:33 by salhali           #+#    #+#             */
-/*   Updated: 2025/05/25 12:19:39 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/30 18:08:06 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int builtin_pwd(void)
 
     ft_putstr_fd(cwd, 1);
     ft_putchar_fd('\n', 1);
-
     return (0);
 }
 

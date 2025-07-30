@@ -3,44 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 18:51:23 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 13:44:44 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void print_export_value(const char *key, const char *value)
-{
-    printf("declare -x %s", key);
-    if (value)
-    {
-        printf("=\"");
-        while (*value)
-        {
-            if (*value == '"' || *value == '\\' || *value == '$' || *value == '`')
-                printf("\\");
-            printf("%c", *value);
-            value++;
-        }
-        printf("\"");
-    }
-    printf("\n");
-}
-
-void print_all_exports(t_shell *shell)
-{
-    t_env *tmp = shell->envv;
-    while (tmp)
-    {
-        print_export_value(tmp->key, tmp->value);
-        tmp = tmp->next;
-    }
-}
-
-t_env *find_env_variable(t_shell *shell, const char *key)
+t_env   *find_env_variable(t_shell *shell, const char *key)
 {
     t_env *node = shell->envv;
     while (node)

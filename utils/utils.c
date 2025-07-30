@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:03:48 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 23:12:09 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/30 13:43:43 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,30 @@ void	ft_free_2d_array(char **arr)
 	free(arr);
 }
 
+void print_export_value(const char *key, const char *value)
+{
+    printf("declare -x %s", key);
+    if (value)
+    {
+        printf("=\"");
+        while (*value)
+        {
+            if (*value == '"' || *value == '\\' || *value == '$' || *value == '`')
+                printf("\\");
+            printf("%c", *value);
+            value++;
+        }
+        printf("\"");
+    }
+    printf("\n");
+}
+
+void print_all_exports(t_shell *shell)
+{
+    t_env *tmp = shell->envv;
+    while (tmp)
+    {
+        print_export_value(tmp->key, tmp->value);
+        tmp = tmp->next;
+    }
+}

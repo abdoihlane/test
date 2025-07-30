@@ -12,18 +12,14 @@
 
 #include "../minishell.h"
 
-int builtin_source(t_cmd *cmd, t_shell *shell)
+int builtin_source(t_cmd *cmd)
 {
-    (void)shell; // Currently unused
-
     if (!cmd->array[1])
     {
         ft_putstr_fd(".: filename argument required\n", 2);
         ft_putstr_fd(".: usage: . filename [arguments]\n", 2);
         return 2;
     }
-
-    // For now, just show an error that source is not implemented
     ft_putstr_fd(".: ", 2);
     ft_putstr_fd(cmd->array[1], 2);
     ft_putstr_fd(": No such file or directory\n", 2);

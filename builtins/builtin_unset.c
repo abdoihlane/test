@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:51 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/24 19:50:17 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:08:19 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int builtin_unset(t_cmd *cmd, t_shell *shell)
         delete_env_variable(shell, cmd->array[i]);
         i++;
     }
-
     return (0);
 }
 

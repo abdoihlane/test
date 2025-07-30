@@ -10,6 +10,7 @@
 #include <readline/history.h>
 #include "./libft/libft.h"
 #include    <sys/wait.h>
+#include <sys/stat.h>
 
 // #define PATH_MAX  1024;
 
@@ -168,48 +169,45 @@ void						reparse_variable(t_pars *pars,t_shell *shell);
 
 // ------ EXECUTION FUNCTIONS --------  //
 
-//                  Main builtin functions
-int             		builtin_cd(t_cmd *cmd, t_shell *shell);       // Change directory
-void            		update_pwd_variables(t_shell *shell, char *old_pwd);
-int             		handle_cd_error(char *path);
-char            		*get_target_path(t_cmd *cmd, t_shell *shell, char *current_dir);
-int             		get_array_length(char **array);
-int                 is_builtin(t_cmd *command);
-int                 execute_builtin(t_cmd *cmd, t_shell *shell);  // CORRECTED: t_cmd instead of t_command
-//                  Individual builtin implementations
-void                builtin_exit(t_cmd *cmd, t_shell *shell);     // Exit shell
-int                 builtin_echo(t_cmd *cmd);                     // Echo command
-int                 builtin_pwd(void);                            // Print working directory
-int                 builtin_export(t_cmd *cmd, t_shell *shell);   // Export env variables
-int                 builtin_env(t_cmd *cmd, t_shell *shell);
-int                 builtin_unset(t_cmd *cmd, t_shell *shell);    // Unset env variables
-int                 builtin_source(t_cmd *cmd, t_shell *shell);   // Source command (.)
-//                  function utils check mul
-int                 is_numeric(const char *str);
-void                free_test_cmd(t_cmd *cmd);
-int                 count_env_vars(char **env);
-char                *ft_strcpy(char *dest,const char *src);
-char                *create_env_string(const char *name, const char *value);
-void                update_env_variable(t_shell *shell, const char *name, const char *value);
-void                delete_env_variable(t_shell *shell, const char *name);
-char                *get_env_value_ll(t_env *env, const char *key);
-int                 ft_strcmp_echo(const char *s);
-char                **function_split_env(t_shell *shell);
-void                add_env_node(t_env **head, t_env *new);
-char	            	*find_path(char *cmd, char **envp);
-void	            	ft_free(char **str);
-void                free_env(char **env); //check env is free or not
+int             					builtin_cd(t_cmd *cmd, t_shell *shell);       // Change directory
+void            					update_pwd_variables(t_shell *shell, char *old_pwd);
+int             					handle_cd_error(char *path);
+char            					*get_target_path(t_cmd *cmd, t_shell *shell, char *current_dir);
+int             					get_array_length(char **array);
+int                 				is_builtin(t_cmd *command);
+int                 				execute_builtin(t_cmd *cmd, t_shell *shell);  // CORRECTED: t_cmd instead of t_command
+void                				builtin_exit(t_cmd *cmd, t_shell *shell);     // Exit shell
+int                 				builtin_echo(t_cmd *cmd);                     // Echo command
+int                 				builtin_pwd(void);                            // Print working directory
+int                 				builtin_export(t_cmd *cmd, t_shell *shell);   // Export env variables
+int                 				builtin_env(t_cmd *cmd, t_shell *shell);
+int                 				builtin_unset(t_cmd *cmd, t_shell *shell);    // Unset env variables
+int                 				builtin_source(t_cmd *cmd);   // Source command (.)
+int                 				is_numeric(const char *str);
+void                				free_test_cmd(t_cmd *cmd);
+int                 				count_env_vars(char **env);
+char                				*ft_strcpy(char *dest,const char *src);
+char                				*create_env_string(const char *name, const char *value);
+void                				update_env_variable(t_shell *shell, const char *name, const char *value);
+void                				delete_env_variable(t_shell *shell, const char *name);
+char                				*get_env_value_ll(t_env *env, const char *key);
+int                 				ft_strcmp_echo(const char *s);
+char                				**function_split_env(t_shell *shell);
+void                				add_env_node(t_env **head, t_env *new);
+char	            				*find_path(char *cmd, char **envp);
+void	            				ft_free(char **str);
+void                				free_env(char **env); //check env is free or not
 void 								setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
-void                execute_cmds(t_cmd *clist, t_shell *shell);
+void                				execute_cmds(t_cmd *clist, t_shell *shell);
 void								heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
-void                ft_free_2d_array(char **arr);
-char                *get_env_value(char **env, const char *key);
-char                **filter_empty_args(t_cmd *cmd);
-char                **generate_envp_from_envlist(t_shell *shell);
-char                *ft_strjoin_triple(char *a, char *b, char *c);
-int                 is_valid_var(const char *str);
-void                sigint_handler(int sig);
-void               	sigint_heredoc(int sig);
+void                				ft_free_2d_array(char **arr);
+char                				*get_env_value(char **env, const char *key);
+char                				**filter_empty_args(t_cmd *cmd);
+char                				**generate_envp_from_envlist(t_shell *shell);
+char                				*ft_strjoin_triple(char *a, char *b, char *c);
+int                 				is_valid_var(const char *str);
+void                				sigint_handler(int sig);
+void               					sigint_heredoc(int sig);
 int									handle_cd_change(char *path, char *current_dir, t_shell *shell);
 char								*get_cd_path(t_cmd *cmd, t_shell *shell);
 int									count_non_empty_args(t_cmd *cmd);
@@ -226,18 +224,20 @@ void								handle_append_redirection(t_red_list *tmp);
 void								handle_output_redirection(t_red_list *tmp);
 void								handle_input_redirection(t_red_list *tmp);
 void								handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
-void    						WAITPID(pid_t *pids, int i);
+void    							WAITPID(pid_t *pids, int i);
 void 								print_export_value(const char *key, const char *value);
 void								free_clist(t_cmd **list);
 void								execute(t_cmd *clist, t_wlist *wlist, t_shell *shell);
 int 								count_dollars(char *sa);
 void								split_env(char *equal,t_env *node, char **envp, int i);
 void								print_all_exports(t_shell *shell);
-t_env 							*find_env_variable(t_shell *shell, const char *key);
+t_env 								*find_env_variable(t_shell *shell, const char *key);
 int 								update_export_variable(t_shell *shell, const char *key, const char *value);
 int 								create_export_variable(t_shell *shell, const char *key, const char *value);
 int 								handle_export_with_value(t_shell *shell, char *arg);
 int 								handle_export_without_value(t_shell *shell, const char *arg);
-void    						signe(void);
-t_env 							*convert_envp_to_envlist(char **envp);
+void    							signe(void);
+t_env 								*convert_envp_to_envlist(char **envp);
+
+
 #endif
