@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:18:47 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:07:43 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/30 22:17:46 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void builtin_exit(t_cmd *cmd, t_shell *shell)
     exit_value = 0;
     ft_putendl_fd("exit", 2);
     if (!cmd->array[1])
+    printf("%d\n", shell->last_exit_status);
         exit(shell->last_exit_status);
     if (!is_numeric(cmd->array[1]))
     {
