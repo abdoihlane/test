@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:03:48 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 13:43:43 by salhali          ###   ########.fr       */
+/*   Updated: 2025/07/30 18:52:43 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,29 @@ void	ft_free_2d_array(char **arr)
 	free(arr);
 }
 
-void print_export_value(const char *key, const char *value)
+int is_valid_var(const char *str)
 {
-    printf("declare -x %s", key);
-    if (value)
-    {
-        printf("=\"");
-        while (*value)
-        {
-            if (*value == '"' || *value == '\\' || *value == '$' || *value == '`')
-                printf("\\");
-            printf("%c", *value);
-            value++;
-        }
-        printf("\"");
-    }
-    printf("\n");
-}
+    int i = 0;
 
-void print_all_exports(t_shell *shell)
-{
-    t_env *tmp = shell->envv;
-    while (tmp)
+    if (!str || !str[0])
+        return 0;
+
+    // First character must be letter or underscore
+    if (!((str[0] >= 'a' && str[0] <= 'z') || 
+          (str[0] >= 'A' && str[0] <= 'Z') || 
+          str[0] == '_'))
+        return 0;
+
+    // Rest must be letters, digits, or underscores
+    i = 1;
+    while (str[i])
     {
-        print_export_value(tmp->key, tmp->value);
-        tmp = tmp->next;
+        if (!((str[i] >= 'a' && str[i] <= 'z') || 
+              (str[i] >= 'A' && str[i] <= 'Z') || 
+              (str[i] >= '0' && str[i] <= '9') || 
+              str[i] == '_'))
+            return 0;
+        i++;
     }
+    return 1;
 }

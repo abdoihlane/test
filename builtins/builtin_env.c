@@ -1,6 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                            :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
@@ -16,14 +16,17 @@ int builtin_env(t_cmd *cmd, t_shell *shell)
 {
     t_env *tmp = shell->envv;
 
-    printf("cmd->pars->qflag: %d\n", cmd->pars->qflag);
-    printf("cmd->array[1]: %s\n", cmd->array[1]);
     if(cmd->pars->qflag == 1)
     {
         ft_putstr_fd("env: ‘’: ", 2);
-
-        // perror("No such file or directory\n");
         ft_putstr_fd("No such file or directory\n", 2);
+        return(1);
+    }
+    if(cmd->array[1] != NULL)
+    {
+        ft_putstr_fd("env: ‘", 2);
+        ft_putstr_fd(cmd->array[1], 2);
+        ft_putstr_fd("’: No such file or directory\n", 2);
         return(1);
     }
     while (tmp)
