@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/29 23:10:45 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/31 18:49:32 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist)
     tmp = cmd->file;
     while (tmp)
     {
-        printf("tmp->inout = %d\n", tmp->inout);
         if (tmp->inout == 1)   // <  in = 0; Redirect stdin from a file
             handle_input_redirection(tmp);
         else if (tmp->inout == 0) // > out = 1;  Redirect stdout to a file (overwrite)

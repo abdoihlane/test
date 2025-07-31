@@ -224,7 +224,7 @@ void								handle_append_redirection(t_red_list *tmp);
 void								handle_output_redirection(t_red_list *tmp);
 void								handle_input_redirection(t_red_list *tmp);
 void								handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
-void    							WAITPID(pid_t *pids, int i);
+void								WAITPID(pid_t *pids, int i, t_shell *shell);
 void								free_clist(t_cmd **list);
 void								execute(t_cmd *clist, t_wlist *wlist, t_shell *shell);
 int 								count_dollars(char *sa);
@@ -236,6 +236,8 @@ int 								handle_export_with_value(t_shell *shell, char *arg);
 int 								handle_export_without_value(t_shell *shell, const char *arg);
 void    							signe(void);
 t_env 								*convert_envp_to_envlist(char **envp);
-
-
+char *search_in_path_dirs(char **directories, char *cmd);
+char *check_path_in_directory(char *dir, char *cmd);
+char *build_full_path(char *dir, char *cmd);
+char *check_direct_path(char *cmd);
 #endif

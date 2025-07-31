@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/29 22:54:29 by salah            ###   ########.fr       */
+/*   Updated: 2025/07/31 18:38:08 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
             cmd_path = find_path(clist->array[0], envp);
             if (!cmd_path)
             {
+                ft_putstr_fd("bash: " ,2);
                 printf("%s: command not found \n", clist->array[0]);
                 exit(127);
             }
@@ -65,16 +66,24 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
         clist = clist->next;
         i++;
     }
-    WAITPID(pids, i);
+    WAITPID(pids, i, shell);
     ft_free_2d_array(envp);
 }
 
-void    WAITPID(pid_t *pids, int i)
+void WAITPID(pid_t *pids, int i, t_shell *shell)
 {
     int j = 0;
+    int status;
+    int exit_status = 0;
+
     while (j < i)
     {
-        waitpid(pids[j], NULL, 0);
+        waitpid(pids[j], &status, 0);
+        if (WIFEXITED(status))
+            exit_status = WEXITSTATUS(status);
         j++;
     }
+
+    // Update shell exit status
+    shell->last_exit_status = exit_status;
 }
