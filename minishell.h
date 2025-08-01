@@ -137,6 +137,9 @@ t_token						*fill_command_fields(t_token *tmp, t_cmd *current);
 
 void						print_token(t_token *list);
 void						free_wlist(t_wlist **list);
+void						free_red_list(t_red_list **list);
+void						free_token_list(t_token **list);
+void						free_env_list(t_env **list);
 void						free_plist(t_pars **list);
 void						call_all(char *in, t_wlist **wlist, t_cmd **clist,t_shell *shell);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/08/01 14:35:28 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/01 14:41:46 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,5 @@ void WAITPID(pid_t *pids, int i, t_shell *shell)
             exit_status = WEXITSTATUS(status);
         j++;
     }
-
-    // Update shell exit status
     shell->last_exit_status = exit_status;
 }

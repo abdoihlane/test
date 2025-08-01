@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:43:56 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 13:44:25 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/01 14:44:15 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 		perror("heredoc open");
 		return;
 	}
-
 	while (1)
 	{
+		// remove getline ();
 		write(1, "> ", 2);
 		ssize_t nread = getline(&line, &len, stdin);
 		if (nread == -1)

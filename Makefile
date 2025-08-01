@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: salah <salah@student.42.fr>                +#+  +:+       +#+         #
+#    By: salhali <salhali@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/07/30 01:28:21 by salah            ###   ########.fr        #
+#    Updated: 2025/08/01 15:09:47 by salhali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC = 		builtins/builtin_echo.c \
 			builtins/builtin_source.c \
 			utils/utils.c \
 			utils/signal.c \
-			utils/memory.c \
 			helper.c \
 			helper1.c \
 			execution/execute.c \
