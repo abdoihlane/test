@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:38 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/31 18:13:20 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/01 14:35:28 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@ char *check_direct_path(char *cmd)
 {
     struct stat file_stat;
 
-    if (access(cmd, X_OK) == 0)
+    // Check if file exists first
+    if (stat(cmd, &file_stat) == 0)
     {
-        if (stat(cmd, &file_stat) == 0 && S_ISREG(file_stat.st_mode))
-            return ft_strdup(cmd);
+        if (S_ISREG(file_stat.st_mode))
+        {
+            // File exists and is regular, now check execute permission
+            if (access(cmd, X_OK) == 0)
+                return ft_strdup(cmd);
+            else
+                return (char *)-1; // Special value to indicate permission denied
+        }
         else
-            return NULL;
+            return NULL; // Not a regular file
     }
-    return NULL;
+    return NULL; // File doesn't exist
 }
 
 char *build_full_path(char *dir, char *cmd)
@@ -83,6 +90,8 @@ char *find_path(char *cmd, char **envp)
     char *result;
 
     result = check_direct_path(cmd);
+    if (result == (char *)-1)
+        return (char *)-1; // Permission denied case
     if (result)
         return result;
 

@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/07/31 18:38:08 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/01 14:35:28 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
             if (is_builtin(clist))
                 exit(execute_builtin(clist, shell));
             cmd_path = find_path(clist->array[0], envp);
+            if (cmd_path == (char *)-1)
+            {
+                ft_putstr_fd("bash: " ,2);
+                printf("%s: Permission denied\n", clist->array[0]);
+                exit(126);
+            }
             if (!cmd_path)
             {
                 ft_putstr_fd("bash: " ,2);
@@ -54,6 +60,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
             }
             filtered_args = filter_empty_args(clist);
             execve(cmd_path, filtered_args, envp);
+            printf("here \n");
             exit(127);
         }
         if (in_fd != 0)
