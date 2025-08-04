@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/31 18:13:19 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/02 10:07:45 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    signe(void)
 {
-    signal(SIGINT, sigint_handler);
+  signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)

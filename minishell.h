@@ -137,9 +137,6 @@ t_token						*fill_command_fields(t_token *tmp, t_cmd *current);
 
 void						print_token(t_token *list);
 void						free_wlist(t_wlist **list);
-void						free_red_list(t_red_list **list);
-void						free_token_list(t_token **list);
-void						free_env_list(t_env **list);
 void						free_plist(t_pars **list);
 void						call_all(char *in, t_wlist **wlist, t_cmd **clist,t_shell *shell);
 
@@ -201,8 +198,6 @@ char	            				*find_path(char *cmd, char **envp);
 void	            				ft_free(char **str);
 void                				free_env(char **env); //check env is free or not
 void 								setup_redirections(t_cmd *cmd, t_shell *shell, t_cmd *clist);
-void                				execute_cmds(t_cmd *clist, t_shell *shell);
-void								heredoc_input(char *delimiter, t_red_list *head,t_shell *shell,t_cmd *clist);
 void                				ft_free_2d_array(char **arr);
 char                				*get_env_value(char **env, const char *key);
 char                				**filter_empty_args(t_cmd *cmd);
@@ -216,10 +211,8 @@ char								*get_cd_path(t_cmd *cmd, t_shell *shell);
 int									count_non_empty_args(t_cmd *cmd);
 void								copy_non_empty_args(t_cmd *cmd, char **filtered);
 void								setup_child_pipes(int in_fd, int *pipe_fd, int has_next);
-void								execute_child_process(t_cmd *clist, t_shell *shell, char **envp);
 int									handle_builtin_parent(t_cmd *clist, t_shell *shell, int in_fd);
 void								wait_for_children(pid_t *pids, int count);
-void								handle_parent_process(int *in_fd, int *pipe_fd, int has_next);
 void								process_single_command(t_cmd **clist, t_shell *shell, char **envp,
 			int *in_fd, int *pipe_fd, pid_t *pids, int *i);
 void								execute_command_loop(t_cmd *clist, t_shell *shell, char **envp);
@@ -227,7 +220,7 @@ void								handle_append_redirection(t_red_list *tmp);
 void								handle_output_redirection(t_red_list *tmp);
 void								handle_input_redirection(t_red_list *tmp);
 void								handle_heredoc(t_red_list *tmp, t_red_list *head, t_shell *shell, t_cmd *clist);
-void								WAITPID(pid_t *pids, int i, t_shell *shell);
+void WAITPID(pid_t *pids, int i, t_shell *shell);
 void								free_clist(t_cmd **list);
 void								execute(t_cmd *clist, t_wlist *wlist, t_shell *shell);
 int 								count_dollars(char *sa);
@@ -243,4 +236,15 @@ char *search_in_path_dirs(char **directories, char *cmd);
 char *check_path_in_directory(char *dir, char *cmd);
 char *build_full_path(char *dir, char *cmd);
 char *check_direct_path(char *cmd);
+int	setup_heredoc_file(void);
+char	*process_heredoc_line(char *line, t_shell *shell, t_cmd *clist);
+void	write_heredoc_line(int fd, char *expanded);
+int	read_heredoc_line(char **line, size_t *len, char *delimiter);
+void	cleanup_heredoc(t_red_list *head, char *line, int fd);
+void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist);
+void	setup_pipeline(t_cmd *clist, int *pipe_fd);
+void	handle_parent_process(int *in_fd, int *pipe_fd, t_cmd *clist);
+void	execute_external_command(t_cmd *clist, char **envp);
+void	handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd);
+void	execute_cmds(t_cmd *clist, t_shell *shell);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/01 17:32:08 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:10:32 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist,t_shell *shell)
 		tmp->pars = pars;
 		tmp = tmp->next;
 	}
-	
+
 	// Free the token list as it's no longer needed
-	free_token_list(&token);
-	
+	// free_token_list(&token);
+
 	// Note: pars will be freed when the clist is freed since each cmd has a reference to it
 	// print_cmd_list(*clist);
 }
@@ -63,10 +63,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	
+
 	if (!envp)
 		return 1;
-	
+
 	shell.envv = convert_envp_to_envlist(envp);
 	if (!shell.envv)
 		return 1;
@@ -85,8 +85,6 @@ int	main(int argc, char **argv, char **envp)
 		free_clist(&clist);
 		free(input);
 	}
-	
-	// Clean up on exit
-	free_env_list(&shell.envv);
+	// free_env_list(&shell.envv);
 	return (0);
 }
