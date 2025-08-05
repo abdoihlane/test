@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/02 10:07:45 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/05 18:01:12 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_env *convert_envp_to_envlist(char **envp)
 		if (equal == NULL)
 			continue;
 
-		node = malloc(sizeof(t_env));
+		node = ft_malloc(sizeof(t_env));
 		if (node == NULL)
 			return NULL;
 		split_env(equal, node, envp, i);

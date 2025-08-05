@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:26:52 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 20:55:09 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:58:15 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,24 @@ char	*build_result(char *input, char *varname, int var_len,t_shell *shell)
 	free(tmp);
 	return (result);
 }
+char	*ft_substrr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+	char	*str;
 
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
+	str = ft_malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s + start, len + 1);
+	return (str);
+}
 char	*expand_variables(char *input,t_shell *shell)
 {
 	int		i;
@@ -78,7 +95,7 @@ char	*expand_variables(char *input,t_shell *shell)
 	i = 0;
 	while (key[i] && (ft_isalnum(key[i]) || key[i] == '_'))
 		i++;
-	varname = ft_substr(key, 0, i);
+	varname = ft_substrr(key, 0, i);
 	result = build_result(input, varname, i,shell);
 	return (result);
 }

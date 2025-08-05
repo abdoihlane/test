@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/30 22:19:20 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:55:40 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ char	*fill_array_and_callexpand(t_pars *pars,t_shell *shell)
 	start = pars->i;
 	while (check_spaces_and_red(pars) == 1 && !is_quotes(pars->content[pars->i]))
 		pars->i++;
-	// len = pars->i - start;/
-	// part = ft_substr(...)
 	len = pars->i - start;
 	part = ft_substr(pars->content, start, len);
 	if(pars->herdoc_flag == 0)

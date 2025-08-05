@@ -14,7 +14,11 @@
 
 // #define PATH_MAX  1024;
 
-
+typedef struct s_save
+{
+	void *add;
+	struct s_save *next;
+}	t_save;
 
 typedef struct s_env
 {
@@ -111,7 +115,10 @@ typedef struct words_list
 	int						index;
 
 }							t_wlist;
-
+t_save	**save_add(void);
+void	*ft_malloc(size_t size);
+int is_ft_malloc_ptr(void *ptr);
+void	ft_free_all(void);
 t_wlist						*wcreate_node(char *value);
 void						wlst_addback(t_wlist **lst, t_wlist *node);
 int							ft_strcmp(char *s1, char *s2);

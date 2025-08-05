@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: salhali <salhali@student.42.fr>            +#+  +:+       +#+         #
+#    By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/08/01 15:09:47 by salhali          ###   ########.fr        #
+#    Updated: 2025/08/05 13:44:27 by ahabibi-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC = 		builtins/builtin_echo.c \
 			tokenizer/tokenizer.c\
 			utils/heredoc_input.c \
 			main.c \
+			clean_up.c
 
 OBJ = $(SRC:.c=.o)
 
