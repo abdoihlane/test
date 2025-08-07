@@ -43,7 +43,7 @@ int	red_check(char *str)
 {
 	int	i;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	i = 0;
 	while (str[i] && is_whitespace(str[i]))

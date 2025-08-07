@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:42:20 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/30 18:20:12 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:02:17 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	add_token_node(t_wlist *begin, t_token **tokens, t_token **last, int *index)
 {
 	t_token	*new_token;
 
-	new_token = malloc(sizeof(t_token));
+	new_token = ft_malloc(sizeof(t_token));
 	if (!new_token)
 		return (0);
-	new_token->value = ft_strdup(begin->content);
+	new_token->value = ft_strdup1(begin->content);
 	if (!new_token->value)
 	{
 		free(new_token);

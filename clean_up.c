@@ -25,7 +25,10 @@ void	*ft_malloc(size_t size)
 		return (0);
 	head = malloc(sizeof(t_save));
 	if (!head)
+	{
+		free(add);
 		return (0);
+	}
 	head->add = add;
 	head->next = *save_add();
 	*save_add() = head;
@@ -44,23 +47,23 @@ int is_ft_malloc_ptr(void *ptr)
     return (0);
 }
 
-void	ft_free_all(void)
+void	ft_free_all(t_cmd	*clist)
 {
 	t_save	*head;
 	t_save	*temp;
-	int		i;
 
-	i = 0;
 	head = *save_add();
+	if (clist)
+		free_clist(&clist,1);
+	
 	while (head)
 	{
-		printf("===============================\n");
 		temp = head;
 		head = head->next;
 		if (temp->add)
-			 (temp->add);
-        if(temp)
-		    free(temp);
-		i++;
+			free(temp->add);
+		if(temp)
+			free(temp);
 	}
+	*save_add() = NULL;
 }

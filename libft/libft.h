@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:05:36 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/19 11:46:45 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:56:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "../minishell.h"
 
 int					ft_isalpha(int arg);
 int					ft_isdigit(int arg);

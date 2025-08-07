@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/05 18:01:12 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:27:18 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void    signe(void)
 {
-  signal(SIGINT, sigint_handler);
+  	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
-void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
+void	execute(t_cmd *clist, t_shell *shell)
 {
+	// (void)wlist;
 	if (clist && is_builtin(clist) && clist->next == NULL && clist->file == NULL)
 		execute_builtin(clist, shell);
 	else
@@ -36,7 +37,7 @@ t_env *convert_envp_to_envlist(char **envp)
 {
 	t_env *head = NULL;
 	t_env *last = NULL;
-	char *equal;
+	char *equal = NULL;
 	t_env *node;
     int i = 0;
 
@@ -46,7 +47,7 @@ t_env *convert_envp_to_envlist(char **envp)
 		if (equal == NULL)
 			continue;
 
-		node = ft_malloc(sizeof(t_env));
+		node = malloc(sizeof(t_env));
 		if (node == NULL)
 			return NULL;
 		split_env(equal, node, envp, i);

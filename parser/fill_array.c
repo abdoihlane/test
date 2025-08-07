@@ -6,11 +6,12 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/05 17:55:40 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:31:12 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 void	fill_array_plus(t_pars *pars)
 {
@@ -92,53 +93,65 @@ char	*fill_between_space_and_red(t_pars *pars, char *token,t_shell *shell)
 void	fill_the_array(t_pars *pars,t_shell *shell)
 {
 	char	*token;
+	unsigned int		max_tokens;
+	char	**old_content1;
 
 	pars->k = 0;
 	pars->dflag = 0;
 	count_dollar(pars);
-	while (pars->content[pars->i])
+	max_tokens = ft_strlen(pars->content) * 2 + 10;
+	old_content1 = pars->content1;
+	pars->content1 = (char **)malloc(sizeof(char *) * (max_tokens + 1));
+	while (pars->content[pars->i] && pars->k < max_tokens - 1)
 	{
 		skipwhitespaces(pars);
 		if (pars->content[pars->i] == '\0')
 			break ;
 		token = ft_strdup("");
-		token = fill_between_space_and_red(pars, token,shell);
+		token = fill_between_space_and_red(pars, token, shell);
 		if (token[0])
 			pars->content1[pars->k++] = ft_strdup(token);
 		else
 			pars->content1[pars->k++] = ft_strdup("");
+		free(token);
 		if (is_redirection(pars->content[pars->i]))
 			fill_array_plus(pars);
 	}
-	pars->content1[pars->k] = NULL;
+	if (pars->k < max_tokens)
+		pars->content1[pars->k] = NULL;
+	else
+		pars->content1[max_tokens - 1] = NULL;
 	if (pars->expand_flag == 1 && pars->dflag == 0)
-		reparse_variable(pars,shell);
-
+		reparse_variable(pars, shell);
 }
 
 void	reparse_variable(t_pars *pars,t_shell *shell)
 {
 	char			*new_input;
 	unsigned int	j;
-	pars->expand_flag = 0;
-	j =0;
-	while(pars->content1[j])
-		{
-			if(strcmp("$",pars->content1[j]) == 0)
-				return ;
-			j++;
-		}
-	new_input = ft_strjoin_all(pars->content1);
 
-	pars->content = ft_strdup(new_input);
+	pars->expand_flag = 0;
+	j = 0;
+	while (pars->content1[j])
+	{
+		if (ft_strcmp("$", pars->content1[j]) == 0)
+			return ;
+		j++;
+	}
+	new_input = ft_strjoin_all(pars->content1);
+	pars->content = ft_strdup1(new_input);
 	if (new_input)
 		free(new_input);
-	j = -1;
-	while (++j < pars->lenofarray + pars->nbofpipes)
-		free(pars->content1[j]);
-	free(pars->content1);
-	pars->content1 = malloc(sizeof(char *) * (pars->lenofarray + pars->nbofpipes
-				+ 1));
-	fill_the_array(pars,shell);
+	j = 0;
+	while (j < pars->lenofarray + pars->nbofpipes)
+	{
+		if (pars->content1[j])
+			free(pars->content1[j]);
+		j++;
+	}
+	if (pars->content1)
+		free(pars->content1);
+	pars->content1 = NULL;
+	fill_the_array(pars, shell);
 	return ;
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:31:00 by salhali           #+#    #+#             */
-/*   Updated: 2024/11/15 13:22:36 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/06 18:23:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
+# include "libft.h"
+# include "../minishell.h"
 char	*ft_strdup(const char *s)
 {
 	char	*dest;

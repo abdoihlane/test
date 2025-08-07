@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/08/04 13:16:21 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/07 17:29:57 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd)
 {
-	char	*cmd_path;
-	char	**filtered_args;
 	char	**envp;
 
 	envp = generate_envp_from_envlist(shell);
@@ -56,7 +54,6 @@ void	execute_external_command(t_cmd *clist, char **envp)
 	}
 	filtered_args = filter_empty_args(clist);
 	execve(cmd_path, filtered_args, envp);
-	printf("here \n");
 	exit(127);
 }
 

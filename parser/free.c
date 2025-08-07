@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:56 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/01 17:32:08 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:58:04 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,54 +48,38 @@ void	free_red_list(t_red_list **list)
 	}
 	*list = NULL;
 }
-
-void	free_clist(t_cmd **list)
+void	free_clist(t_cmd **list,int nb)
 {
 	t_cmd	*curr;
 	t_cmd	*next;
-	t_pars	*pars_to_free = NULL;
 	int		i;
 
 	if (!list || !*list)
 		return ;
 	curr = *list;
-	
-	// Save pars pointer from first node to free it once
-	if (curr && curr->pars)
-		pars_to_free = curr->pars;
-	
 	while (curr)
 	{
 		next = curr->next;
-		
-		// Free the array of strings
+		// Free array
 		if (curr->array)
 		{
 			i = 0;
 			while (curr->array[i])
-			{
-				free(curr->array[i]);
-				i++;
-			}
+				free(curr->array[i++]);
 			free(curr->array);
 		}
-		
-		// Free the cmd string
+		// Free cmd string
 		if (curr->cmd)
 			free(curr->cmd);
-			
-		// Free the redirection list
-		if (curr->file)
+		// Free redirection list
+		if (curr->file && nb == 0)
 			free_red_list(&curr->file);
-		
+		// Free pars if present
+		// if (curr->pars)
+		// 	free_plist(&curr->pars);
 		free(curr);
 		curr = next;
 	}
-	
-	// Free pars once at the end
-	if (pars_to_free)
-		free_plist(&pars_to_free);
-	
 	*list = NULL;
 }
 void	free_plist(t_pars **par)

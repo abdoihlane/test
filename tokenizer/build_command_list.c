@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_command_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:33:06 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/29 18:43:12 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/07 17:06:29 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	handle_word_and_quotes(t_cmd *current, t_token *tmp)
 		if (tmp->value && tmp->value[0] != '\0'
 			&& current->index < current->capacity)
 		{
-			current->array[current->index++] = ft_strdup(tmp->value);
+			current->array[current->index++] = ft_strdup1(tmp->value);
 		}
 	}
 }

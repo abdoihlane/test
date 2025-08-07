@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:26:52 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/05 17:58:15 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:25:13 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*remove_quotes(char *str)
 	len = ft_strlen(str);
 	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
 		|| (str[0] == '\'' && str[len - 1] == '\'')))
-		new = ft_substr(str, 1, len - 2);
+		new = ft_substr1(str, 1, len - 2);
 	else
-		new = ft_strdup(str);
+		new = ft_strdup1(str);
 	return (new);
 }
 

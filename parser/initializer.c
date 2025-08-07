@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:22 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/27 20:42:43 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:11:19 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_pars	*init_pars(char *in)
 	pars->k = 0;
 	pars->lenofarray = 0;
 	pars->nbofpipes = 0;
-	pars->content = ft_strdup(in);
+	pars->content = ft_strdup1(in);
 	while (pars->content[pars->i])
 	{
 		skipwhitespaces(pars);
@@ -31,7 +31,7 @@ t_pars	*init_pars(char *in)
 			pars->i++;
 		pars->lenofarray++;
 	}
-	pars->content1 = malloc(sizeof(char *) * (pars->lenofarray + pars->nbofpipes
+	pars->content1 = ft_malloc(sizeof(char *) * (pars->lenofarray + pars->nbofpipes
 				+ 1));
 	return (pars);
 }
