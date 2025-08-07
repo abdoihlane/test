@@ -254,6 +254,7 @@ void	write_heredoc_line(int fd, char *expanded);
 int	read_heredoc_line(char **line, size_t *len, char *delimiter);
 void	cleanup_heredoc(t_red_list *head, char *line, int fd);
 void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist);
+char	*process_heredoc_line(char *line, t_shell *shell, t_cmd *clist);
 void	setup_pipeline(t_cmd *clist, int *pipe_fd);
 void	handle_parent_process(int *in_fd, int *pipe_fd, t_cmd *clist);
 void	execute_external_command(t_cmd *clist, char **envp);

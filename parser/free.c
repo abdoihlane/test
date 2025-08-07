@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:56 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/07 16:58:04 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:49:57 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,39 +48,61 @@ void	free_red_list(t_red_list **list)
 	}
 	*list = NULL;
 }
-void	free_clist(t_cmd **list,int nb)
-{
-	t_cmd	*curr;
-	t_cmd	*next;
-	int		i;
 
-	if (!list || !*list)
-		return ;
-	curr = *list;
-	while (curr)
-	{
-		next = curr->next;
-		// Free array
-		if (curr->array)
-		{
-			i = 0;
-			while (curr->array[i])
-				free(curr->array[i++]);
-			free(curr->array);
-		}
-		// Free cmd string
-		if (curr->cmd)
-			free(curr->cmd);
-		// Free redirection list
-		if (curr->file && nb == 0)
-			free_red_list(&curr->file);
-		// Free pars if present
-		// if (curr->pars)
-		// 	free_plist(&curr->pars);
-		free(curr);
-		curr = next;
-	}
-	*list = NULL;
+// void safe_free(void **ptr)
+// {
+//     if (ptr && *ptr)
+//     {
+//         free(*ptr);
+//         *ptr = NULL;
+//     }
+// }
+void safe_free(void **ptr)
+{
+    if (ptr && *ptr)
+    {
+        free(*ptr);
+        *ptr = NULL;
+    }
+}
+
+void free_clist(t_cmd **list, int nb)
+{
+    t_cmd *curr;
+    t_cmd *next;
+    int i;
+
+    (void)nb; // if you don't use nb, avoid unused param warning
+
+    if (!list || !*list)
+        return;
+
+    curr = *list;
+    while (curr)
+    {
+        next = curr->next;
+
+        if (curr->array)
+        {
+            i = 0;
+            while (curr->array[i])
+                safe_free((void **)&curr->array[i++]);
+            safe_free((void **)&curr->array);
+        }
+
+        safe_free((void **)&curr->cmd);
+
+        if (curr->file)
+            free_red_list(&curr->file);
+
+        if (curr->pars)
+            free_plist(&curr->pars);
+
+        safe_free((void **)&curr);
+
+        curr = next;
+    }
+    *list = NULL;
 }
 void	free_plist(t_pars **par)
 {

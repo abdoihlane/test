@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:22 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/07 17:11:19 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:42:05 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_pars	*init_pars(char *in)
 {
 	t_pars	*pars;
 
-	pars = malloc(sizeof(t_pars));
+	pars = ft_malloc(sizeof(t_pars));
 	pars->i = 0;
 	pars->k = 0;
 	pars->lenofarray = 0;

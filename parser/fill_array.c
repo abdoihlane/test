@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/07 17:31:12 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:41:27 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	fill_the_array(t_pars *pars,t_shell *shell)
 	count_dollar(pars);
 	max_tokens = ft_strlen(pars->content) * 2 + 10;
 	old_content1 = pars->content1;
-	pars->content1 = (char **)malloc(sizeof(char *) * (max_tokens + 1));
+	pars->content1 = (char **)ft_malloc(sizeof(char *) * (max_tokens + 1));
 	while (pars->content[pars->i] && pars->k < max_tokens - 1)
 	{
 		skipwhitespaces(pars);

@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:43:56 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/07 16:41:08 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:59:38 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 		if (!read_heredoc_line(&line, &len, delimiter))
 			break;
 		expanded = process_heredoc_line(line, shell, clist);
+		// printf("expanded: %s\n", expanded);
 		write_heredoc_line(fd, expanded);
 	}
 	cleanup_heredoc(head, line, fd);
