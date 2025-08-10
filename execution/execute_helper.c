@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:34:57 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/26 17:59:54 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 // 	if (cmd->qflag == 0 || cmd->array == NULL)
 // 		return (cmd->array);
 // 	count = count_non_empty_args(cmd);
-// 	filtered = malloc(sizeof(char *) * (count + 1));
+// 	filtered = ft_malloc(sizeof(char *) * (count + 1));
 // 	if (!filtered)
 // 		return (cmd->array);
 // 	copy_non_empty_args(cmd, filtered);

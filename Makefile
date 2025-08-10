@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/08/05 13:44:27 by ahabibi-         ###   ########.fr        #
+#    Updated: 2025/08/07 18:45:08 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-# CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS =-g3 #-Wall -Wextra -Werror #-g3 -fsanitize=address
 
 LIBS = -lreadline
 
@@ -54,7 +54,7 @@ SRC = 		builtins/builtin_echo.c \
 			tokenizer/tokenizer.c\
 			utils/heredoc_input.c \
 			main.c \
-			clean_up.c
+			clean_up.c helpew.c
 
 OBJ = $(SRC:.c=.o)
 

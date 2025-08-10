@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:38 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/02 11:37:41 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/07 18:50:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char *check_direct_path(char *cmd)
         if (S_ISREG(file_stat.st_mode))// hna check rir regular file
         {
             if (access(cmd, X_OK) == 0)
-                return ft_strdup(cmd);
+                return ft_strdup1(cmd);
             else
                 return (char *)-1;
         }

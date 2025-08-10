@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:52:43 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int update_export_variable(t_shell *shell, const char *key, const char *value)
     if (node)
     {
         free(node->value);
-        node->value = ft_strdup(value);
+        node->value = strdup(value); // Use strdup, not ft_strdup1
         return 1; // found and updated
     }
     return 0; // not found
@@ -38,13 +38,13 @@ int update_export_variable(t_shell *shell, const char *key, const char *value)
 
 int create_export_variable(t_shell *shell, const char *key, const char *value)
 {
-    t_env *new = malloc(sizeof(t_env));
+    t_env *new = ft_malloc(sizeof(t_env)); // Use ft_malloc, not ft_malloc
     if (!new)
-        return -1; // malloc failed
+        return -1; // ft_malloc failed
 
-    new->key = ft_strdup(key);
+    new->key = strdup(key); // Use strdup, not ft_strdup1
     if (value)
-        new->value = ft_strdup(value);
+        new->value = strdup(value);
     else
         new->value = NULL;
     new->next = shell->envv;
@@ -74,7 +74,7 @@ int handle_export_with_value(t_shell *shell, char *arg)
     if (!update_export_variable(shell, key, value))
     {
         if (create_export_variable(shell, key, value) == -1)
-            result = -1; // malloc failed
+            result = -1; // ft_malloc failed
     }
     *equal = '=';  // Always restore the '=' character
     return result;
@@ -92,7 +92,7 @@ int handle_export_without_value(t_shell *shell, const char *arg)
     if (!find_env_variable(shell, arg))
     {
         if (create_export_variable(shell, arg, NULL) == -1)
-            return -1; // malloc failed
+            return -1; // ft_malloc failed
     }
     return 0;
 }
@@ -125,7 +125,7 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
         {
             int result = handle_export_with_value(shell, cmd->array[i]);
             if (result == -1)
-                return -1; // malloc failed
+                return -1; // ft_malloc failed
             else if (result == 1)
                 exit_status = 1; // validation error occurred
         }
@@ -133,7 +133,7 @@ int builtin_export(t_cmd *cmd, t_shell *shell)
         {
             int result = handle_export_without_value(shell, cmd->array[i]);
             if (result == -1)
-                return -1; // malloc failed
+                return -1; // ft_malloc failed
             else if (result == 1)
                 exit_status = 1; // validation error occurred
         }

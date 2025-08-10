@@ -6,11 +6,12 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:49:57 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/30 20:41:50 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/10 18:09:25 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 
 int	contains_single_quotes(const char *s)
 {
@@ -23,7 +24,7 @@ int	contains_single_quotes(const char *s)
 	return (0);
 }
 
-char	*expand_in_quotes(t_pars *pars, char *segment,t_shell *shell)
+char	*expand_in_quotes(t_pars *pars, char *segment, t_shell *shell)
 {
 	int		z;
 	char	*new_segment;
@@ -33,8 +34,9 @@ char	*expand_in_quotes(t_pars *pars, char *segment,t_shell *shell)
 	new_segment = segment;
 	while (z < pars->numdollar)
 	{
-		tmp = expand_variables(new_segment,shell);
-		free(new_segment);
+		tmp = expand_variables(new_segment, shell);
+		if (new_segment != segment)  // Don't free the original segment
+			ft_free_single(new_segment);
 		new_segment = tmp;
 		pars->expand_flag = 1;
 		z++;
@@ -42,31 +44,36 @@ char	*expand_in_quotes(t_pars *pars, char *segment,t_shell *shell)
 	return (new_segment);
 }
 
-char	*handlequotes(t_pars *pars, char c,t_shell *shell)
+char	*handlequotes(t_pars *pars, char c, t_shell *shell)
 {
-	int		start;
-	int		len;
-	char	*segment;
-	int		j;
-	
-	pars->i++;
-	if (pars->content[pars->i] && pars->content[pars->i] == c)
-		return ((pars->i++), ft_strdup(""));
-	start = pars->i;
-	while (pars->content[pars->i] && pars->content[pars->i] != c)
-		pars->i++;
-	len = pars->i - start;
-	segment = malloc(len + 2);
-	if (!segment)
-		return (NULL);
-	j = -1;
-	while (++j < len)
-		segment[j] = pars->content[start + j];
-	segment[len] = '\0';
-	pars->i++;
-	if (c == '"' && pars->herdoc_flag == 0 )
-		segment = expand_in_quotes(pars, segment,shell);
-	return (segment);
+    int		start;
+    int		len;
+    char	*segment;
+    int		j;
+    char	*expanded = NULL;
+
+    pars->i++;
+    if (pars->content[pars->i] && pars->content[pars->i] == c)
+        return ((pars->i++), ft_strdup1(""));
+    start = pars->i;
+    while (pars->content[pars->i] && pars->content[pars->i] != c)
+        pars->i++;
+    len = pars->i - start;
+    segment = ft_malloc(len + 1);  // Fixed: len + 1, not len + 2
+    if (!segment)
+        return (NULL);
+    j = -1;
+    while (++j < len)
+        segment[j] = pars->content[start + j];
+    segment[len] = '\0';
+    pars->i++;
+    if (c == '"' && pars->herdoc_flag == 0)
+    {
+        expanded = expand_in_quotes(pars, segment, shell);
+        ft_free_single(segment);  // Free the original segment
+        return expanded;
+    }
+    return segment;
 }
 
 int	check_quotes_closed(char *str)

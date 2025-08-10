@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:13:11 by salhali           #+#    #+#             */
-/*   Updated: 2024/11/16 14:25:58 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*word_alloc(const char *str, char c)
 	i = 0;
 	while (str[i] && !is_sep(str[i], c))
 		i++;
-	word = malloc((i + 1) * sizeof(char));
+	word = ft_malloc((i + 1) * sizeof(char));
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -75,7 +75,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	sp = malloc((word_count(s, c) + 1) * sizeof(char *));
+	sp = ft_malloc((word_count(s, c) + 1) * sizeof(char *));
 	if (!sp)
 		return (NULL);
 	i = 0;

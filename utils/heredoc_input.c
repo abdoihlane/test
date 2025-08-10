@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:43:56 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/04 13:13:49 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/07 18:52:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ char	*process_heredoc_line(char *line, t_shell *shell, t_cmd *clist)
 			line = expand_variables(line, shell);
 			i++;
 		}
-		expanded = ft_strdup(line);
+		expanded = ft_strdup1(line);
 	}
 	else
-		expanded = ft_strdup(line);
+		expanded = ft_strdup1(line);
 	return (expanded);
 }
 
@@ -77,7 +77,7 @@ void	cleanup_heredoc(t_red_list *head, char *line, int fd)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-	head->content = ft_strdup(".heredoc_tmp");
+	head->content = ft_strdup1(".heredoc_tmp");
 	head->inout = 0;
 	if (line)
 		free(line);

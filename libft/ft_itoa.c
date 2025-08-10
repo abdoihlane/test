@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:16:30 by salhali           #+#    #+#             */
-/*   Updated: 2024/11/15 13:22:47 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	count(int n)
 
 static char	*re(int nbr, char *str, size_t count_len, size_t sign)
 {
-	str = (char *)malloc(count_len + sign + 1);
+	str = (char *)ft_malloc(count_len + sign + 1);
 	if (!str)
 		return (NULL);
 	str[count_len + sign] = '\0';
@@ -58,7 +58,7 @@ char	*ft_itoa(int nbr)
 	sign = 0;
 	str = NULL;
 	if (nbr == -2147483648)
-		return (ft_strdup("-2147483648"));
+		return (ft_strdup1("-2147483648"));
 	if (nbr < 0)
 	{
 		nbr = -nbr;
@@ -67,7 +67,7 @@ char	*ft_itoa(int nbr)
 	count_len = count(nbr);
 	while (nbr == 0)
 	{
-		str = malloc(2);
+		str = ft_malloc(2);
 		if (!str)
 			return (NULL);
 		str[0] = '0';

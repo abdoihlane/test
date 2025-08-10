@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filter_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:05:37 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:05:40 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**filter_empty_args(t_cmd *cmd)
 	if (cmd->qflag == 0 || cmd->array == NULL)
 		return (cmd->array);
 	count = count_non_empty_args(cmd);
-	filtered = malloc(sizeof(char *) * (count + 1));
+	filtered = ft_malloc(sizeof(char *) * (count + 1));
 	if (!filtered)
 		return (cmd->array);
 	copy_non_empty_args(cmd, filtered);

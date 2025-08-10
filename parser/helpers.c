@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:46 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/07/30 20:39:58 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/10 18:09:41 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ char	*ft_strjoin_all(char **array)
 	i = 0;
 	if (!array)
 		return (NULL);
-	result = ft_strdup("");
+	result = ft_strdup1("");
 	while (array[i])
 	{
 		tmp = ft_strjoin(result, array[i]);
-		free(result);
+		ft_free_single(result);  // Fixed: use ft_free_single instead of free
 		result = tmp;
 		i++;
 		if (array[i])
 		{
 			tmp = ft_strjoin(result, " ");
-			free(result);
+			ft_free_single(result);  // Fixed: use ft_free_single instead of free
 			result = tmp;
 		}
 	}
