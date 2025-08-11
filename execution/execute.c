@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/08/10 04:07:09 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/11 18:24:01 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ void handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd)
         ft_free_2d_gc_array(envp);
         exit(execute_builtin(clist, shell));
     }
+
+    // If there's no command but redirections were processed, exit normally
+    if (!clist->array || !clist->array[0])
+    {
+        ft_free_2d_gc_array(envp);
+        exit(0);
+    }
+
     execute_external_command(clist, envp);
 }
 
@@ -95,7 +103,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
     in_fd = 0;
     i = 0;
     envp = generate_envp_from_envlist(shell);
-    
+
     while (clist)
     {
         setup_pipeline(clist, pipe_fd);
@@ -106,7 +114,7 @@ void execute_cmds(t_cmd *clist, t_shell *shell)
         clist = clist->next;
         i++;
     }
-    
+
     WAITPID(pids, i, shell);
     ft_free_2d_gc_array(envp);
 }

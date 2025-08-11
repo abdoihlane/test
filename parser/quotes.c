@@ -6,12 +6,11 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:49:57 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/11 17:57:32 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/11 18:02:04 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	contains_single_quotes(const char *s)
 {
@@ -31,11 +30,11 @@ char	*expand_in_quotes(t_pars *pars, char *segment, t_shell *shell)
 	char	*tmp;
 
 	z = 0;
-	current = ft_strdup1(segment);  // Always create a copy to work with
+	current = ft_strdup1(segment);
 	while (z < pars->numdollar)
 	{
 		tmp = expand_variables(current, shell);
-		ft_free_single(current);  // Free the current version
+		ft_free_single(current);
 		current = tmp;
 		pars->expand_flag = 1;
 		z++;
@@ -58,7 +57,7 @@ char	*handlequotes(t_pars *pars, char c, t_shell *shell)
     while (pars->content[pars->i] && pars->content[pars->i] != c)
         pars->i++;
     len = pars->i - start;
-    segment = ft_malloc(len + 1);  // Fixed: len + 1, not len + 2
+    segment = ft_malloc(len + 1);
     if (!segment)
         return (NULL);
     j = -1;
@@ -69,7 +68,7 @@ char	*handlequotes(t_pars *pars, char c, t_shell *shell)
     if (c == '"' && pars->herdoc_flag == 0)
     {
         expanded = expand_in_quotes(pars, segment, shell);
-        ft_free_single(segment);  // Free the original segment
+        ft_free_single(segment);
         return expanded;
     }
     return segment;

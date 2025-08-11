@@ -6,7 +6,7 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/11 17:57:32 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/11 18:03:03 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int count_dollars(char *sa)
     }
     return (dollar);
 }
-// void init_all(t_pars *p, t_token *t, t_cmd *cmd, t_wlist *w);
 
 void call_all(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
 {
@@ -38,24 +37,19 @@ void call_all(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
         printf("syntax error\n");
         return;
     }
-
     pars = init_pars(input);
     if (!pars)
         return;
-
     fill_the_array(pars, shell);
     commandornot(pars, wlist);
     token = typesee(wlist);
     splitit(token, clist);
-
-    // Assign pars to all commands
     t_cmd *tmp = *clist;
     while (tmp)
     {
         tmp->pars = pars;
         tmp = tmp->next;
     }
-
     if (token)
         free_token_list(&token);
 }
@@ -69,34 +63,27 @@ int main(int argc, char **argv, char **envp)
 
     (void)argc;
     (void)argv;
-
     if (!envp)
         return (1);
-
     shell.envv = convert_envp_to_envlist(envp);
     if (!shell.envv)
         return (1);
     shell.last_exit_status = 0;
-
     while (1)
     {
         signe();
         input = readline("\001\033[38;2;255;105;180m\002➜  minishell \001\033[0m\002");
         if (!input)
             break;
-
         call_all(input, &wlist, &clist, &shell);
         execute(clist, wlist, &shell);
         add_history(input);
-
         free_wlist(&wlist);
         free_clist(&clist);
         free(input);
-
         wlist = NULL;
         clist = NULL;
     }
-
     free_env_list(&shell.envv);
     ft_free_all();
     return (shell.last_exit_status);

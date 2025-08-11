@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:09:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 13:50:44 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/11 18:11:50 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_builtin(t_cmd *cmd)
 {
+    if (!cmd || !cmd->array || !cmd->array[0])
+        return 0;
     if (ft_strcmp(cmd->array[0], "echo") == 0)
         return 1;
     if (ft_strcmp(cmd->array[0], "cd") == 0)
