@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:43:56 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/07 18:52:20 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/11 01:44:54 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	read_heredoc_line(char **line, size_t *len, char *delimiter)
 	{
 		return (0);
 	}
-	if (ft_strncmp(*line, delimiter, ft_strlen(delimiter)) == 0)
+	if (delimiter && ft_strlen(delimiter) > 0 &&
+		ft_strcmp(*line, delimiter) == 0)
 	{
 		free(*line);
 		*line = NULL;

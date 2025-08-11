@@ -99,7 +99,7 @@ int main(int argc, char **argv, char **envp)
     
     free_env_list(&shell.envv);
     ft_free_all();
-    return (0);
+    return (shell.last_exit_status);
 }
 // int count_dollars(char *sa)
 // {

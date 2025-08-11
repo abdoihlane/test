@@ -27,21 +27,20 @@ int	contains_single_quotes(const char *s)
 char	*expand_in_quotes(t_pars *pars, char *segment, t_shell *shell)
 {
 	int		z;
-	char	*new_segment;
+	char	*current;
 	char	*tmp;
 
 	z = 0;
-	new_segment = segment;
+	current = ft_strdup1(segment);  // Always create a copy to work with
 	while (z < pars->numdollar)
 	{
-		tmp = expand_variables(new_segment, shell);
-		if (new_segment != segment)  // Don't free the original segment
-			ft_free_single(new_segment);
-		new_segment = tmp;
+		tmp = expand_variables(current, shell);
+		ft_free_single(current);  // Free the current version
+		current = tmp;
 		pars->expand_flag = 1;
 		z++;
 	}
-	return (new_segment);
+	return (current);
 }
 
 char	*handlequotes(t_pars *pars, char c, t_shell *shell)
