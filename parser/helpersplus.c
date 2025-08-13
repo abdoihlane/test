@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpersplus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:51:34 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/11 01:45:05 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,34 @@ t_cmd	*create_new_cmd(int array_size)
 	return (cmd);
 }
 
-void check_herdoc(char *sa, t_pars *pars)
+void	check_herdoc(char *sa, t_pars *pars)
 {
-	int i = pars->i;
+	int	i;
 
-	while (i > 1 && (sa[i - 1] == ' ' || sa[i - 1] == '\t'))
-		i--;
+	i = 0;
+	while (sa[i] && sa[i] != '|')
+	{
+		if (sa[i] == '<' && sa[i + 1] == '<')
+			pars->herdoc_flag = 1;
+		i++;
+	}
+}
 
-	if (i >= 2 && sa[i - 2] == '<' && sa[i - 1] == '<')
-		pars->herdoc_flag = 1;
+char	*ft_substrr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+	char	*str;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup1(""));
+	if (len > s_len - start)
+		len = s_len - start;
+	str = ft_malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s + start, len + 1);
+	return (str);
 }

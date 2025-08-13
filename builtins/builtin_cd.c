@@ -18,7 +18,7 @@ char	*get_cd_path(t_cmd *cmd, t_shell *shell)
 
 	if (cmd->array[1] == NULL && cmd->pars->qflag == 0)
 		path = get_env_value_ll(shell->envv, "HOME");
-	else if(cmd->array[1] == NULL && cmd->pars->qflag == 1)
+	else if (cmd->array[1] == NULL && cmd->pars->qflag == 1)
 	{
 		ft_putstr_fd("cd: ‘’: ", 2);
 		ft_putstr_fd("No such file or directory\n", 2);
@@ -48,7 +48,7 @@ int	handle_cd_change(char *path, char *current_dir, t_shell *shell)
 	return (0);
 }
 
-int builtin_cd(t_cmd *cmd, t_shell *shell)
+int	builtin_cd(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
 	char	current_dir[1024];

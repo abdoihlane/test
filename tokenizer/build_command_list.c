@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 04:33:06 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/10 18:10:23 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:11:07 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,47 +49,47 @@ void	splitit(t_token *token, t_cmd **final)
 
 void	handle_word_and_quotes(t_cmd *current, t_token *tmp)
 {
-    if (current->index >= current->capacity)
-        return ;
-    if (tmp->type == TOKEN_WORD && tmp->value)
-    {
-        current->array[current->index++] = ft_strdup1(tmp->value);  // Use ft_strdup1 for consistency
-    }
-    else if (tmp->type == TOKEN_quotes)
-    {
-        current->qflag = 1;
-        if (tmp->value && tmp->value[0] != '\0'
-            && current->index < current->capacity)
-        {
-            current->array[current->index++] = ft_strdup1(tmp->value);  // Use ft_strdup1 for consistency
-        }
-    }
+	if (current->index >= current->capacity)
+		return ;
+	if (tmp->type == TOKEN_WORD && tmp->value)
+	{
+		current->array[current->index++] = ft_strdup1(tmp->value);
+	}
+	else if (tmp->type == TOKEN_quotes)
+	{
+		current->qflag = 1;
+		if (tmp->value && tmp->value[0] != '\0'
+			&& current->index < current->capacity)
+		{
+			current->array[current->index++] = ft_strdup1(tmp->value);
+		}
+	}
 }
 
 t_token	*fill_command_fields(t_token *tmp, t_cmd *current)
 {
-    while (tmp && tmp->type != TOKEN_PIPE)
-    {
-        if (is_red(tmp))
-        {
-            handle_redirection(current, tmp);
-            tmp = tmp->next;
-        }
-        handle_word_and_quotes(current, tmp);
-        if (tmp)
-            tmp = tmp->next;
-    }
-    current->array[current->index] = NULL;
-    if (current->index > 0)
-    {
-        if (current->array[0] && current->array[0][0])
-            current->cmd = ft_strdup1(current->array[0]);  // Use ft_strdup1 for consistency
-        else
-            current->cmd = NULL;
-    }
-    else
-        current->cmd = NULL;
-    if (tmp && tmp->type == TOKEN_PIPE)
-        tmp = tmp->next;
-    return (tmp);
+	while (tmp && tmp->type != TOKEN_PIPE)
+	{
+		if (is_red(tmp))
+		{
+			handle_redirection(current, tmp);
+			tmp = tmp->next;
+		}
+		handle_word_and_quotes(current, tmp);
+		if (tmp)
+			tmp = tmp->next;
+	}
+	current->array[current->index] = NULL;
+	if (current->index > 0)
+	{
+		if (current->array[0] && current->array[0][0])
+			current->cmd = ft_strdup1(current->array[0]);
+		else
+			current->cmd = NULL;
+	}
+	else
+		current->cmd = NULL;
+	if (tmp && tmp->type == TOKEN_PIPE)
+		tmp = tmp->next;
+	return (tmp);
 }

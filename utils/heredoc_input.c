@@ -58,14 +58,13 @@ void	write_heredoc_line(int fd, char *expanded)
 int	read_heredoc_line(char **line, size_t *len, char *delimiter)
 {
 	(void)len;
-
 	*line = readline("> ");
 	if (*line == NULL)
 	{
 		return (0);
 	}
-	if (delimiter && ft_strlen(delimiter) > 0 &&
-		ft_strcmp(*line, delimiter) == 0)
+	if (delimiter && ft_strlen(delimiter) > 0 && ft_strcmp(*line,
+			delimiter) == 0)
 	{
 		free(*line);
 		*line = NULL;
@@ -85,7 +84,8 @@ void	cleanup_heredoc(t_red_list *head, char *line, int fd)
 	close(fd);
 }
 
-void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist)
+void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell,
+		t_cmd *clist)
 {
 	char	*line;
 	char	*expanded;
@@ -96,11 +96,11 @@ void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *cli
 	len = 0;
 	fd = setup_heredoc_file();
 	if (fd < 0)
-		return;
+		return ;
 	while (1)
 	{
 		if (!read_heredoc_line(&line, &len, delimiter))
-			break;
+			break ;
 		expanded = process_heredoc_line(line, shell, clist);
 		write_heredoc_line(fd, expanded);
 	}

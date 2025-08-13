@@ -12,20 +12,17 @@
 
 #include "../minishell.h"
 
-int builtin_unset(t_cmd *cmd, t_shell *shell)
+int	builtin_unset(t_cmd *cmd, t_shell *shell)
 {
-    int i;
+	int	i;
 
-    if (!cmd->array || !cmd->array[1])
-        return (0);
-
-    i = 1;
-    while (cmd->array[i])
-    {
-        delete_env_variable(shell, cmd->array[i]);
-        i++;
-    }
-    return (0);
+	if (!cmd->array || !cmd->array[1])
+		return (0);
+	i = 1;
+	while (cmd->array[i])
+	{
+		delete_env_variable(shell, cmd->array[i]);
+		i++;
+	}
+	return (0);
 }
-
-

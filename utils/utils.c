@@ -12,19 +12,20 @@
 
 #include "../minishell.h"
 
-char    *ft_strcpy(char *dest,const char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
-    int i = 0;
+	int	i;
 
-    if(!dest || !src)
-        return(printf("check (create_env_string) 64\n "), NULL);
-    while(src[i] != '\0')
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    dest[i] = '\0';
-    return(dest);
+	i = 0;
+	if (!dest || !src)
+		return (printf("check (create_env_string) 64\n "), NULL);
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
 
 // void free_env(char **env)
@@ -32,7 +33,7 @@ char    *ft_strcpy(char *dest,const char *src)
 //     int i = 0;
 
 //     if (!env)
-//         return;
+//         return ;
 //     while (env[i])
 //     {
 //         free(env[i]);
@@ -43,10 +44,11 @@ char    *ft_strcpy(char *dest,const char *src)
 
 void	ft_free_2d_array(char **arr)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!arr)
-		return;
+		return ;
 	while (arr[i])
 	{
 		free(arr[i]);
@@ -55,29 +57,26 @@ void	ft_free_2d_array(char **arr)
 	free(arr);
 }
 
-int is_valid_var(const char *str)
+int	is_valid_var(const char *str)
 {
-    int i = 0;
+	int	i;
 
-    if (!str || !str[0])
-        return 0;
-
-    // First character must be letter or underscore
-    if (!((str[0] >= 'a' && str[0] <= 'z') || 
-          (str[0] >= 'A' && str[0] <= 'Z') || 
-          str[0] == '_'))
-        return 0;
-
-    // Rest must be letters, digits, or underscores
-    i = 1;
-    while (str[i])
-    {
-        if (!((str[i] >= 'a' && str[i] <= 'z') || 
-              (str[i] >= 'A' && str[i] <= 'Z') || 
-              (str[i] >= '0' && str[i] <= '9') || 
-              str[i] == '_'))
-            return 0;
-        i++;
-    }
-    return 1;
+	i = 0;
+	if (!str || !str[0])
+		return (0);
+	// First character must be letter or underscore
+	if (!((str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A' && str[0] <= 'Z')
+			|| str[0] == '_'))
+		return (0);
+	// Rest must be letters, digits, or underscores
+	i = 1;
+	while (str[i])
+	{
+		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+					&& str[i] <= 'Z') || (str[i] >= '0' && str[i] <= '9')
+				|| str[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }

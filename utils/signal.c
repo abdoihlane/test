@@ -21,7 +21,7 @@ void	sigint_handler(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
-void sigint_heredoc(int sig)
+void	sigint_heredoc(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);

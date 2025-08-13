@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:49:57 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/11 18:02:04 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/13 10:33:31 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,52 +26,59 @@ int	contains_single_quotes(const char *s)
 char	*expand_in_quotes(t_pars *pars, char *segment, t_shell *shell)
 {
 	int		z;
-	char	*current;
+	char	*new_segment;
 	char	*tmp;
 
 	z = 0;
-	current = ft_strdup1(segment);
+	new_segment = segment;
 	while (z < pars->numdollar)
 	{
-		tmp = expand_variables(current, shell);
-		ft_free_single(current);
-		current = tmp;
+		tmp = expand_variables(new_segment, shell);
+		if (new_segment != segment)
+			ft_free_single(new_segment);
+		new_segment = tmp;
 		pars->expand_flag = 1;
 		z++;
 	}
-	return (current);
+	return (new_segment);
+}
+
+char	*call_expand_in_q(t_pars *pars, char *segment, t_shell *shell)
+{
+	char	*expanded;
+
+	expanded = NULL;
+	expanded = expand_in_quotes(pars, segment, shell);
+	segment = ft_strdup1(expanded);
+	ft_free_single(expanded);
+	return (segment);
 }
 
 char	*handlequotes(t_pars *pars, char c, t_shell *shell)
 {
-    int		start;
-    int		len;
-    char	*segment;
-    int		j;
-    char	*expanded = NULL;
+	int		start;
+	int		len;
+	char	*segment;
+	int		j;
 
-    pars->i++;
-    if (pars->content[pars->i] && pars->content[pars->i] == c)
-        return ((pars->i++), ft_strdup1(""));
-    start = pars->i;
-    while (pars->content[pars->i] && pars->content[pars->i] != c)
-        pars->i++;
-    len = pars->i - start;
-    segment = ft_malloc(len + 1);
-    if (!segment)
-        return (NULL);
-    j = -1;
-    while (++j < len)
-        segment[j] = pars->content[start + j];
-    segment[len] = '\0';
-    pars->i++;
-    if (c == '"' && pars->herdoc_flag == 0)
-    {
-        expanded = expand_in_quotes(pars, segment, shell);
-        ft_free_single(segment);
-        return expanded;
-    }
-    return segment;
+	pars->i++;
+	if (pars->content[pars->i] && pars->content[pars->i] == c)
+		return ((pars->i++), ft_strdup1(""));
+	start = pars->i;
+	while (pars->content[pars->i] && pars->content[pars->i] != c)
+		pars->i++;
+	len = pars->i - start;
+	segment = ft_malloc(len + 1);
+	if (!segment)
+		return (NULL);
+	j = -1;
+	while (++j < len)
+		segment[j] = pars->content[start + j];
+	segment[len] = '\0';
+	pars->i++;
+	if (c == '"' && pars->herdoc_flag == 0)
+		segment = call_expand_in_q(pars, segment, shell);
+	return (segment);
 }
 
 int	check_quotes_closed(char *str)

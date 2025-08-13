@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/13 09:58:39 by ahabibi-          #+#    #+#             */
+/*   Updated: 2025/08/13 10:37:29 by ahabibi-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_plus(char *sa)
+int	check_plus(char *sa)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (sa[i])
@@ -14,7 +25,7 @@ int check_plus(char *sa)
 			j = i + 1;
 			while (is_whitespace(sa[j]))
 				j++;
-			if (is_redirection(sa[j]) && is_whitespace(sa[j-1]))
+			if (is_redirection(sa[j]) && is_whitespace(sa[j - 1]))
 				return (0);
 		}
 		i++;
@@ -22,19 +33,42 @@ int check_plus(char *sa)
 	return (1);
 }
 
-
-int hardcodechecks(char *str)
+int	hardcodechecks(char *str)
 {
+	int	i;
+
+	i = 0;
 	if (!str)
 		return (0);
 	if (check_quotes_closed(str))
 		return (0);
 	if (!red_check(str) || !check_plus(str))
 		return (0);
-	for (int i = 0; str[i]; i++)
+	while (str[i])
 	{
 		if (str[i] == '|' && str[i + 1] == '|')
 			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	check_dup_red(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			return (0);
+		if (str[i] == '<' && str[i + 1] == '>')
+			return (0);
+		if (str[i] == '>' && str[i + 1] == '<')
+			return (0);
+		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -56,17 +90,7 @@ int	red_check(char *str)
 	if (str[i] == '|')
 		return (0);
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
-			return (0);
-		if (str[i] == '<' && str[i + 1] == '>')
-			return (0);
-		if (str[i] == '>' && str[i + 1] == '<')
-			return (0);
-		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-			return (0);
-		i++;
-	}
+	if (check_dup_red(str) == 0)
+		return (0);
 	return (1);
 }

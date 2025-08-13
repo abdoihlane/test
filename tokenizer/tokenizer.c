@@ -6,7 +6,7 @@
 /*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:42:20 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/10 18:10:59 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:11:28 by ahabibi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,29 @@ t_token	*typesee(t_wlist **list)
 
 int	add_token_node(t_wlist *begin, t_token **tokens, t_token **last, int *index)
 {
-    t_token	*new_token;
+	t_token	*new_token;
 
-    new_token = ft_malloc(sizeof(t_token));
-    if (!new_token)
-        return (0);
-    new_token->value = ft_strdup1(begin->content);  // Use ft_strdup1 for consistency
-    if (!new_token->value)
-    {
-        ft_free_single(new_token);  // Use ft_free_single for consistency
-        return (0);
-    }
-    new_token->next = NULL;
-    new_token->index = (*index)++;
-    if (!ft_strcmp("", begin->content))
-        new_token->type = TOKEN_quotes;
-    else
-        typesee_plus(begin, new_token);
-    if (!*tokens)
-        *tokens = new_token;
-    else
-        (*last)->next = new_token;
-    *last = new_token;
-    return (1);
+	new_token = ft_malloc(sizeof(t_token));
+	if (!new_token)
+		return (0);
+	new_token->value = ft_strdup1(begin->content);
+	if (!new_token->value)
+	{
+		ft_free_single(new_token);
+		return (0);
+	}
+	new_token->next = NULL;
+	new_token->index = (*index)++;
+	if (!ft_strcmp("", begin->content))
+		new_token->type = TOKEN_quotes;
+	else
+		typesee_plus(begin, new_token);
+	if (!*tokens)
+		*tokens = new_token;
+	else
+		(*last)->next = new_token;
+	*last = new_token;
+	return (1);
 }
 
 int	count_cmd_args(t_token *start)
@@ -109,10 +109,10 @@ void	commandornot(t_pars *pars, t_wlist **wlist)
 	i = 0;
 	pars->qflag = 0;
 	while (pars->content1[i])
-	{		
+	{
 		if (pars->content1[i][0] != '\0')
 			wlst_addback(wlist, wcreate_node(pars->content1[i]));
-		else if(!pars->content1[i][0])
+		else if (!pars->content1[i][0])
 			pars->qflag = 1;
 		i++;
 	}

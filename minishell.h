@@ -1,7 +1,6 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -15,12 +14,8 @@
 #include <fcntl.h>
 #include <string.h>
 
-void ft_free_2d_gc_array(char **arr);
-void *ft_malloc(size_t size);
-void ft_free_single(void *ptr);  
-void ft_free_all(void);
-int is_malloc_ptr(void *ptr);
-char *ft_strdup1(const char *s);
+#define COLOR_RESET "\001\033[0m\002"
+#define COLOR_PINK "\001\033[38;2;255;105;180m\002"
 
 typedef struct s_save
 {
@@ -40,15 +35,6 @@ typedef struct t_shell
     t_env *envv;
     int last_exit_status;
 } t_shell;
-
-#include "./libft/libft.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#define COLOR_RESET "\001\033[0m\002"
-#define COLOR_PINK "\001\033[38;2;255;105;180m\002"
 
 typedef struct PARSING_STRUCT
 {
@@ -121,6 +107,28 @@ t_wlist *wcreate_node(char *value);
 void wlst_addback(t_wlist **lst, t_wlist *node);
 int ft_strcmp(char *s1, char *s2);
 void init_all(t_pars *p, t_token *t, t_cmd *cmd, t_wlist *w);
+char *get_env_value_ll(t_env *env, const char *key);
+char *find_last_valid_dollar(char *str);
+int get_varname_length(char *start);
+char *get_variable_value(char *var_start, int var_len, t_shell *shell);
+char *build_result_string(char *input, char *dollar_pos,char *env_value, int var_len);
+char *find_first_valid_dollar(char *str);
+char *expand_variables_fixed(char *input, t_shell *shell);
+char *expand_all_variables(char *input, t_shell *shell);
+
+void ft_free_2d_gc_array(char **arr);
+void *ft_malloc(size_t size);
+void ft_free_single(void *ptr);  
+void ft_free_all(void);
+int is_malloc_ptr(void *ptr);
+char *ft_strdup1(const char *s);
+void calculate_len(t_pars *pars);
+void ft_free_array(int max_tokens, t_pars *pars);
+int check3(char *sa);
+char *call_expand(t_pars *pars, t_shell *shell, char *part);
+void fill_array_plus(t_pars *pars);
+void count_pipes(t_pars *pars);
+char *call_expand_in_q(t_pars *pars , char *segment, t_shell *shell);
 
 // Parsing Functions
 void commandornot(t_pars *pars, t_wlist **wlist);
@@ -134,7 +142,6 @@ int is_redirection(char c);
 void count_dollar(t_pars *pars);
 
 t_pars *init_pars(char *in);
-void fill_array_plus(t_pars *pars);
 void fill_the_array(t_pars *pars, t_shell *shell);
 char *fill_array_and_callexpand(t_pars *pars, t_shell *shell);
 char *fill_between_space_and_red(t_pars *pars, char *token, t_shell *shell);
@@ -172,6 +179,8 @@ int count_cmd_args(t_token *start);
 void splitit(t_token *token, t_cmd **final);
 void print_cmd_list(t_cmd *cmd);
 void reparse_variable(t_pars *pars, t_shell *shell);
+void init_wlist(t_wlist *w);
+void init_parsa(t_pars *p);
 
 // Execution Functions
 int builtin_cd(t_cmd *cmd, t_shell *shell);
@@ -195,7 +204,6 @@ char *ft_strcpy(char *dest, const char *src);
 char *create_env_string(const char *name, const char *value);
 void update_env_variable(t_shell *shell, const char *name, const char *value);
 void delete_env_variable(t_shell *shell, const char *name);
-char *get_env_value_ll(t_env *env, const char *key);
 int ft_strcmp_echo(const char *s);
 char **function_split_env(t_shell *shell);
 void add_env_node(t_env **head, t_env *new);
@@ -240,15 +248,16 @@ char *search_in_path_dirs(char **directories, char *cmd);
 char *check_path_in_directory(char *dir, char *cmd);
 char *build_full_path(char *dir, char *cmd);
 char *check_direct_path(char *cmd);
-int	setup_heredoc_file(void);
-char	*process_heredoc_line(char *line, t_shell *shell, t_cmd *clist);
-void	write_heredoc_line(int fd, char *expanded);
-int	read_heredoc_line(char **line, size_t *len, char *delimiter);
-void	cleanup_heredoc(t_red_list *head, char *line, int fd);
-void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist);
-void	setup_pipeline(t_cmd *clist, int *pipe_fd);
-void	handle_parent_process(int *in_fd, int *pipe_fd, t_cmd *clist);
-void	execute_external_command(t_cmd *clist, char **envp);
-void	handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd);
-void	execute_cmds(t_cmd *clist, t_shell *shell);
+int setup_heredoc_file(void);
+char *process_heredoc_line(char *line, t_shell *shell, t_cmd *clist);
+void write_heredoc_line(int fd, char *expanded);
+int read_heredoc_line(char **line, size_t *len, char *delimiter);
+void cleanup_heredoc(t_red_list *head, char *line, int fd);
+void heredoc_input(char *delimiter, t_red_list *head, t_shell *shell, t_cmd *clist);
+void setup_pipeline(t_cmd *clist, int *pipe_fd);
+void handle_parent_process(int *in_fd, int *pipe_fd, t_cmd *clist);
+void execute_external_command(t_cmd *clist, char **envp);
+void handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd);
+void execute_cmds(t_cmd *clist, t_shell *shell);
+
 #endif
