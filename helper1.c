@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int count_env_variables(t_shell *shell)
+int	count_env_variables(t_shell *shell)
 {
-	t_env *tmp;
-	int count;
+	t_env	*tmp;
+	int		count;
 
 	count = 0;
 	tmp = shell->envv;
@@ -24,7 +24,7 @@ int count_env_variables(t_shell *shell)
 		count++;
 		tmp = tmp->next;
 	}
-	return count;
+	return (count);
 }
 
 char	*build_env_string(const char *key, const char *value)
@@ -46,27 +46,27 @@ char	*build_env_string(const char *key, const char *value)
 	return (env_str);
 }
 
-char **generate_envp_from_envlist(t_shell *shell)
+char	**generate_envp_from_envlist(t_shell *shell)
 {
-	int i;
-	t_env *tmp;
-	int count;
-	char **envp;
+	int		i;
+	t_env	*tmp;
+	int		count;
+	char	**envp;
 
 	count = count_env_variables(shell);
 	envp = (char **)ft_malloc(sizeof(char *) * (count + 1));
 	if (!envp)
-		return NULL;
+		return (NULL);
 	tmp = shell->envv;
 	i = 0;
 	while (tmp)
 	{
 		envp[i] = build_env_string(tmp->key, tmp->value);
 		if (!envp[i])
-			return NULL;
+			return (NULL);
 		tmp = tmp->next;
 		i++;
 	}
 	envp[count] = NULL;
-	return envp;
+	return (envp);
 }

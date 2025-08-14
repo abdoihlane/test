@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:43:56 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/11 01:44:54 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 20:56:16 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,6 @@ int	read_heredoc_line(char **line, size_t *len, char *delimiter)
 		return (0);
 	}
 	return (1);
-}
-
-void	cleanup_heredoc(t_red_list *head, char *line, int fd)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-	head->content = ft_strdup1(".heredoc_tmp");
-	head->inout = 0;
-	if (line)
-		free(line);
-	close(fd);
 }
 
 void	heredoc_input(char *delimiter, t_red_list *head, t_shell *shell,

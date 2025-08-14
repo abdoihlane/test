@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/14 20:57:53 by salhali           #+#    #+#             */
+/*   Updated: 2025/08/14 20:59:17 by salhali          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static t_save	*g_save = NULL;
@@ -69,21 +81,6 @@ void	ft_free_single(void *ptr)
 		free(ptr);
 }
 
-void	ft_free_2d_gc_array(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		ft_free_single(arr[i]);
-		i++;
-	}
-	ft_free_single(arr);
-}
-
 void	ft_free_all(void)
 {
 	t_save	*head;
@@ -97,72 +94,9 @@ void	ft_free_all(void)
 		if (temp->add)
 		{
 			free(temp->add);
-			temp->add = NULL; // Prevent double free
+			temp->add = NULL;
 		}
 		free(temp);
 	}
 	g_save = NULL;
 }
-// t_save	**save_add(void)
-// {
-// 	static t_save	*save;
-
-// 	if (save == NULL)
-// 	{
-// 		save = malloc(sizeof(t_save));
-// 		if (!save)
-// 			return (NULL);
-// 		save->add = NULL;
-// 		save->next = NULL;
-// 	}
-// 	return (&save);
-// }
-
-// void	*ft_malloc(size_t size)
-// {
-//     void	*add;
-//     t_save	*head;
-
-//     add = malloc(size);
-//     if (!add)
-//         return (0);
-//     head = malloc(sizeof(t_save));
-//     if (!head)
-//     {
-//         free(add);
-//         return (0);
-//     }
-//     head->add = add;
-//     head->next = *save_add();
-//     *save_add() = head;
-//     return (add);
-// }
-
-// int is_malloc_ptr(void *ptr)
-// {
-//     t_save *head = *save_add();
-//     while (head)
-// 	{
-//         if (head->add == ptr)
-//             return (1);
-//         head = head->next;
-//     }
-//     return (0);
-// }
-
-// void	ft_free_all(void)
-// {
-// 	t_save	*head;
-// 	t_save	*temp;
-
-// 	head = *save_add();
-// 	*save_add() = NULL;
-// 	while (head)
-// 	{
-// 		temp = head;
-// 		head = head->next;
-// 		if (temp->add)
-// 			free(temp->add);
-// 		free(temp);
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 17:27:38 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:59:40 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
 	pars = NULL;
 	token = NULL;
 	init_all(pars, token, *clist, *wlist);
-	if (hardcodechecks(input) == 0)
-	{
-		printf("syntax error\n");
-		return;
-	}
 	pars = init_pars(input);
 	if (!pars)
 		return ;
@@ -66,8 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (validate_args(argc, envp))
 		return (1);
-	if (init_shell(&shell, envp))
-		return (1);
+	init_shell(&shell, envp);
 	shell_loop(&shell);
 	cleanup_shell(&shell);
 	return (0);

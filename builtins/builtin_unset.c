@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:51 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 09:12:50 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 20:47:40 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	builtin_unset(t_cmd *cmd, t_shell *shell)
 	}
 	return (0);
 }
+
 void	delete_env_variable(t_shell *shell, const char *name)
 {
 	t_env	*curr;

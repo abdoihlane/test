@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 19:45:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 23:19:03 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 22:19:34 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	handle_cd_change(char *path, char *current_dir, t_shell *shell)
 	{
 		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path, 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		return (1);
 	}
 	update_env_variable(shell, "OLDPWD", current_dir);

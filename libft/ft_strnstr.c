@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -35,14 +35,15 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 /*
-    #include <string.h>
-    #include <xlocale.h>
-int	main()
+	#include <string.h>
+	#include <xlocale.h>
+int	main(void)
 {
 	char	oo[] = "salaheddine";
 	char	gg[] = "edd";
-	int	i = 1;
+	int		i;
 
+	i = 1;
 	printf("%s\n", ft_strnstr(oo, gg, i));
 	printf("%s\n", strnstr(oo, gg, i));
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:05:36 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/10 04:48:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/14 20:55:08 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../minishell.h"
 # include <ctype.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -22,8 +23,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "../minishell.h"
-void *ft_malloc(size_t size);
+
+void				*ft_malloc(size_t size);
 int					ft_isalpha(int arg);
 int					ft_isdigit(int arg);
 int					ft_isalnum(int arg);

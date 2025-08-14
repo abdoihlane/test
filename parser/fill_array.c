@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 23:28:27 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/13 10:01:35 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:02:31 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*fill_array_and_callexpand(t_pars *pars, t_shell *shell)
 	char	*part;
 	int		start;
 	int		len;
-	char	*expanded;
-	char	*prev_expanded;
 
 	start = pars->i;
 	pars->herdoc_flag = 0;
@@ -60,7 +58,8 @@ char	*fill_between_space_and_red(t_pars *pars, char *token, t_shell *shell)
 	return (token);
 }
 
-void	fill_array_after_free(t_pars *pars, int max_tokens, t_shell *shell)
+void	fill_array_after_free(t_pars *pars, unsigned int max_tokens,
+		t_shell *shell)
 {
 	char	*token;
 
@@ -83,7 +82,7 @@ void	fill_array_after_free(t_pars *pars, int max_tokens, t_shell *shell)
 
 void	fill_the_array(t_pars *pars, t_shell *shell)
 {
-	int	max_tokens;
+	unsigned int	max_tokens;
 
 	pars->k = 0;
 	pars->dflag = 0;

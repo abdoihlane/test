@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 19:21:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/24 19:50:17 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:45:21 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	builtin_echo(t_cmd *cmd)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }
+
 int	ft_strcmp_echo(const char *s)
 {
 	int	i;

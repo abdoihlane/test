@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:27:09 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 17:27:26 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 00:01:44 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	init_shell(t_shell *shell, char **envp)
 	return (0);
 }
 
-void	process_input(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
+void	process_input(char *input, t_wlist **wlist, t_cmd **clist,
+		t_shell *shell)
 {
 	call_all(input, wlist, clist, shell);
 	execute(*clist, *wlist, shell);
-	add_history(input);
 }
 
 void	cleanup_iteration(t_wlist **wlist, t_cmd **clist, char *input)
@@ -60,13 +60,15 @@ void	shell_loop(t_shell *shell)
 		input = readline("➜  minishell : ");
 		if (!input)
 			break ;
+		add_history(input);
+		if (hardcodechecks(input) == 0)
+		{
+			ft_putstr_fd("minishell: syntax error\n", 2);
+			shell->last_exit_status = 2;
+			free(input);
+			continue ;
+		}
 		process_input(input, &wlist, &clist, shell);
 		cleanup_iteration(&wlist, &clist, input);
 	}
-}
-
-void	cleanup_shell(t_shell *shell)
-{
-	free_env_list(&shell->envv);
-	ft_free_all();
 }

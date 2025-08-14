@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 17:30:52 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:16:08 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
 		execute_cmds(clist, shell);
 }
 
-t_env *create_env_node(const char *env_str)
+t_env	*create_env_node(const char *env_str)
 {
-	int key_len;
-	char *equal;
-	t_env *node;
+	int		key_len;
+	char	*equal;
+	t_env	*node;
 
 	equal = ft_strchr(env_str, '=');
 	if (!equal)
-		return NULL;
+		return (NULL);
 	node = malloc(sizeof(t_env));
 	if (!node)
-		return NULL;
+		return (NULL);
 	key_len = equal - env_str;
 	node->key = strndup(env_str, key_len);
 	node->value = strdup(equal + 1);
 	node->next = NULL;
-	return node;
+	return (node);
 }
 
-void append_env_node(t_env **head, t_env **last, t_env *node)
+void	append_env_node(t_env **head, t_env **last, t_env *node)
 {
 	if (!*head)
 		*head = node;
@@ -56,12 +56,12 @@ void append_env_node(t_env **head, t_env **last, t_env *node)
 	*last = node;
 }
 
-t_env *convert_envp_to_envlist(char **envp)
+t_env	*convert_envp_to_envlist(char **envp)
 {
-	t_env *node;
-	t_env *head;
-	t_env *last;
-	int i;
+	t_env	*node;
+	t_env	*head;
+	t_env	*last;
+	int		i;
 
 	head = NULL;
 	last = NULL;
@@ -73,5 +73,5 @@ t_env *convert_envp_to_envlist(char **envp)
 			append_env_node(&head, &last, node);
 		i++;
 	}
-	return head;
+	return (head);
 }

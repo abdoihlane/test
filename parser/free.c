@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 02:46:56 by ahabibi-          #+#    #+#             */
-/*   Updated: 2025/08/13 11:49:05 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:44:05 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	free_clist(t_cmd **list)
 	t_cmd	*curr;
 	t_cmd	*next;
 	t_pars	*pars_to_free;
-	int		i;
 
 	pars_to_free = NULL;
 	if (!list || !*list)

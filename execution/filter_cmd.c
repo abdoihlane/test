@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filter_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:05:37 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/14 20:52:32 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	count_non_empty_args(t_cmd *cmd)
 	}
 	return (count);
 }
+
 void	copy_non_empty_args(t_cmd *cmd, char **filtered)
 {
 	int	i;
@@ -45,6 +46,7 @@ void	copy_non_empty_args(t_cmd *cmd, char **filtered)
 	}
 	filtered[j] = NULL;
 }
+
 char	**filter_empty_args(t_cmd *cmd)
 {
 	char	**filtered;

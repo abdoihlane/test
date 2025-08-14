@@ -6,28 +6,11 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:03:48 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 15:06:41 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:58:49 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// char	*ft_strcpy(char *dest, const char *src)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!dest || !src)
-// 		return (printf("check (create_env_string) 64\n "), NULL);
-// 	while (src[i] != '\0')
-// 	{
-// 		dest[i] = src[i];
-// 		i++;
-// 	}
-// 	dest[i] = '\0';
-// 	return (dest);
-// }
-
 
 void	ft_free_2d_array(char **arr)
 {
@@ -51,11 +34,9 @@ int	is_valid_var(const char *str)
 	i = 0;
 	if (!str || !str[0])
 		return (0);
-	// First character must be letter or underscore
 	if (!((str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A' && str[0] <= 'Z')
 			|| str[0] == '_'))
 		return (0);
-	// Rest must be letters, digits, or underscores
 	i = 1;
 	while (str[i])
 	{
@@ -66,4 +47,46 @@ int	is_valid_var(const char *str)
 		i++;
 	}
 	return (1);
+}
+
+char	*get_env_value(char **env, const char *key)
+{
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(key);
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], key, len) == 0 && env[i][len] == '=')
+			return (env[i] + len + 1);
+		i++;
+	}
+	return (NULL);
+}
+
+void	cleanup_heredoc(t_red_list *head, char *line, int fd)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+	head->content = ft_strdup1(".heredoc_tmp");
+	head->inout = 0;
+	if (line)
+		free(line);
+	close(fd);
+}
+
+void	ft_free_2d_gc_array(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		ft_free_single(arr[i]);
+		i++;
+	}
+	ft_free_single(arr);
 }
