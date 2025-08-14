@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+         #
+#    By: salhali <salhali@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/08/13 11:53:56 by ahabibi-         ###   ########.fr        #
+#    Updated: 2025/08/14 17:31:23 by salhali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -g3 #-Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = #-Wall -Wextra -Werror #-g3 -fsanitize=address
 LIBS = -lreadline -lncurses
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -30,6 +30,7 @@ SRC = builtins/builtin_echo.c \
       utils/signal.c \
       helper.c \
       helper1.c \
+      helper2.c \
       execution/execute.c \
       execution/redirections.c \
       execution/path.c \

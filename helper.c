@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 14:58:10 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:30:52 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	signe(void)
 
 void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
 {
+	(void)wlist;
 	if (clist && is_builtin(clist) && clist->next == NULL
 		&& clist->file == NULL)
 		execute_builtin(clist, shell);

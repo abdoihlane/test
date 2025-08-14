@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 01:04:17 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 17:29:30 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ int	builtin_export(t_cmd *cmd, t_shell *shell)
 				return (-1); // ft_malloc failed
 			else if (result == 1)
 				exit_status = 1;
-			i++;
 		}
-		return (exit_status);
+		i++;
 	}
+	return (exit_status);
 }

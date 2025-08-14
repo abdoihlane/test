@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 14:56:47 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:27:38 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,13 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
-	t_cmd	*clist;
-	t_wlist	*wlist;
-	char	*input;
 
-	clist = NULL;
-	wlist = NULL;
-	if (argc != 1)
-		return (1);
 	(void)argv;
-	if (!envp)
+	if (validate_args(argc, envp))
 		return (1);
-	shell.envv = convert_envp_to_envlist(envp);
-	if (!shell.envv)
+	if (init_shell(&shell, envp))
 		return (1);
-	shell.last_exit_status = 0;
-	while (1)
-	{
-		signe();
-		input = readline("➜  minishell : ");
-		if (!input)
-			break ;
-		call_all(input, &wlist, &clist, &shell);
-		execute(clist, wlist, &shell);
-		add_history(input);
-		free_wlist(&wlist);
-		free_clist(&clist);
-		free(input);
-		wlist = NULL;
-		clist = NULL;
-	}
-	free_env_list(&shell.envv);
-	ft_free_all();
+	shell_loop(&shell);
+	cleanup_shell(&shell);
 	return (0);
 }
