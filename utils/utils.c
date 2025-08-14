@@ -6,41 +6,28 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:03:48 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:52:43 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:06:41 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	if (!dest || !src)
-		return (printf("check (create_env_string) 64\n "), NULL);
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-// void free_env(char **env)
+// char	*ft_strcpy(char *dest, const char *src)
 // {
-//     int i = 0;
+// 	int	i;
 
-//     if (!env)
-//         return ;
-//     while (env[i])
-//     {
-//         free(env[i]);
-//         i++;
-//     }
-//     free(env);
+// 	i = 0;
+// 	if (!dest || !src)
+// 		return (printf("check (create_env_string) 64\n "), NULL);
+// 	while (src[i] != '\0')
+// 	{
+// 		dest[i] = src[i];
+// 		i++;
+// 	}
+// 	dest[i] = '\0';
+// 	return (dest);
 // }
+
 
 void	ft_free_2d_array(char **arr)
 {
