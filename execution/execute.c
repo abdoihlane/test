@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/08/14 00:17:01 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 14:58:39 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void handle_builtin_or_external(t_cmd *clist, t_shell *shell, char **envp)
 
 void handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd)
 {
-	char **envp = generate_envp_from_envlist(shell);
+	char **envp;
+	
+	envp = generate_envp_from_envlist(shell);
 	setup_child_input_output(in_fd, clist, pipe_fd);
 	setup_redirections(clist, shell, clist);
 	handle_builtin_or_external(clist, shell, envp);

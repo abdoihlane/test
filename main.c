@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 19:28:32 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 14:56:47 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	call_all(char *input, t_wlist **wlist, t_cmd **clist, t_shell *shell)
 	if (hardcodechecks(input) == 0)
 	{
 		printf("syntax error\n");
-		return ;
+		return;
 	}
 	pars = init_pars(input);
 	if (!pars)
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signe();
-		input = readline("COLOR_PINK➜  minishell COLOR_RESET -> ");
+		input = readline("➜  minishell : ");
 		if (!input)
 			break ;
 		call_all(input, &wlist, &clist, &shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:20:16 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 09:17:34 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 14:57:18 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,3 @@ char **generate_envp_from_envlist(t_shell *shell)
 	envp[count] = NULL;
 	return envp;
 }
-
-// char	*ft_strjoin_triple(char *a, char *b, char *c)
-// {
-// 	char *tmp;
-// 	char *res;
-
-// 	res = ft_strjoin(tmp, c);
-// 	tmp = ft_strjoin(a, b);
-// 	ft_free_single(tmp);
-// 	return (res);
-// }

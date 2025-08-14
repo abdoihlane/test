@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 09:19:18 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 14:58:10 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ void append_env_node(t_env **head, t_env **last, t_env *node)
 t_env *convert_envp_to_envlist(char **envp)
 {
 	t_env *node;
-	t_env *head = NULL;
-	t_env *last = NULL;
-	int i = 0;
+	t_env *head;
+	t_env *last;
+	int i;
 
+	head = NULL;
+	last = NULL;
+	i = 0;
 	while (envp[i])
 	{
 		node = create_env_node(envp[i]);
