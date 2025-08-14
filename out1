@@ -1,0 +1,32 @@
+clist->array[0] = ls
+clist->array[1] = -la
+total 164
+drwxr-xr-x 10 salhali candidates  4096 Aug 15 00:12 .
+drwxr-xr-x  9 salhali candidates   142 Aug 14 12:35 ..
+drwxr-xr-x  2 salhali candidates  4096 Aug 15 00:09 builtins
+-rw-r--r--  1 salhali candidates  1994 Aug 14 23:12 clean_up.c
+-rw-r--r--  1 salhali candidates  2560 Aug 15 00:09 clean_up.o
+drwxr-xr-x  2 salhali candidates   190 Aug 15 00:09 execution
+-rw-r--r--  1 salhali candidates   146 Aug 14 12:35 filevalgrind
+drwxr-xr-x  8 salhali candidates  4096 Aug 15 00:08 .git
+-rw-r--r--  1 salhali candidates  1847 Aug 14 23:12 helper1.c
+-rw-r--r--  1 salhali candidates  2224 Aug 15 00:09 helper1.o
+-rw-r--r--  1 salhali candidates  1993 Aug 15 00:01 helper2.c
+-rw-r--r--  1 salhali candidates  2856 Aug 15 00:09 helper2.o
+-rw-r--r--  1 salhali candidates  1991 Aug 14 23:12 helper.c
+-rw-r--r--  1 salhali candidates  2592 Aug 15 00:09 helper.o
+-rw-r--r--  1 salhali candidates  1230 Aug 14 23:12 helpew.c
+-rw-r--r--  1 salhali candidates  1552 Aug 15 00:09 helpew.o
+-rw-r--r--  1 salhali candidates    19 Aug 14 23:25 .heredoc_tmp
+drwxr-xr-x  2 salhali candidates  4096 Aug 15 00:09 libft
+-rw-r--r--  1 salhali candidates  1744 Aug 14 23:12 main.c
+-rw-r--r--  1 salhali candidates  2320 Aug 15 00:09 main.o
+-rw-r--r--  1 salhali candidates  2375 Aug 14 22:16 Makefile
+-rwxr-xr-x  1 salhali candidates 62768 Aug 15 00:09 minishell
+-rw-r--r--  1 salhali candidates 10300 Aug 14 22:53 minishell.h
+-rw-r--r--  1 salhali candidates    43 Aug 15 00:12 out1
+-rw-r--r--  1 salhali candidates    48 Aug 15 00:12 out2
+drwxr-xr-x  2 salhali candidates  4096 Aug 15 00:09 parser
+drwxr-xr-x  2 salhali candidates   142 Aug 15 00:09 tokenizer
+drwxr-xr-x  2 salhali candidates   114 Aug 15 00:09 utils
+drwxr-xr-x  2 salhali candidates    93 Aug 14 12:35 .vscode

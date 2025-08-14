@@ -104,7 +104,6 @@
 // 	return (result);
 // }
 
-
 char	*find_path(char *cmd, char **envp)
 {
 	char	**paths;

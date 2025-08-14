@@ -54,7 +54,6 @@ void	execute_cmds(t_cmd *clist, t_shell *shell)
 	ft_free_2d_gc_array(envp);
 }
 
-
 void	ft_waitpid(pid_t *pids, int i, t_shell *shell)
 {
 	int	j;
