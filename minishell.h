@@ -215,7 +215,7 @@ void ft_free_2d_array(char **arr);
 char *get_env_value(char **env, const char *key);
 char **filter_empty_args(t_cmd *cmd);
 char **generate_envp_from_envlist(t_shell *shell);
-char *ft_strjoin_triple(char *a, char *b, char *c);
+// char *ft_strjoin_triple(char *a, char *b, char *c);
 int is_valid_var(const char *str);
 void sigint_handler(int sig);
 void sigint_heredoc(int sig);

@@ -6,42 +6,19 @@
 /*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:20:16 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 23:18:42 by salah            ###   ########.fr       */
+/*   Updated: 2025/08/14 09:17:34 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_env_variable(t_shell *shell, const char *name)
-{
-	t_env	*curr;
-	t_env	*prev;
-
-	curr = shell->envv;
-	prev = NULL;
-	while (curr)
-	{
-		if (ft_strcmp(curr->key, (char *)name) == 0)
-		{
-			if (prev)
-				prev->next = curr->next;
-			else
-				shell->envv = curr->next;
-			free(curr->key);
-			free(curr->value);
-			free(curr);
-			return ;
-		}
-		prev = curr;
-		curr = curr->next;
-	}
-}
-
-
 int count_env_variables(t_shell *shell)
 {
-	t_env *tmp = shell->envv;
-	int count = 0;
+	t_env *tmp;
+	int count;
+
+	count = 0;
+	tmp = shell->envv;
 	while (tmp)
 	{
 		count++;
@@ -50,27 +27,38 @@ int count_env_variables(t_shell *shell)
 	return count;
 }
 
-char *build_env_string(const char *key, const char *value)
+char	*build_env_string(const char *key, const char *value)
 {
-	size_t len = ft_strlen(key) + (value ? ft_strlen(value) : 0) + 2;
-	char *env_str = (char *)ft_malloc(len);
+	size_t	len;
+	char	*env_str;
+
+	len = ft_strlen(key);
+	if (value)
+		len += ft_strlen(value);
+	len += 2;
+	env_str = (char *)ft_malloc(len);
 	if (!env_str)
-		return NULL;
+		return (NULL);
 	strcpy(env_str, key);
 	strcat(env_str, "=");
 	if (value)
 		strcat(env_str, value);
-	return env_str;
+	return (env_str);
 }
 
 char **generate_envp_from_envlist(t_shell *shell)
 {
-	int count = count_env_variables(shell);
-	char **envp = (char **)ft_malloc(sizeof(char *) * (count + 1));
+	int i;
+	t_env *tmp;
+	int count;
+	char **envp;
+
+	count = count_env_variables(shell);
+	envp = (char **)ft_malloc(sizeof(char *) * (count + 1));
 	if (!envp)
 		return NULL;
-	t_env *tmp = shell->envv;
-	int i = 0;
+	tmp = shell->envv;
+	i = 0;
 	while (tmp)
 	{
 		envp[i] = build_env_string(tmp->key, tmp->value);
@@ -83,10 +71,13 @@ char **generate_envp_from_envlist(t_shell *shell)
 	return envp;
 }
 
-char	*ft_strjoin_triple(char *a, char *b, char *c)
-{
-	char *tmp = ft_strjoin(a, b);
-	char *res = ft_strjoin(tmp, c);
-	ft_free_single(tmp);
-	return (res);
-}
+// char	*ft_strjoin_triple(char *a, char *b, char *c)
+// {
+// 	char *tmp;
+// 	char *res;
+
+// 	res = ft_strjoin(tmp, c);
+// 	tmp = ft_strjoin(a, b);
+// 	ft_free_single(tmp);
+// 	return (res);
+// }
