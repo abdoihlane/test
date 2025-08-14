@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 20:17:29 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 11:53:03 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:26:21 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,89 +27,42 @@ void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
 		execute_cmds(clist, shell);
 }
 
-t_env	*convert_envp_to_envlist(char **envp)
-{
-	t_env	*head;
-	t_env	*last;
-	char	*equal;
-	t_env	*node;
-	int		i;
 
-	head = NULL;
-	last = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		equal = ft_strchr(envp[i], '=');
-		if (equal == NULL)
-		{
-			i++;
-			continue ;
-		}
-		node = malloc(sizeof(t_env));
-		if (node == NULL)
-			return (NULL);
-		*equal = '\0';
-		node->key = strdup(envp[i]);
-		node->value = strdup(equal + 1);
-		*equal = '=';
-		node->next = NULL;
-		if (!head)
-			head = node;
-		else
-			last->next = node;
-		last = node;
-		i++;
-	}
-	return (head);
+t_env *create_env_node(const char *env_str)
+{
+	char *equal = ft_strchr(env_str, '=');
+	if (!equal)
+		return NULL;
+	t_env *node = malloc(sizeof(t_env));
+	if (!node)
+		return NULL;
+	int key_len = equal - env_str;
+	node->key = strndup(env_str, key_len);
+	node->value = strdup(equal + 1);
+	node->next = NULL;
+	return node;
 }
 
-// void    signe(void)
-// {
-//   signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
+void append_env_node(t_env **head, t_env **last, t_env *node)
+{
+	if (!*head)
+		*head = node;
+	else
+		(*last)->next = node;
+	*last = node;
+}
 
-// void	execute(t_cmd *clist, t_wlist *wlist, t_shell *shell)
-// {
-// 	if (clist && is_builtin(clist) && clist->next == NULL
-		// && clist->file == NULL)
-// 		execute_builtin(clist, shell);
-// 	else
-// 		execute_cmds(clist, shell);
-// }
-
-// t_env *convert_envp_to_envlist(char **envp)
-// {
-//     t_env *head = NULL;
-//     t_env *last = NULL;
-//     char *equal;
-//     t_env *node;
-//     int i = 0;
-
-//     while (envp[i])
-//     {
-//         equal = ft_strchr(envp[i], '=');
-//         if (equal == NULL)
-//         {
-//             i++;
-//             continue ;
-//         }
-
-//         node = ft_malloc(sizeof(t_env)); // Use ft_malloc, not ft_malloc
-//         if (node == NULL)
-//             return (NULL);
-//         *equal = '\0';
-//         node->key = ft_strdup(envp[i]); // Use strdup, not ft_strdup1
-//         node->value = ft_strdup(equal + 1);
-//         *equal = '=';
-//         node->next = NULL;
-//         if (!head)
-//             head = node;
-//         else
-//             last->next = node;
-//         last = node;
-//         i++;
-//     }
-//     return (head);
-// }
+t_env *convert_envp_to_envlist(char **envp)
+{
+	t_env *head = NULL;
+	t_env *last = NULL;
+	int i = 0;
+	while (envp[i])
+	{
+		t_env *node = create_env_node(envp[i]);
+		if (node)
+			append_env_node(&head, &last, node);
+		i++;
+	}
+	return head;
+}

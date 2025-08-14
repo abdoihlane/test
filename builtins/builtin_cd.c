@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 19:45:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/07/30 18:31:27 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/13 23:19:03 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,29 @@ int	builtin_cd(t_cmd *cmd, t_shell *shell)
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
+}
+
+void	update_env_variable(t_shell *shell, const char *name, const char *value)
+{
+	t_env	*tmp;
+	t_env	*new;
+
+	tmp = shell->envv;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, (char *)name) == 0)
+		{
+			free(tmp->value);
+			tmp->value = strdup(value);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return ;
+	new->key = strdup(name);
+	new->value = strdup(value);
+	new->next = shell->envv;
+	shell->envv = new;
 }

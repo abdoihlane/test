@@ -33,9 +33,7 @@ int	builtin_env(t_cmd *cmd, t_shell *shell)
 	while (tmp)
 	{
 		if (tmp->value)
-		{
 			printf("%s=%s\n", tmp->key, tmp->value);
-		}
 		tmp = tmp->next;
 	}
 	return (0);

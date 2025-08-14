@@ -3,100 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:19:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 11:52:50 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/14 01:04:17 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*find_env_variable(t_shell *shell, const char *key)
+t_env *find_env_variable(t_shell *shell, const char *key)
 {
-	t_env	*node;
-
-	node = shell->envv;
+	t_env *node = shell->envv;
 	while (node)
 	{
 		if (ft_strcmp(node->key, (char *)key) == 0)
-			return (node);
+			return node;
 		node = node->next;
 	}
-	return (NULL);
+	return NULL;
 }
 
-int	update_export_variable(t_shell *shell, const char *key, const char *value)
+int update_export_variable(t_shell *shell, const char *key, const char *value)
 {
-	t_env	*node;
-
-	node = find_env_variable(shell, key);
+	t_env *node = find_env_variable(shell, key);
 	if (node)
 	{
 		free(node->value);
-		node->value = strdup(value); // Use strdup, not ft_strdup1
-		return (1);                    // found and updated
+		node->value = strdup(value);
+		return 1;
 	}
-	return (0); // not found
+	return 0;
 }
 
-int	create_export_variable(t_shell *shell, const char *key, const char *value)
+int create_export_variable(t_shell *shell, const char *key, const char *value)
 {
-	t_env *new = ft_malloc(sizeof(t_env)); // Use ft_malloc, not ft_malloc
+	t_env *new = ft_malloc(sizeof(t_env));
 	if (!new)
-		return (-1); // ft_malloc failed
-	new->key = strdup(key); // Use strdup, not ft_strdup1
-	if (value)
-		new->value = strdup(value);
-	else
-		new->value = NULL;
+		return -1;
+	new->key = strdup(key);
+	new->value = value ? strdup(value) : NULL;
 	new->next = shell->envv;
 	shell->envv = new;
-	return (0); // success
+	return 0;
 }
 
-int	handle_export_with_value(t_shell *shell, char *arg)
+int handle_export_with_value(t_shell *shell, char *arg)
 {
-	char	*equal;
-	char	*key;
-	char	*value;
-	int		result;
-
-	equal = ft_strchr(arg, '=');
-	result = 0;
+	char *equal = ft_strchr(arg, '=');
+	int result = 0;
 	*equal = '\0';
-	key = arg;
-	value = equal + 1;
-	// Validate variable name
+	char *key = arg;
+	char *value = equal + 1;
 	if (!is_valid_var(key))
 	{
 		printf("bash: export: `%s=%s': not a valid identifier\n", key, value);
-		*equal = '='; // Restore the '=' character
-		return (1);     // Return 1 to indicate error but continue processing
+		*equal = '=';
+		return 1;
 	}
 	if (!update_export_variable(shell, key, value))
 	{
 		if (create_export_variable(shell, key, value) == -1)
-			result = -1; // ft_malloc failed
+			result = -1;
 	}
-	*equal = '='; // Always restore the '=' character
-	return (result);
+	*equal = '=';
+	return result;
 }
 
-int	handle_export_without_value(t_shell *shell, const char *arg)
+int handle_export_without_value(t_shell *shell, const char *arg)
 {
-	// Validate variable name
 	if (!is_valid_var(arg))
 	{
 		printf("bash: export: `%s': not a valid identifier\n", arg);
-		return (1); // Return 1 to indicate error but continue processing
+		return 1;
 	}
 	if (!find_env_variable(shell, arg))
 	{
-		if (create_export_variable(shell, arg, NULL) == -1)
-			return (-1); // ft_malloc failed
+		if (create_export_variable(shell, arg, "") == -1)
+			return -1;
 	}
-	return (0);
+	return 0;
 }
 
 int	builtin_export(t_cmd *cmd, t_shell *shell)
@@ -111,7 +97,6 @@ int	builtin_export(t_cmd *cmd, t_shell *shell)
 	exit_status = 0;
 	if (cmd->array[1] == NULL)
 	{
-		// Print all exported variables like bash
 		tmp = shell->envv;
 		while (tmp)
 		{
@@ -130,9 +115,9 @@ int	builtin_export(t_cmd *cmd, t_shell *shell)
 		{
 			result = handle_export_with_value(shell, cmd->array[i]);
 			if (result == -1)
-				return (-1); // ft_malloc failed
+				return (-1);
 			else if (result == 1)
-				exit_status = 1; // validation error occurred
+				exit_status = 1;
 		}
 		else
 		{
@@ -140,9 +125,9 @@ int	builtin_export(t_cmd *cmd, t_shell *shell)
 			if (result == -1)
 				return (-1); // ft_malloc failed
 			else if (result == 1)
-				exit_status = 1; // validation error occurred
+				exit_status = 1;
+			i++;
 		}
-		i++;
+		return (exit_status);
 	}
-	return (exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahabibi- <ahabibi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salah <salah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 11:40:42 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/13 10:45:50 by ahabibi-         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:28:32 by salah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signe();
-		input = readline("COLOR_PINK➜  minishell COLOR_RESET");
+		input = readline("COLOR_PINK➜  minishell COLOR_RESET -> ");
 		if (!input)
 			break ;
 		call_all(input, &wlist, &clist, &shell);

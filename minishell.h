@@ -118,7 +118,7 @@ char *expand_all_variables(char *input, t_shell *shell);
 
 void ft_free_2d_gc_array(char **arr);
 void *ft_malloc(size_t size);
-void ft_free_single(void *ptr);  
+void ft_free_single(void *ptr);
 void ft_free_all(void);
 int is_malloc_ptr(void *ptr);
 char *ft_strdup1(const char *s);
@@ -259,5 +259,10 @@ void handle_parent_process(int *in_fd, int *pipe_fd, t_cmd *clist);
 void execute_external_command(t_cmd *clist, char **envp);
 void handle_child_process(t_cmd *clist, t_shell *shell, int in_fd, int *pipe_fd);
 void execute_cmds(t_cmd *clist, t_shell *shell);
-
+char *build_env_string(const char *key, const char *value);
+int count_env_variables(t_shell *shell);
+t_env *create_env_node(const char *env_str);
+void append_env_node(t_env **head, t_env **last, t_env *node);
+void setup_child_input_output(int in_fd, t_cmd *clist, int *pipe_fd);
+void handle_builtin_or_external(t_cmd *clist, t_shell *shell, char **envp);
 #endif
