@@ -6,7 +6,7 @@
 #    By: salhali <salhali@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:02:36 by salhali           #+#    #+#              #
-#    Updated: 2025/08/14 22:16:04 by salhali          ###   ########.fr        #
+#    Updated: 2025/08/15 16:14:21 by salhali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,14 @@ SRC = builtins/builtin_echo.c \
       builtins/builtin_export.c \
       builtins/builtin_exit.c \
       builtins/builtin_source.c \
+      builtins/help_export.c \
+      builtins/help_export1.c \
       utils/utils.c \
       utils/signal.c \
       helper.c \
       helper1.c \
       helper2.c \
+      helpew.c \
       execution/execute.c \
       execution/help_exec.c \
       execution/redirections.c \
@@ -49,8 +52,12 @@ SRC = builtins/builtin_echo.c \
       tokenizer/rederiction.c \
       tokenizer/tokenizer.c \
       utils/heredoc_input.c \
-      main.c \
-      clean_up.c helpew.c parser/expandplus.c parser/helpers1.c parser/init_help.c parser/free_plus.c
+      parser/expandplus.c \
+      parser/helpers1.c \
+      parser/init_help.c \
+      parser/free_plus.c \
+      clean_up.c \
+      main.c
 
 OBJ = $(SRC:.c=.o)
 

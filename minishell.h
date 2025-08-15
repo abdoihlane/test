@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:57:30 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 22:13:17 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 16:13:14 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,10 +258,10 @@ int							handle_export_without_value(t_shell *shell,
 								const char *arg);
 void						signe(void);
 t_env						*convert_envp_to_envlist(char **envp);
-char						*search_in_path_dirs(char **directories, char *cmd);
-char						*check_path_in_directory(char *dir, char *cmd);
-char						*build_full_path(char *dir, char *cmd);
-char						*check_direct_path(char *cmd);
+// char						*search_in_path_dirs(char **directories, char *cmd);
+// char						*check_path_in_directory(char *dir, char *cmd);
+// char						*build_full_path(char *dir, char *cmd);
+// char						*check_direct_path(char *cmd);
 int							setup_heredoc_file(void);
 char						*process_heredoc_line(char *line, t_shell *shell,
 								t_cmd *clist);
@@ -297,4 +297,12 @@ void						process_input(char *input, t_wlist **wlist,
 								t_cmd **clist, t_shell *shell);
 int							init_shell(t_shell *shell, char **envp);
 int							validate_args(int argc, char **envp);
+int							loops_s(t_cmd *cmd, t_shell *shell);
+int							fun_condition(t_cmd *cmd, t_shell *shell,
+								char *value, int i);
+int							set_env_value(t_env *env, const char *value);
+void						free_env_node(t_env *env);
+void						add_env_to_shell(t_shell *shell, t_env *env);
+int							set_env_key(t_env *env, const char *key);
+t_env						*allocate_env_node(void);
 #endif

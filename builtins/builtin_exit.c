@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:18:47 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 23:12:10 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 13:36:52 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	check_num_exit(t_cmd *cmd, t_shell *shell)
 	ft_free_all();
 	exit(255);
 }
+
 void	builtin_exit(t_cmd *cmd, t_shell *shell)
 {
 	long long	exit_value;

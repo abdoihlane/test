@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:12:06 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/10 04:43:04 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/15 16:15:43 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	resulting[i] = '\0';
 	return (resulting);
 }
-
-/*int	main(void)
-{
-	char	str[] = "sal";
-
-	printf("%s\n", ft_strmapi(str, check));
-}
-*/

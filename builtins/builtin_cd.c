@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 19:45:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 22:19:34 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 16:09:08 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ char	*get_cd_path(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
 
+	if (cmd->array[1] != NULL && ft_strlen(cmd->array[1]) == 0)
+		return ("EMPTY_STRING");
 	if (cmd->array[1] == NULL && cmd->pars->qflag == 0)
 		path = get_env_value_ll(shell->envv, "HOME");
 	else if (cmd->array[1] == NULL && cmd->pars->qflag == 1)
-	{
-		ft_putstr_fd("cd: ‘’: ", 2);
-		ft_putstr_fd("No such file or directory\n", 2);
-		return (NULL);
-	}
+		return ("EMPTY_STRING");
 	else if (ft_strcmp(cmd->array[1], "~") == 0)
 		path = get_env_value_ll(shell->envv, "HOME");
 	else
@@ -35,6 +33,8 @@ int	handle_cd_change(char *path, char *current_dir, t_shell *shell)
 {
 	if (path == NULL)
 		return (1);
+	if (ft_strcmp(path, "EMPTY_STRING") == 0)
+		return (0);
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("cd: ", 2);

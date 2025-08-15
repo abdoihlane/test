@@ -6,12 +6,11 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:10:27 by salhali           #+#    #+#             */
-/*   Updated: 2024/11/16 20:43:13 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 15:06:41 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -34,17 +33,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-/*
-	#include <string.h>
-	#include <xlocale.h>
-int	main(void)
-{
-	char	oo[] = "salaheddine";
-	char	gg[] = "edd";
-	int		i;
-
-	i = 1;
-	printf("%s\n", ft_strnstr(oo, gg, i));
-	printf("%s\n", strnstr(oo, gg, i));
-}
-*/

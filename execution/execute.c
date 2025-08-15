@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:51:07 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/15 00:07:37 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 13:52:52 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	execute_external_command(t_cmd *clist, char **envp)
 	char	**filtered_args;
 
 	cmd_path = find_path(clist->array[0], envp);
-	printf("clist->array[0] = %s\n", clist->array[0]);
-	printf("clist->array[1] = %s\n", clist->array[1]);
 	if (cmd_path == (char *)-1)
 	{
 		ft_putstr_fd("bash: ", 2);
