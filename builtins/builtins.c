@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:09:02 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 20:48:09 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 18:21:58 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,31 @@ int	is_builtin(t_cmd *cmd)
 	return (0);
 }
 
+// int	execute_builtin(t_cmd *cmd, t_shell *shell)
+// {
+// 	if (ft_strcmp("echo", cmd->cmd) == 0)
+// 		return (builtin_echo(cmd));
+// 	else if (ft_strcmp("cd", cmd->cmd) == 0)
+// 		return (builtin_cd(cmd, shell));
+// 	else if (ft_strcmp("pwd", cmd->cmd) == 0)
+// 		return (builtin_pwd());
+// 	else if (ft_strcmp("export", cmd->cmd) == 0)
+// 		return (builtin_export(cmd, shell));
+// 	else if (ft_strcmp("unset", cmd->cmd) == 0)
+// 		return (builtin_unset(cmd, shell));
+// 	if (ft_strcmp("env", cmd->cmd) == 0)
+// 		return (builtin_env(cmd, shell));
+// 	else if (ft_strcmp("exit", cmd->cmd) == 0)
+// 		builtin_exit(cmd, shell);
+// 	else if (ft_strcmp(".", cmd->cmd) == 0)
+// 		return (builtin_source(cmd));
+// 	return (1);
+// }
+
 int	execute_builtin(t_cmd *cmd, t_shell *shell)
 {
+	if (!cmd || !cmd->cmd)
+		return (1);
 	if (ft_strcmp("echo", cmd->cmd) == 0)
 		return (builtin_echo(cmd));
 	else if (ft_strcmp("cd", cmd->cmd) == 0)
@@ -47,10 +70,13 @@ int	execute_builtin(t_cmd *cmd, t_shell *shell)
 		return (builtin_export(cmd, shell));
 	else if (ft_strcmp("unset", cmd->cmd) == 0)
 		return (builtin_unset(cmd, shell));
-	if (ft_strcmp("env", cmd->cmd) == 0)
+	else if (ft_strcmp("env", cmd->cmd) == 0)
 		return (builtin_env(cmd, shell));
 	else if (ft_strcmp("exit", cmd->cmd) == 0)
+	{
 		builtin_exit(cmd, shell);
+		return (0);
+	}
 	else if (ft_strcmp(".", cmd->cmd) == 0)
 		return (builtin_source(cmd));
 	return (1);

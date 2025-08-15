@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:27:09 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/15 00:01:44 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 18:27:01 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	shell_loop(t_shell *shell)
 		input = readline("➜  minishell : ");
 		if (!input)
 			break ;
+		if (!input[0])
+			continue ;
 		add_history(input);
 		if (hardcodechecks(input) == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 19:45:22 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/15 16:09:08 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 18:31:30 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,22 @@ int	handle_cd_change(char *path, char *current_dir, t_shell *shell)
 		return (0);
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		if (errno == EACCES)
+		{
+			ft_putstr_fd("bash: cd: ", 2);
+			ft_putstr_fd(path, 2);
+			ft_putstr_fd(": Permission denied\n", 2);
+		}
+		else
+		{
+			ft_putstr_fd("bash: cd: ", 2);
+			ft_putstr_fd(path, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
 		return (1);
 	}
 	update_env_variable(shell, "OLDPWD", current_dir);
-	if (getcwd(current_dir, 1024) != NULL)
+	if (getcwd(current_dir, sizeof(current_dir)) != NULL)
 		update_env_variable(shell, "PWD", current_dir);
 	return (0);
 }
@@ -54,26 +63,19 @@ int	builtin_cd(t_cmd *cmd, t_shell *shell)
 	char	current_dir[1024];
 	int		len;
 
-	if (getcwd(current_dir, 1024) == NULL)
+	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (1);
 	len = 0;
 	while (cmd->array[len])
 		len++;
-	if (len <= 2)
+	if (len > 2)
 	{
-		if (cmd->array[1] == NULL && cmd->pars->qflag == 1)
-		{
-			path = get_cd_path(cmd, shell);
-			return (handle_cd_change(path, current_dir, shell));
-		}
-		path = get_cd_path(cmd, shell);
-		return (handle_cd_change(path, current_dir, shell));
-	}
-	else
-	{
+		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
+	path = get_cd_path(cmd, shell);
+	return (handle_cd_change(path, current_dir, shell));
 }
 
 void	update_env_variable(t_shell *shell, const char *name, const char *value)

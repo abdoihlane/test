@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:46:25 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 20:46:30 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 17:57:34 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_env(t_cmd *cmd, t_shell *shell)
 		ft_putstr_fd("No such file or directory\n", 2);
 		return (1);
 	}
-	if (cmd->array[1] != NULL)
+	if (cmd->array[1] != NULL && cmd->file == NULL)
 	{
 		ft_putstr_fd("env: ‘", 2);
 		ft_putstr_fd(cmd->array[1], 2);

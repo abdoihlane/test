@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:13:24 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/14 20:50:32 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 18:19:06 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	handle_output_redirection(t_red_list *tmp)
 	fd = open(tmp->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
+		printf("open is failed\n");
 		perror(tmp->content);
 		exit(1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
+		printf("dup2 is failed\n");
 		perror("dup2");
 		close(fd);
 		exit(1);

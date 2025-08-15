@@ -6,7 +6,7 @@
 /*   By: salhali <salhali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 13:34:59 by salhali           #+#    #+#             */
-/*   Updated: 2025/08/15 16:15:02 by salhali          ###   ########.fr       */
+/*   Updated: 2025/08/15 18:31:59 by salhali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	handle_export_with_value(t_shell *shell, char *arg)
 	char	*value;
 
 	equal = ft_strchr(arg, '=');
+	if (!equal)
+		return (1);
 	result = 0;
 	*equal = '\0';
 	key = arg;
@@ -48,7 +50,7 @@ int	handle_export_without_value(t_shell *shell, const char *arg)
 	}
 	if (!find_env_variable(shell, arg))
 	{
-		if (create_export_variable(shell, arg, "") == -1)
+		if (create_export_variable(shell, arg, NULL) == -1)
 			return (-1);
 	}
 	return (0);
@@ -56,28 +58,12 @@ int	handle_export_without_value(t_shell *shell, const char *arg)
 
 int	fun_condition(t_cmd *cmd, t_shell *shell, char *value, int i)
 {
-	int	result;
-	int	exit_status;
-
-	result = 0;
-	exit_status = 0;
-	if (value != NULL)
-	{
-		result = handle_export_with_value(shell, cmd->array[i]);
-		if (result == -1)
-			return (-1);
-		else if (result == 1)
-			exit_status = 1;
-	}
+	if (cmd->array[i][0] == '#')
+		return (0);
+	if (value)
+		return (handle_export_with_value(shell, cmd->array[i]));
 	else
-	{
-		result = handle_export_without_value(shell, cmd->array[i]);
-		if (result == -1)
-			return (-1);
-		else if (result == 1)
-			exit_status = 1;
-	}
-	return (exit_status);
+		return (handle_export_without_value(shell, cmd->array[i]));
 }
 
 t_env	*find_env_variable(t_shell *shell, const char *key)
